@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.geometry.Insets?>
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.example.examentap.controllers.registroController"
+      prefHeight="350.0" prefWidth="600.0"
+      alignment="CENTER" spacing="20">
+    <padding>
+        <Insets bottom="20.0" right="20.0" top="20.0" left="20.0"/>
+    </padding>
+    <Label text="Sigin" style="-fx-font-size: 20px; -fx-text-fill: green" focusTraversable="true"/>
+    <!-- username,nombre,apellidos, correo, contraseña y confirmacion, telefono, direccion, genero, fecha nacimiento -->
+    <TextField fx:id="tf_user" promptText="Usuario"/>
+    <TextField fx:id="tf_nombre"  promptText="Nombre"/>
+    <TextField fx:id="tf_primerA"  promptText="Primer Apellido"/>
+    <TextField fx:id="tf_segundoA"  promptText="Segundo apellido"/>
+    <TextField fx:id="tf_correo"  promptText="Correo"/>
+    <PasswordField fx:id="tf_pass"  promptText="Contraseña"/>
+    <PasswordField fx:id="tf_confirmPass"  promptText="Contraseña"/>
+    <TextField fx:id="tf_telefono"  promptText="12345678"/>
+    <TextField fx:id="tf_direccion"  promptText="Dirección"/>
+    <HBox spacing="30" alignment="CENTER">
+        <RadioButton fx:id="rb_women" text="Mujer"/>
+        <RadioButton fx:id="rb_man" text="Hombre"/>
+        <RadioButton fx:id="rb_other" text="Otro"/>
+    </HBox>
+    <DatePicker fx:id="fechaN" promptText="YY-MM-DD"/>
+    <HBox spacing="20" alignment="CENTER">
+        <Button text="Registrarse" onAction="#onRegistrarse"/>
+        <Button text="Cancelar" onAction="#returnLogin"/>
+    </HBox>
+</VBox>

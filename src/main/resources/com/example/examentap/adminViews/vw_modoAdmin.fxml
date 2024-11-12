@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.geometry.Insets?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.example.examentap.controllers.AdminController"
+            prefHeight="400.0" prefWidth="600.0">
+        <left>
+                <VBox alignment="TOP_LEFT" spacing="10">
+                        <Button text="Return" onAction="#onReturn"></Button>
+                </VBox>
+        </left>
+        <top>
+                <HBox spacing="20" alignment="CENTER">
+                        <padding>
+                                <Insets bottom="20.0" right="20.0" top="20.0"/>
+                        </padding>
+                        <Button fx:id="btn_propiedades" text="View Propiedades" onAction="#onPpropiedadesView">
+                                <graphic>
+                                        <FontIcon />
+                                </graphic>
+                        </Button>
+                        <Button fx:id="btn_users" text="View Users" onAction="#onUsersView"></Button>
+                        <Button fx:id="btn_citas" text="View Citas" onAction="#onCitasView"></Button>
+
+                </HBox>
+        </top>
+        <right>
+
+        </right>
+</BorderPane>

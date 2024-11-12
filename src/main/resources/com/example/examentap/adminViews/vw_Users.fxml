@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.example.examentap.controllers.UsersController"
+      prefHeight="400.0" prefWidth="600.0">
+    <HBox alignment="TOP_LEFT" spacing="15">
+        <Button text="Return" onAction="#onReturn"/>
+        <Button text="Create" onAction="#onReturn"/>
+        <Button text="Read" onAction="#onReturn"/>
+        <Button text="Update" onAction="#onReturn"/>
+        <Button text="Delete" onAction="#onReturn"/>
+
+    </HBox>
+    <TableView fx:id="tvUsuarios">
+        <columns>
+            <TableColumn fx:id="tvid">
+                <cellValueFactory>
+                    <PropertyValueFactory fx:id="id"/>
+                </cellValueFactory>
+            </TableColumn>
+        </columns>
+        <columns>
+            <TableColumn fx:id="tvusuario">
+                <cellValueFactory>
+                    <PropertyValueFactory fx:id="user"/>
+                </cellValueFactory>
+            </TableColumn>
+        </columns>
+        <columns>
+            <TableColumn fx:id="tvnombre">
+                <cellValueFactory>
+                    <PropertyValueFactory fx:id="nombre"/>
+                </cellValueFactory>
+            </TableColumn>
+        </columns>
+        <columns>
+            <TableColumn fx:id="tvprimer_apellido">
+                <cellValueFactory>
+                    <PropertyValueFactory fx:id="primer_apellido"/>
+                </cellValueFactory>
+            </TableColumn>
+        </columns>
+        <columns>
+            <TableColumn fx:id="tvsegundo_apellido">
+                <cellValueFactory>
+                    <PropertyValueFactory fx:id="segundo_apellido"/>
+                </cellValueFactory>
+            </TableColumn>
+        </columns>
+        <columns>
+            <TableColumn fx:id="tvemail">
+                <cellValueFactory>
+                    <PropertyValueFactory fx:id="email"/>
+                </cellValueFactory>
+            </TableColumn>
+        </columns>
+        <columns>
+            <TableColumn fx:id="tvcontraseya">
+                <cellValueFactory>
+                    <PropertyValueFactory fx:id="contraseya"/>
+                </cellValueFactory>
+            </TableColumn>
+        </columns>
+        <columns>
+            <TableColumn fx:id="tvdireccion">
+                <cellValueFactory>
+                    <PropertyValueFactory fx:id="direccion"/>
+                </cellValueFactory>
+            </TableColumn>
+        </columns>
+        <columns>
+            <TableColumn fx:id="tvgenero">
+                <cellValueFactory>
+                    <PropertyValueFactory fx:id="genero"/>
+                </cellValueFactory>
+            </TableColumn>
+        </columns>
+        <columns>
+            <TableColumn fx:id="tvnacimiento">
+                <cellValueFactory>
+                    <PropertyValueFactory fx:id="nacimiento"/>
+                </cellValueFactory>
+            </TableColumn>
+        </columns>
+        <columns>
+            <TableColumn fx:id="tvrole">
+                <cellValueFactory>
+                    <PropertyValueFactory fx:id="role"/>
+                </cellValueFactory>
+            </TableColumn>
+        </columns>
+
+    </TableView>
+
+</VBox>
