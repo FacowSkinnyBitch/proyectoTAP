@@ -63,7 +63,7 @@ public class registroController {
 
             Parent root = FXMLLoader.load(getClass().getResource("/com/example/examentap/vw_login.fxml"));  // Ruta absoluta sugerida
             Stage stage = new Stage();
-            Scene scene = new Scene(root,350,500);
+            Scene scene = new Scene(root,400,400);
             stage.setTitle("Login");
             stage.setScene(scene);
             stage.centerOnScreen();

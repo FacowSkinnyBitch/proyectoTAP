@@ -117,13 +117,11 @@
 
             <Button text="Logout" onAction="#logout"
             style="-fx-background-color: none;-fx-border-color: black;-fx-text-fill: red;-fx-font-size: 15px"/>
-            <Button fx:id="btn_viewPropiedad" text="Mostrar Cita">
+            <Button fx:id="btn_close" text="Salir" onAction="#terminarApp">
                 <graphic>
-                    <FontIcon iconLiteral="anto-frown" iconSize="20" iconColor="black"/>
+                    <FontIcon iconLiteral="antf-close-circle" iconSize="20" iconColor="red"/>
                 </graphic>
             </Button>
-            <TextArea fx:id="ta_All_Propiedades" prefWidth="250" prefHeight="300" maxHeight="300" maxWidth="250" editable="false"/>
-            <ImageView fx:id="iv_imagen" fitWidth="200" fitHeight="200" preserveRatio="true" />
         </VBox>
     </left>
 

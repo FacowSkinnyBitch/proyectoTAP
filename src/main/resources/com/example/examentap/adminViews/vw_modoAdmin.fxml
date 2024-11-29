@@ -20,7 +20,6 @@
                                 <Insets bottom="20.0" right="20.0" top="20.0" left="20.0"/>
                         </padding>
 
-                        <Button text="Return" onAction="#onReturn"></Button>
                         <Button fx:id="btn_propiedades" text="View Propiedades" onAction="#showPropiedades">
                                 <graphic>
                                         <FontIcon />
@@ -29,6 +28,7 @@
                         <Button fx:id="btn_users" text="View Users" onAction="#onUsersView"></Button>
                         <Button fx:id="btn_citas" text="View Citas" onAction="#onCitasView"></Button>
 
+                        <Button text="Return" onAction="#onReturn"></Button>
                 </VBox>
         </left>
 

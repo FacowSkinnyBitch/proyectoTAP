@@ -38,19 +38,12 @@ import java.util.List;
 public class UserMenu_Controller implements Initializable {
     //  etiquetas
     @FXML
-    private TextArea ta_All_Propiedades;
-    @FXML
-    private TextArea ta_All_Propiedades2;
-    @FXML
     private TextField tf_nombre,tf_correo,tf_telefono,tf_hora_cita;
     @FXML
     private DatePicker dp_fecha_cita;
     @FXML
     private Button btn_Ingresar, btn_Cancelar, btn_Cita, btn_MostrarCitas;
-    @FXML
-    private ImageView iv_imagen;
-    @FXML
-    private ImageView iv_imagen2;
+
     @FXML private GridPane gpFromCita;
 
     @FXML private ComboBox cb_filtro,cb_filtroProp;
@@ -66,17 +59,11 @@ public class UserMenu_Controller implements Initializable {
     @FXML
     private TableColumn<Propiedades, Boolean> col_status;
 
-    private boolean activador = false;
-
     private Usuario usuarioIniciado;
 
     private PropiedadesDao propDao = new PropiedadesDao();
     private List<Propiedades> propiedadesList = new ArrayList<Propiedades>();
-
     private CitasDao citasDao = new CitasDao();
-    private List<Datos_Cita> datosCitaList = new ArrayList<Datos_Cita>();
-
-
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -85,7 +72,7 @@ public class UserMenu_Controller implements Initializable {
         col_tipoPropiedad.setCellValueFactory(new PropertyValueFactory<>("tipo_propiedad"));
         col_status.setCellValueFactory(new PropertyValueFactory<>("status"));
         iniciarTabla();
-        desactivarForm();
+        desactivarForm(true);
         String[] status = {"Renta","Venta","Todo"};
         String[] tipo_prop = {"Casa","Negocio","Condominio","Todo"};
         cb_filtro.setItems(FXCollections.observableArrayList(status));
@@ -121,16 +108,17 @@ public class UserMenu_Controller implements Initializable {
         });
 
     }
-    public void registeredUser(Usuario u){
-        usuarioIniciado = u;
-        if(usuarioIniciado == null){
-            //desactivar boton y formulario
+    public void registeredUser(Usuario u) {
+        this.usuarioIniciado = u;
+        if (usuarioIniciado == null) { // Modo invitado
             gpFromCita.setVisible(false);
             btn_Cita.setVisible(false);
-            btn_Cita.setVisible(false);
             btn_MostrarCitas.setVisible(false);
+            System.out.println("Bienvenido al modo invitado...");
+        } else { // Usuario normal
+            System.out.println("Bienvenido: " + usuarioIniciado.getNombre());
+
         }
-        System.out.println("Hola " + u.getNombre() + "bienvenido :)");
     }
     public void iniciarTabla(){
         propiedadesList = propDao.findAll();
@@ -145,10 +133,6 @@ public class UserMenu_Controller implements Initializable {
                     if(tv_Propiedades.getSelectionModel().getSelectedItem() == null) {
                         System.out.println("Nada seleccionado");
                     }else{
-                        // Cargar la imagen asociada a la propiedad
-                        /*String imagePath = getClass().getResource("/com/example/examentap/images/" + p.getImagen()).toExternalForm();
-                        iv_imagen2.setImage(new Image(imagePath));
-                        ta_All_Propiedades2.setText(p.toString());*/
                         onMostrarPropiedad(p);
                     }
             }
@@ -156,84 +140,66 @@ public class UserMenu_Controller implements Initializable {
 
     }
 
-
-    private void desactivarForm(){
-        tf_nombre.setDisable(!activador);
-        tf_correo.setDisable(!activador);
-        tf_telefono.setDisable(!activador);
-        dp_fecha_cita.setDisable(!activador);
-        tf_hora_cita.setDisable(!activador);
-        btn_Ingresar.setDisable(!activador);
-        btn_Cancelar.setDisable(!activador);
+    private void desactivarForm(boolean activar) {
+        tf_nombre.setDisable(activar);
+        tf_correo.setDisable(activar);
+        tf_telefono.setDisable(activar);
+        dp_fecha_cita.setDisable(activar);
+        tf_hora_cita.setDisable(activar);
+        btn_Ingresar.setDisable(activar);
+        btn_Cancelar.setDisable(activar);
     }
 
     @FXML
-    private void onGenerarCita(ActionEvent event) {
-        activador = true;
-        desactivarForm();
+    private void onGenerarCita() {
+        desactivarForm(false);
         tf_nombre.setText(usuarioIniciado.getNombre());
-        tf_nombre.setEditable(false);
         tf_correo.setText(usuarioIniciado.getEmail());
-        tf_correo.setEditable(false);
         tf_telefono.setText(usuarioIniciado.getTelefono());
+
     }
     @FXML
     private void onCancelarCita(ActionEvent event) {
-        activador = false;
-        desactivarForm();
+        desactivarForm(false);
         limpiarCampos();
     }
     @FXML
     private void onAgregarCita(ActionEvent event) {
-        activador = false;
-        if(tf_telefono.getText().isEmpty() || dp_fecha_cita.getValue()==null || tf_hora_cita.getText().isEmpty()) {
-            System.out.println("Faltan campos por llenar");
-            mostrarAlerta();
-        }else{
+        if(validarCampos()){
             System.out.println("Agregando datos...");
-            if(agregarCita()){
+            Propiedades p = (Propiedades) tv_Propiedades.getSelectionModel().getSelectedItem();
+            if(p == null){
+                mostrarAlerta(Alert.AlertType.ERROR,
+                        "Error",
+                        "Error al cargar la cita.",
+                        "Necesita seleccionar una propiedad para hacer una cita.");
+            }else{
+                agregarCita(p.getId_propiedad());
                 mostrarAlerta(Alert.AlertType.INFORMATION,
                         "Cita realizada",
                         "La cita ha sido registrada con exito",
                         "Nos pondremos en contacto contigo más tarde");
             }
-            else{
-                mostrarAlerta(Alert.AlertType.ERROR,
-                        "Cita fallida",
-                        "La cita ha podido ser registrada con exito.",
-                        "Lo sentimos, la cita no se pudo realizar.");
-            }
             limpiarCampos();
-            desactivarForm();
+            desactivarForm(true);
         }
     }
-    private void mostrarAlerta() {
-        // Crear la alerta de tipo ERROR
-        Alert alerta = new Alert(Alert.AlertType.ERROR);
-        alerta.setTitle("Error al agregar el contacto");
-        alerta.setHeaderText("Datos incompletos");
-        alerta.setContentText("Por favor, complete todos los campos antes de agregar la cita.");
-
-        alerta.showAndWait(); // Mostrar la alerta y esperar a que el usuario la cierre
+    private boolean validarCampos() {
+        boolean validacion = true;
+        if (tf_telefono.getText().isEmpty() || dp_fecha_cita.getValue() == null || tf_hora_cita.getText().isEmpty()) {
+            mostrarAlerta(Alert.AlertType.ERROR, "Campos incompletos", null, "Complete todos los campos.");
+            validacion = false;
+        }
+        return validacion;
     }
-    public boolean agregarCita(){
-        String nombre = usuarioIniciado.getNombre();
-        String correo = usuarioIniciado.getEmail();
+    public void agregarCita(int id_propiedad){
         int telefono = Integer.parseInt(tf_telefono.getText());
         LocalDate fecha = dp_fecha_cita.getValue();
         String hora = tf_hora_cita.getText();
         LocalTime horaCita = LocalTime.parse(hora);
-        Propiedades p = (Propiedades) tv_Propiedades.getSelectionModel().getSelectedItem();
-        if(p == null){
-            mostrarAlerta(Alert.AlertType.ERROR,
-                    "Error",
-                    "Error al cargar la cita.",
-                    "Necesita seleccionar una propiedad para hacer una cita.");
-        }else{
-            Datos_Cita datosCita = new Datos_Cita(nombre, correo, telefono, Date.valueOf(fecha), Time.valueOf(horaCita), p.getId_propiedad(),usuarioIniciado.getId());
-            citasDao.save(datosCita);
-        }
-        return true;
+
+        Datos_Cita datosCita = new Datos_Cita(usuarioIniciado.getNombre(), usuarioIniciado.getEmail(), telefono, Date.valueOf(fecha), Time.valueOf(horaCita), id_propiedad,usuarioIniciado.getId());
+        citasDao.save(datosCita);
     }
     @FXML
     private void onMostrarCita(ActionEvent ae) {
@@ -248,6 +214,7 @@ public class UserMenu_Controller implements Initializable {
             stage.setScene(new Scene(root));
             stage.initModality(Modality.APPLICATION_MODAL); // Para bloquear la ventana principal mientras esta está abierta
             stage.show();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -269,42 +236,15 @@ public class UserMenu_Controller implements Initializable {
             e.printStackTrace();
         }
     }
-    /*@FXML
-    private void returnMenu(ActionEvent event) {
-        try {
-             Stage stage;
-             FXMLLoader loader;
-             Parent root;
-
-            loader = new FXMLLoader(getClass().getResource("vw_login.fxml"));
-            root = loader.load();
-
-            stage = new Stage();
-            stage.setTitle("Login");
-            stage.setScene(new Scene(root));
-            stage.initModality(Modality.APPLICATION_MODAL); // Para bloquear la ventana principal mientras esta está abierta
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }*/
     public void limpiarCampos(){
-        tf_nombre.setText("");
-        tf_correo.setText("");
-        tf_telefono.setText("");
+        tf_nombre.clear();
+        tf_correo.clear();
+        tf_telefono.clear();
         dp_fecha_cita.setValue(null);
-        tf_hora_cita.setText(null);
+        tf_hora_cita.clear();
     }
     private void openWindow(ActionEvent ae, String file,String title){
         try {
-            /*loader = new FXMLLoader(getClass().getResource(file));
-            root = loader.load();
-            stage = new Stage();
-            stage.setTitle(title);
-            stage.setScene(new Scene(root));
-            //stage.initModality(Modality.APPLICATION_MODAL); // Para bloquear la ventana principal mientras esta está abierta
-            stage.close(); // Para bloquear la ventana principal mientras esta está abierta
-            stage.show();*/
             Parent root1 = FXMLLoader.load(getClass().getResource(file));
             Stage stage1 = (Stage)((Node)ae.getSource()).getScene().getWindow();
             Scene scene1 = new Scene(root1);
@@ -322,7 +262,6 @@ public class UserMenu_Controller implements Initializable {
         alerta.setTitle(title);
         alerta.setHeaderText(header);
         alerta.setContentText(content);
-        alerta.showAndWait(); // Mostrar la alerta y esperar a que el usuario la cierre
         Optional<ButtonType> result = alerta.showAndWait();
         return (result.get() == ButtonType.OK);
     }
@@ -332,5 +271,10 @@ public class UserMenu_Controller implements Initializable {
             usuarioIniciado=null;
             openWindow(ae,"/com/example/examentap/vw_login.fxml","Login");
         }
+    }
+    @FXML
+    public void terminarApp(ActionEvent event){
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.close();
     }
 }

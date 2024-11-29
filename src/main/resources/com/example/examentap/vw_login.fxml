@@ -27,25 +27,36 @@
         <Insets bottom="20.0" right="20.0" top="20.0" left="20.0"/>
     </padding>
 
-    <Label fx:id="title" text="Login" focusTraversable="true"/>
+    <Label fx:id="title" text="Inicio" focusTraversable="true"/>
     <TextField fx:id="tf_user" promptText="Username"/>
     <PasswordField fx:id="pf_pass" promptText="Password"/>
 
-    <Button fx:id="btn_invitado" text="Modo Invitado" alignment="BOTTOM_LEFT" onAction="#onUsuarioInvitado"
+    <Button fx:id="btn_invitado" text="Modo Invitado" alignment="BOTTOM_LEFT" onAction="#iniciarModoInvitado"
             style="-fx-border-radius: 0px;-fx-opacity: 20;-fx-background-color: none;">
     </Button>
 
     <HBox spacing="20" alignment="CENTER">
-        <Button fx:id="btn_login" text="Login" onAction="#comprobarUser">
+        <Button fx:id="btn_login" text="Ingresar" onAction="#comprobarUser">
             <graphic>
                 <FontIcon iconLiteral="anto-send" iconSize="20" iconColor="black"/>
             </graphic>
         </Button>
-        <Button fx:id="btn_signIn" text="Sign in" onAction="#onSignin">
+        <Button fx:id="btn_signIn" text="Registrarse" onAction="#onSignup">
             <graphic>
-                <FontIcon iconLiteral="anto-frown" iconSize="20" iconColor="black"/>
+                <FontIcon iconLiteral="anto-user-add" iconSize="20" iconColor="black"/>
+            </graphic>
+        </Button>
+
+        <Button fx:id="btn_close" text="Salir" onAction="#terminarApp">
+            <graphic>
+                <FontIcon iconLiteral="antf-close-circle" iconSize="20" iconColor="red"/>
             </graphic>
         </Button>
     </HBox>
 </VBox>
+
+<!--
+            ↓ link para recuperar los iconos ↓
+https://kordamp.org/ikonli/cheat-sheet-antdesignicons.html
+-->
 

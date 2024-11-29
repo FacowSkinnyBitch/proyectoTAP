@@ -7,6 +7,7 @@
 <?import javafx.scene.layout.*?>
 
 <?import javafx.geometry.Insets?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.example.examentap.controllers.registroController"
@@ -34,6 +35,10 @@
     <DatePicker fx:id="fechaN" promptText="YY-MM-DD"/>
     <HBox spacing="20" alignment="CENTER">
         <Button text="Registrarse" onAction="#onRegistrarse"/>
-        <Button text="Cancelar" onAction="#returnLogin"/>
+        <Button fx:id="btn_close" text="Cancelar" onAction="#returnLogin">
+            <graphic>
+                <FontIcon iconLiteral="antf-close-circle" iconSize="20" iconColor="red"/>
+            </graphic>
+        </Button>
     </HBox>
 </VBox>

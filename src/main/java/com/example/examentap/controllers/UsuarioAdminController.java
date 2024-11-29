@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-public class UsersController implements Initializable {
+public class UsuarioAdminController implements Initializable {
     @FXML
     private TableView tvUsuarios;
     @FXML
