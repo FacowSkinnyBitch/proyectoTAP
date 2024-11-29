@@ -16,8 +16,8 @@ public class MySQLConnection {
     private static String hostname   = "localhost";
     private static String dbname = "venta_propiedades";
     private static String dbport = "3306";
-    private static String dbuser = "emmy";
-    private static String dbpass = "1234";
+    private static String dbuser = "TAPPUser";
+    private static String dbpass = "admin";
 
 
     public static void Connect() {
