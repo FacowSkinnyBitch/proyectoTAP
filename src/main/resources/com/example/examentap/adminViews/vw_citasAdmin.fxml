@@ -6,11 +6,12 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<?import javafx.scene.control.cell.PropertyValueFactory?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 <?import javafx.geometry.Insets?>
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.example.examentap.controllers.CitasController"
+      fx:controller="com.example.examentap.controllers.CitasController_admin"
       prefHeight="400.0" prefWidth="600.0">
 
     <Label text="Mensajes de Contactos" style="-fx-font-size: 20px" />
@@ -35,15 +36,43 @@
     </HBox>
     <TableView fx:id="citasTable" layoutX="10.0" layoutY="10.0" prefHeight="300.0" prefWidth="480.0">
         <columns>
-            <TableColumn fx:id="idCita" text="ID" prefWidth="50.0"/>
-            <TableColumn fx:id="nombreCompleto" text="Nombre Completo" prefWidth="150.0"/>
-            <TableColumn fx:id="correo" text="Correo" prefWidth="150.0"/>
-            <TableColumn fx:id="telefono" text="Teléfono" prefWidth="100.0"/>
-            <TableColumn fx:id="fecha" text="Fecha Cita" prefWidth="100.0"/>
-            <TableColumn fx:id="hora" text="Hora Cita" prefWidth="100.0"/>
-            <TableColumn fx:id="propiedad" text="Solicitud de Propiedad" prefWidth="100.0"/>
-            <TableColumn fx:id="id_usuario cita" text="ID" prefWidth="100.0"/>
-            <TableColumn text="WAOS" prefWidth="200.0" />
+            <TableColumn fx:id="idCita" text="ID" prefWidth="50.0">
+            <cellValueFactory>
+                <PropertyValueFactory property="id_cita"/>
+            </cellValueFactory>
+            </TableColumn>
+            <TableColumn
+            fx:id="nombreCompleto" text="Nombre Completo" prefWidth="150.0">
+                <cellValueFactory>
+                    <PropertyValueFactory property="nombre_completo"/>
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="correo" text="Correo" prefWidth="150.0">
+                <cellValueFactory>
+                    <PropertyValueFactory property="correo"/>
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="telefono" text="Teléfono" prefWidth="100.0">
+                <cellValueFactory>
+                    <PropertyValueFactory property="telefono"/>
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="fecha" text="Fecha Cita" prefWidth="100.0">
+                <cellValueFactory>
+                    <PropertyValueFactory property="fecha_cita"/>
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="hora" text="Hora Cita" prefWidth="100.0">
+                <cellValueFactory>
+                    <PropertyValueFactory property="hora_cita"/>
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="propiedad" text="Solicitud de Propiedad" prefWidth="100.0">
+                <cellValueFactory>
+                    <PropertyValueFactory property="propiedad"/>
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="id_usuario cita" text="ID" prefWidth="100.0"></TableColumn>
         </columns>
     </TableView>
 </VBox>
