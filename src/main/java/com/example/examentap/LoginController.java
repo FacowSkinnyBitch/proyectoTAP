@@ -89,7 +89,7 @@ public class LoginController implements Initializable {
 
             if (rutaFXML.contains("adminViews")) {
                 AdminController adminController = loader.getController();
-                adminController.registeredUser(usuario.getUser());
+                adminController.registeredUser(usuario);
             } else if (rutaFXML.contains("userViews")) {
                 UserMenu_Controller userController = loader.getController();
                 userController.registeredUser(usuario);

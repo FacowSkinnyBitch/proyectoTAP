@@ -26,35 +26,35 @@ public class CitasController_admin implements Initializable {
     @FXML
     private TableView citasTable = new TableView();
     @FXML
-    private TableColumn<Datos_Cita, Integer> idCita;
+    private TableColumn<Datos_Cita, Integer> col_idCita;
     @FXML
-    private TableColumn<Datos_Cita, String> nombreCompleto;
+    private TableColumn<Datos_Cita, String> col_nombreCompleto;
     @FXML
-    private TableColumn<Datos_Cita, String> correo;
+    private TableColumn<Datos_Cita, String> col_correo;
     @FXML
-    private TableColumn<Datos_Cita, String> telefono;
+    private TableColumn<Datos_Cita, String> col_telefono;
     @FXML
-    private TableColumn<Datos_Cita, Date> fecha;
+    private TableColumn<Datos_Cita, Date> col_fecha;
     @FXML
-    private TableColumn<Datos_Cita, String> hora;
+    private TableColumn<Datos_Cita, String> col_hora;
     @FXML
-    private TableColumn<Datos_Cita, String> propiedad;
+    private TableColumn<Datos_Cita, Integer> col_idPropiedad;
     @FXML
-    private TableColumn<Datos_Cita, Integer> id_usuario;
-    private CitasDao citasDao = new CitasDao();
+    private TableColumn<Datos_Cita, Integer> col_idUsuario;
+    private final CitasDao citasDao = new CitasDao();
     private List<Datos_Cita> datosCitaList = new ArrayList<Datos_Cita>();
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        idCita.setCellValueFactory(new PropertyValueFactory<>("id_cita"));
-        nombreCompleto.setCellValueFactory(new PropertyValueFactory<>("nombre_completo"));
-        correo.setCellValueFactory(new PropertyValueFactory<>("correo"));
-        telefono.setCellValueFactory(new PropertyValueFactory<>("telefono"));
-        fecha.setCellValueFactory(new PropertyValueFactory<>("fecha_cita"));
-        hora.setCellValueFactory(new PropertyValueFactory<>("hora_cita"));
-        propiedad.setCellValueFactory(new PropertyValueFactory<>("propiedad"));
-        id_usuario.setCellValueFactory(new PropertyValueFactory<>("id_usuario"));
+        col_idCita.setCellValueFactory(new PropertyValueFactory<>("id_cita"));
+        col_nombreCompleto.setCellValueFactory(new PropertyValueFactory<>("nombre_completo"));
+        col_correo.setCellValueFactory(new PropertyValueFactory<>("correo"));
+        col_telefono.setCellValueFactory(new PropertyValueFactory<>("telefono"));
+        col_fecha.setCellValueFactory(new PropertyValueFactory<>("fecha_cita"));
+        col_hora.setCellValueFactory(new PropertyValueFactory<>("hora_cita"));
+        col_idPropiedad.setCellValueFactory(new PropertyValueFactory<>("id_propiedad"));
+        col_idUsuario.setCellValueFactory(new PropertyValueFactory<>("id_usuario"));
         iniciarTabla();
 
     }
@@ -63,22 +63,5 @@ public class CitasController_admin implements Initializable {
         citasTable.setItems(FXCollections.observableArrayList(datosCitaList));
     }
 
-    @FXML
-    private void onReturn(ActionEvent event) throws IOException {
-        try {
-            Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            currentStage.close();
-
-            Parent root = FXMLLoader.load(getClass().getResource("/com/example/examentap/adminViews/vw_modoAdmin.fxml"));  // Ruta absoluta sugerida
-            Stage stage = new Stage();
-            Scene scene = new Scene(root,350,500);
-            stage.setTitle("Login");
-            stage.setScene(scene);
-            stage.centerOnScreen();
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
 }

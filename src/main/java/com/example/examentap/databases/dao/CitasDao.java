@@ -27,7 +27,7 @@ public class CitasDao extends MySQLConnection implements Dao<Datos_Cita> {
                 c.setTelefono(rs.getInt("telefono"));
                 c.setFecha_cita(rs.getDate("fecha_cita"));
                 c.setHora_cita(rs.getTime("hora_cita"));
-                c.setPropiedad(rs.getInt("propiedad"));
+                c.setId_propiedad(rs.getInt("id_propiedad"));
                 c.setId_usuario(rs.getInt("id_usuario"));
 
                 optionalC = Optional.of(c);
@@ -53,9 +53,8 @@ public class CitasDao extends MySQLConnection implements Dao<Datos_Cita> {
                 c.setTelefono(rs.getInt("telefono"));
                 c.setFecha_cita(rs.getDate("fecha_cita"));
                 c.setHora_cita(rs.getTime("hora_cita"));
-                c.setPropiedad(rs.getInt("propiedad"));
+                c.setId_propiedad(rs.getInt("id_propiedad"));
                 c.setId_usuario(rs.getInt("id_usuario"));
-
                 datosCitaList.add(c);
             }
         } catch (SQLException e) {
@@ -78,7 +77,7 @@ public class CitasDao extends MySQLConnection implements Dao<Datos_Cita> {
                 c.setTelefono(rs.getInt("telefono"));
                 c.setFecha_cita(rs.getDate("fecha_cita"));
                 c.setHora_cita(rs.getTime("hora_cita"));
-                c.setPropiedad(rs.getInt("propiedad"));
+                c.setId_propiedad(rs.getInt("id_propiedad"));
                 datosCitaList.add(c);
             }
         } catch (SQLException e) {
@@ -89,7 +88,7 @@ public class CitasDao extends MySQLConnection implements Dao<Datos_Cita> {
 
     @Override
     public boolean save(Datos_Cita c) {
-        String query = "INSERT INTO datos_cita (nombre_completo, correo, telefono, fecha_cita, hora_cita, propiedad, id_usuario) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO datos_cita (nombre_completo, correo, telefono, fecha_cita, hora_cita, id_propiedad, id_usuario) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try {
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setString(1, c.getNombre_completo());
@@ -97,7 +96,7 @@ public class CitasDao extends MySQLConnection implements Dao<Datos_Cita> {
             ps.setInt(3, c.getTelefono());
             ps.setDate(4, c.getFecha_cita());
             ps.setTime(5, c.getHora_cita());
-            ps.setInt(6, c.getPropiedad());
+            ps.setInt(6, c.getId_propiedad());
             ps.setInt(7, c.getId_usuario());
             ps.execute();
             System.out.println("Información cargada con exito");
@@ -110,7 +109,7 @@ public class CitasDao extends MySQLConnection implements Dao<Datos_Cita> {
 
     @Override
     public boolean update(Datos_Cita c) {
-        String query = "UPDATE datos_cita SET nombre_completo = ?, correo = ?, telefono = ?, fecha_cita = ?, hora_cita = ?, propiedad=?, id_usuario WHERE id_cita = ?";
+        String query = "UPDATE datos_cita SET nombre_completo = ?, correo = ?, telefono = ?, fecha_cita = ?, hora_cita = ?, id_propiedad=?, id_usuario WHERE id_cita = ?";
         try {
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setString(1, c.getNombre_completo());
@@ -118,7 +117,7 @@ public class CitasDao extends MySQLConnection implements Dao<Datos_Cita> {
             ps.setInt(3, c.getTelefono());
             ps.setDate(4, c.getFecha_cita());
             ps.setTime(5, c.getHora_cita());
-            ps.setInt(6, c.getPropiedad());
+            ps.setInt(6, c.getId_propiedad());
             ps.setInt(7, c.getId_usuario());
             ps.setInt(8, c.getId_cita());
             ps.execute();

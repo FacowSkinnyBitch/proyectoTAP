@@ -22,13 +22,13 @@
         <Button fx:id="btn_generarPDF" text="Generar PDF"
                 style="-fx-background-color: #d78634">
             <graphic>
-                <FontIcon iconLiteral="antf-eye" iconSize="20" iconColor="#000000"/>
+                <FontIcon iconLiteral="antf-file-pdf" iconSize="20" iconColor="#000000"/>
             </graphic>
         </Button>
         <Button fx:id="btn_generarExcel" text="Generar Excel"
                 style="-fx-background-color: #349f0f">
             <graphic>
-                <FontIcon iconLiteral="antf-eye" iconSize="20" iconColor="#000000"/>
+                <FontIcon iconLiteral="antf-file-excel" iconSize="20" iconColor="#000000"/>
             </graphic>
         </Button>
 

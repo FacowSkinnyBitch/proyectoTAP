@@ -8,27 +8,49 @@
 
 <?import javafx.geometry.Insets?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
+<?import javafx.scene.image.ImageView?>
 <BorderPane fx:id="bpPrincipal" xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.example.examentap.controllers.AdminController"
             prefHeight="550.0" prefWidth="980.0"
             style="-fx-background-color: grey">
         <left>
-                <VBox alignment="CENTER" spacing="10"
+                <VBox fx:id="vb_left" alignment="CENTER" spacing="10"
                 style="-fx-background-color: #030bab;-fx-background-radius: 15px">
                         <padding>
                                 <Insets bottom="20.0" right="20.0" top="20.0" left="20.0"/>
                         </padding>
 
+                        <ImageView fx:id="iv_imagen" fitWidth="200" fitHeight="200" preserveRatio="true" smooth="true"/>
+
                         <Button fx:id="btn_propiedades" text="View Propiedades" onAction="#showPropiedades">
                                 <graphic>
-                                        <FontIcon />
+                                        <FontIcon iconLiteral="antf-home" iconColor="green" iconSize="15"/>
                                 </graphic>
                         </Button>
-                        <Button fx:id="btn_users" text="View Users" onAction="#onUsersView"></Button>
-                        <Button fx:id="btn_citas" text="View Citas" onAction="#onCitasView"></Button>
+                        <Button fx:id="btn_users" text="View Users" onAction="#onUsersView">
+                                <graphic>
+                                        <FontIcon iconLiteral="anto-user" iconColor="green" iconSize="15"/>
+                                </graphic>
+                        </Button>
+                        <Button fx:id="btn_citas" text="View Citas" onAction="#onCitasView">
+                                <graphic>
+                                        <FontIcon iconLiteral="antf-calendar" iconColor="green" iconSize="15"/>
+                                </graphic>
+                        </Button>
 
-                        <Button text="Return" onAction="#onReturn"></Button>
+                        <Button text="Return" onAction="#onReturn">
+                                <graphic>
+                                        <FontIcon iconLiteral="anto-logout" iconColor="green" iconSize="15"/>
+                                </graphic>
+                        </Button>
+
+                        <Button text="Salir" onAction="#terminarApp">
+                                <graphic>
+                                        <FontIcon iconLiteral="antf-close-circle" iconColor="red" iconSize="15"/>
+                                </graphic>
+                        </Button>
+
                 </VBox>
         </left>
 
@@ -37,7 +59,7 @@
                         <Button fx:id="btn_generarGraficos" text="Propiedades vendidas"
                                 style="-fx-background-color: #349f0f">
                                 <graphic>
-                                        <FontIcon iconLiteral="antf-eye" iconSize="20" iconColor="#000000"/>
+                                        <FontIcon iconLiteral="anto-bar-chart" iconSize="20" iconColor="#000000"/>
                                 </graphic>
                         </Button>
                         <Button fx:id="btn_generarGraficos2" text="Citas Atendidas"

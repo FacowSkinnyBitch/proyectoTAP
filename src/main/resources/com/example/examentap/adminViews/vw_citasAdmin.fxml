@@ -14,7 +14,7 @@
       fx:controller="com.example.examentap.controllers.CitasController_admin"
       prefHeight="400.0" prefWidth="600.0">
 
-    <Label text="Mensajes de Contactos" style="-fx-font-size: 20px" />
+    <Label text="Datos de Citas" style="-fx-font-size: 20px" />
     <HBox alignment="CENTER_LEFT" spacing="5">
         <padding>
             <Insets top="20" left="50" right="50" bottom="20"/>
@@ -36,43 +36,46 @@
     </HBox>
     <TableView fx:id="citasTable" layoutX="10.0" layoutY="10.0" prefHeight="300.0" prefWidth="480.0">
         <columns>
-            <TableColumn fx:id="idCita" text="ID" prefWidth="50.0">
+            <TableColumn fx:id="col_idCita" text="ID Cita" prefWidth="50.0">
             <cellValueFactory>
                 <PropertyValueFactory property="id_cita"/>
             </cellValueFactory>
             </TableColumn>
-            <TableColumn
-            fx:id="nombreCompleto" text="Nombre Completo" prefWidth="150.0">
+            <TableColumn fx:id="col_nombreCompleto" text="Nombre Completo" prefWidth="150.0">
                 <cellValueFactory>
                     <PropertyValueFactory property="nombre_completo"/>
                 </cellValueFactory>
             </TableColumn>
-            <TableColumn fx:id="correo" text="Correo" prefWidth="150.0">
+            <TableColumn fx:id="col_correo" text="Correo" prefWidth="150.0">
                 <cellValueFactory>
                     <PropertyValueFactory property="correo"/>
                 </cellValueFactory>
             </TableColumn>
-            <TableColumn fx:id="telefono" text="Teléfono" prefWidth="100.0">
+            <TableColumn fx:id="col_telefono" text="Teléfono" prefWidth="100.0">
                 <cellValueFactory>
                     <PropertyValueFactory property="telefono"/>
                 </cellValueFactory>
             </TableColumn>
-            <TableColumn fx:id="fecha" text="Fecha Cita" prefWidth="100.0">
+            <TableColumn fx:id="col_fecha" text="Fecha Cita" prefWidth="100.0">
                 <cellValueFactory>
                     <PropertyValueFactory property="fecha_cita"/>
                 </cellValueFactory>
             </TableColumn>
-            <TableColumn fx:id="hora" text="Hora Cita" prefWidth="100.0">
+            <TableColumn fx:id="col_hora" text="Hora Cita" prefWidth="100.0">
                 <cellValueFactory>
                     <PropertyValueFactory property="hora_cita"/>
                 </cellValueFactory>
             </TableColumn>
-            <TableColumn fx:id="propiedad" text="Solicitud de Propiedad" prefWidth="100.0">
+            <TableColumn fx:id="col_idPropiedad" text="ID Propiedad" prefWidth="100.0">
                 <cellValueFactory>
-                    <PropertyValueFactory property="propiedad"/>
+                    <PropertyValueFactory property="id_propiedad"/>
                 </cellValueFactory>
             </TableColumn>
-            <TableColumn fx:id="id_usuario cita" text="ID" prefWidth="100.0"></TableColumn>
+            <TableColumn fx:id="col_idUsuario" text="ID Usuario" prefWidth="100.0">
+                <cellValueFactory>
+                    <PropertyValueFactory property="id_usuario"/>
+                </cellValueFactory>
+            </TableColumn>
         </columns>
     </TableView>
 </VBox>

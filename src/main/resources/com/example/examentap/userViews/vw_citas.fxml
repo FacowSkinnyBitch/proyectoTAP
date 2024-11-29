@@ -7,6 +7,7 @@
 <?import javafx.scene.layout.*?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.example.examentap.controllers.CitasController"
@@ -15,15 +16,43 @@
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
     </padding>
     <Label text="Citas Realizadas" style="-fx-font-size: 20px" />
-    <TableView fx:id="contactosTable" layoutX="10.0" layoutY="10.0" prefHeight="300.0" prefWidth="480.0">
+    <TableView fx:id="citasTable" layoutX="10.0" layoutY="10.0" prefHeight="300.0" prefWidth="480.0">
         <columns>
-            <TableColumn fx:id="idColumn" text="ID" prefWidth="50.0"/>
-            <TableColumn fx:id="nombreColumn" text="Nombre Completo" prefWidth="150.0"/>
-            <TableColumn fx:id="correoColumn" text="Correo" prefWidth="150.0"/>
-            <TableColumn fx:id="telefonoColumn" text="Teléfono" prefWidth="100.0"/>
-            <TableColumn fx:id="fechaColumn" text="Fecha Cita" prefWidth="100.0"/>
-            <TableColumn fx:id="horaColumn" text="Hora Cita" prefWidth="100.0"/>
-            <TableColumn fx:id="propiedades" text="Solicitud de Propiedad" prefWidth="100.0"/>
+            <TableColumn fx:id="col_idCita" text="ID Cita" prefWidth="50.0">
+                <cellValueFactory>
+                    <PropertyValueFactory property="id_cita"/>
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="col_nombreCompleto" text="Nombre Completo" prefWidth="150.0">
+                <cellValueFactory>
+                    <PropertyValueFactory property="nombre_completo"/>
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="col_correo" text="Correo" prefWidth="150.0">
+                <cellValueFactory>
+                    <PropertyValueFactory property="correo"/>
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="col_telefono" text="Teléfono" prefWidth="100.0">
+                <cellValueFactory>
+                    <PropertyValueFactory property="telefono"/>
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="col_fecha" text="Fecha Cita" prefWidth="100.0">
+                <cellValueFactory>
+                    <PropertyValueFactory property="fecha_cita"/>
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="col_hora" text="Hora Cita" prefWidth="100.0">
+                <cellValueFactory>
+                    <PropertyValueFactory property="hora_cita"/>
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="col_idPropiedad" text="ID Propiedad" prefWidth="100.0">
+                <cellValueFactory>
+                    <PropertyValueFactory property="id_propiedad"/>
+                </cellValueFactory>
+            </TableColumn>
         </columns>
     </TableView>
     <Button fx:id="cerrarButton" layoutX="200.0" layoutY="320.0" text="Cerrar" onAction="#onClose"/>

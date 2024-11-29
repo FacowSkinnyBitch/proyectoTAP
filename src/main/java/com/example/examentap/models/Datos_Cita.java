@@ -10,30 +10,30 @@ public class Datos_Cita {
     private int telefono;
     private Date fecha_cita;
     private Time hora_cita;
-    private int propiedad;
+    private int id_propiedad;
     private int id_usuario;
 
     public Datos_Cita() {
 
     }
-    public Datos_Cita(int id_cita, String nombre_completo, String correo, int telefono, Date fecha_cita, Time hora_cita, int propiedad, int id_usuario) {
+    public Datos_Cita(int id_cita, String nombre_completo, String correo, int telefono, Date fecha_cita, Time hora_cita, int id_propiedad, int id_usuario) {
         this.id_cita = id_cita;
         this.nombre_completo = nombre_completo;
         this.correo = correo;
         this.telefono = telefono;
         this.fecha_cita = fecha_cita;
         this.hora_cita = hora_cita;
-        this.propiedad = propiedad;
+        this.id_propiedad = id_propiedad;
         this.id_usuario = id_usuario;
     }
 
-    public Datos_Cita(String nombre_completo, String correo, int telefono, Date fecha_cita, Time hora_cita, int propiedad, int id_usuario) {
+    public Datos_Cita(String nombre_completo, String correo, int telefono, Date fecha_cita, Time hora_cita, int id_propiedad, int id_usuario) {
         this.nombre_completo = nombre_completo;
         this.correo = correo;
         this.telefono = telefono;
         this.fecha_cita = fecha_cita;
         this.hora_cita = hora_cita;
-        this.propiedad = propiedad;
+        this.id_propiedad = id_propiedad;
         this.id_usuario = id_usuario;
     }
 
@@ -92,10 +92,12 @@ public class Datos_Cita {
     public void setHora_cita(Time hora_cita) {
         this.hora_cita = hora_cita;
     }
-    public int getPropiedad() {
-        return propiedad;
+
+    public int getId_propiedad() {
+        return id_propiedad;
     }
-    public void setPropiedad(int propiedad) {
-        this.propiedad = propiedad;
+
+    public void setId_propiedad(int id_propiedad) {
+        this.id_propiedad = id_propiedad;
     }
 }

@@ -22,6 +22,7 @@ public class FxmlLoader {
             view = new FXMLLoader().load(fileUrl);
         }catch (Exception e){
             System.out.println("No page found "+ fileName);
+            e.printStackTrace();
         }
 
         return view;

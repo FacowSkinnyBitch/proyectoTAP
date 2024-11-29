@@ -13,39 +13,36 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
+import java.sql.Date;
+
 public class CitasController {
     @FXML
-    private TableView<Datos_Cita> contactosTable;
-
+    private TableView citasTable = new TableView();
     @FXML
-    private TableColumn<Datos_Cita, Integer> idColumn;
-
+    private TableColumn<Datos_Cita, Integer> col_idCita;
     @FXML
-    private TableColumn<Datos_Cita, String> nombreColumn;
-
+    private TableColumn<Datos_Cita, String> col_nombreCompleto;
     @FXML
-    private TableColumn<Datos_Cita, String> correoColumn;
-
+    private TableColumn<Datos_Cita, String> col_correo;
     @FXML
-    private TableColumn<Datos_Cita, Integer> telefonoColumn;
-
+    private TableColumn<Datos_Cita, String> col_telefono;
     @FXML
-    private TableColumn<Datos_Cita, String> fechaColumn;
+    private TableColumn<Datos_Cita, Date> col_fecha;
     @FXML
-    private TableColumn<Datos_Cita, String> propiedades;
+    private TableColumn<Datos_Cita, String> col_hora;
+    @FXML
+    private TableColumn<Datos_Cita, Integer> col_idPropiedad;
     private Usuario usuarioIngresado;
-    @FXML
-    private TableColumn<Datos_Cita, String> horaColumn;
 
     @FXML
     private void initialize() {
-        idColumn.setCellValueFactory(new PropertyValueFactory<>("id_cita"));
-        nombreColumn.setCellValueFactory(new PropertyValueFactory<>("nombre_completo"));
-        correoColumn.setCellValueFactory(new PropertyValueFactory<>("correo"));
-        telefonoColumn.setCellValueFactory(new PropertyValueFactory<>("telefono"));
-        fechaColumn.setCellValueFactory(new PropertyValueFactory<>("fecha_cita"));
-        horaColumn.setCellValueFactory(new PropertyValueFactory<>("hora_cita"));
-        propiedades.setCellValueFactory(new PropertyValueFactory<>("propiedad"));
+        col_idCita.setCellValueFactory(new PropertyValueFactory<>("id_cita"));
+        col_nombreCompleto.setCellValueFactory(new PropertyValueFactory<>("nombre_completo"));
+        col_correo.setCellValueFactory(new PropertyValueFactory<>("correo"));
+        col_telefono.setCellValueFactory(new PropertyValueFactory<>("telefono"));
+        col_fecha.setCellValueFactory(new PropertyValueFactory<>("fecha_cita"));
+        col_hora.setCellValueFactory(new PropertyValueFactory<>("hora_cita"));
+        col_idPropiedad.setCellValueFactory(new PropertyValueFactory<>("id_propiedad"));
         if (usuarioIngresado != null) cargarContactos();
     }
     public void registeredUser(Usuario user) {
@@ -56,7 +53,7 @@ public class CitasController {
     private void cargarContactos() {
         CitasDao citasDao = new CitasDao();
         ObservableList<Datos_Cita> datosCitas = FXCollections.observableArrayList(citasDao.findCitaByUser(usuarioIngresado.getId()));
-        contactosTable.setItems(datosCitas);
+        citasTable.setItems(datosCitas);
     }
     @FXML
     public void onClose(ActionEvent event){
