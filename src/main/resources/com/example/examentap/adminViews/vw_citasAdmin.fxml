@@ -43,6 +43,7 @@
             <TableColumn fx:id="hora" text="Hora Cita" prefWidth="100.0"/>
             <TableColumn fx:id="propiedad" text="Solicitud de Propiedad" prefWidth="100.0"/>
             <TableColumn fx:id="id_usuario cita" text="ID" prefWidth="100.0"/>
+            <TableColumn text="WAOS" prefWidth="200.0" />
         </columns>
     </TableView>
 </VBox>
