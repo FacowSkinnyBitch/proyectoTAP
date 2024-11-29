@@ -9,12 +9,12 @@
 <?import javafx.geometry.Insets?>
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.example.examentap.controllers.ContactosController"
+      fx:controller="com.example.examentap.controllers.CitasController"
       prefHeight="400.0" prefWidth="750.0" alignment="CENTER" spacing="20">
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
     </padding>
-    <Label text="Mensajes de Contactos" style="-fx-font-size: 20px" />
+    <Label text="Citas Realizadas" style="-fx-font-size: 20px" />
     <TableView fx:id="contactosTable" layoutX="10.0" layoutY="10.0" prefHeight="300.0" prefWidth="480.0">
         <columns>
             <TableColumn fx:id="idColumn" text="ID" prefWidth="50.0"/>
@@ -26,7 +26,7 @@
             <TableColumn fx:id="propiedades" text="Solicitud de Propiedad" prefWidth="100.0"/>
         </columns>
     </TableView>
-    <Button fx:id="cerrarButton" layoutX="200.0" layoutY="320.0" text="Cerrar" onAction="#handleClose"/>
+    <Button fx:id="cerrarButton" layoutX="200.0" layoutY="320.0" text="Cerrar" onAction="#onClose"/>
 
 
 

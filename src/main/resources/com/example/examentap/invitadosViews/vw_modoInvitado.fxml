@@ -13,7 +13,7 @@
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.example.examentap.controllers.InvitadoController"
-            prefHeight="400.0" prefWidth="600.0">
+            prefHeight="550.0" prefWidth="1200.0">
     <top>
         <HBox alignment="CENTER" spacing="15">
             <Label fx:id="title" text="Venta Propiedades"/>
@@ -26,6 +26,10 @@
             </padding>
             <Label fx:id="lblPropiedades" text="Lista de Propiedades"/>
             <TableView fx:id="tv_Propiedades" >
+                <HBox alignment="CENTER" spacing="15">
+                    <ComboBox fx:id="cb_filtro" promptText="Estado de la Propiedad" />
+                    <ComboBox fx:id="cb_filtroProp" promptText="Tipo Propiedad" />
+                </HBox>
                 <columns>
                     <TableColumn fx:id="col_idPropiedades" text="ID Propiedades">
                         <cellValueFactory>
@@ -49,24 +53,7 @@
                     </TableColumn>
                 </columns>
             </TableView>
-            <HBox alignment="CENTER" spacing="20">
-                <Button fx:id="btn_Cita" text="Generar Cita" prefWidth="180" >
-                    <graphic>
-                        <FontIcon iconLiteral="antf-calendar" iconSize="20" iconColor="black"/>
-                    </graphic>
-                </Button>
-                <Button fx:id="btn_MostrarCitas" text="Mostrar Citas" prefWidth="180">
-                    <graphic>
-                        <FontIcon iconLiteral="antf-eye" iconSize="20" iconColor="black"/>
-                    </graphic>
-                </Button>
-                <Button text="boton2 Citas"></Button>
-                <Button fx:id="btn_newStage" text="New Stage" prefWidth="180">
-                    <graphic>
-                        <FontIcon iconLiteral="antf-eye" iconSize="20" iconColor="black"/>
-                    </graphic>
-                </Button>
-            </HBox>
+
         </VBox>
     </center>
     <right>

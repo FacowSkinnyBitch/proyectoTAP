@@ -1,33 +1,34 @@
 package com.example.examentap.databases.dao;
 
 import com.example.examentap.databases.MySQLConnection;
-import com.example.examentap.models.Contacto;
+import com.example.examentap.models.Datos_Cita;
 import javafx.collections.FXCollections;
 
 import java.sql.*;
 import java.util.List;
 import java.util.Optional;
 
-public class ContactoDao extends MySQLConnection implements Dao<Contacto> {
+public class CitasDao extends MySQLConnection implements Dao<Datos_Cita> {
     Connection conn = getConnection();
 
     @Override
-    public Optional<Contacto> findById(int id) {
-        Optional<Contacto> optionalC = Optional.empty();
-        String query = "SELECT * FROM contacto WHERE id_contacto = ?";
+    public Optional<Datos_Cita> findById(int id) {
+        Optional<Datos_Cita> optionalC = Optional.empty();
+        String query = "SELECT * FROM datos_cita WHERE id_contacto = ?";
         try {
             PreparedStatement statement = conn.prepareStatement(query);
             statement.setInt(1, id);
             ResultSet rs = statement.executeQuery();
             if (rs.next()) {
-                Contacto c = new Contacto();
-                c.setId_contacto(rs.getInt("id_contacto"));
+                Datos_Cita c = new Datos_Cita();
+                c.setId_cita(rs.getInt("id_cita"));
                 c.setNombre_completo(rs.getString("nombre_completo"));
                 c.setCorreo(rs.getString("correo"));
                 c.setTelefono(rs.getInt("telefono"));
                 c.setFecha_cita(rs.getDate("fecha_cita"));
                 c.setHora_cita(rs.getTime("hora_cita"));
                 c.setPropiedad(rs.getInt("propiedad"));
+                c.setId_usuario(rs.getInt("id_usuario"));
 
                 optionalC = Optional.of(c);
             }
@@ -38,33 +39,57 @@ public class ContactoDao extends MySQLConnection implements Dao<Contacto> {
     }
 
     @Override
-    public List<Contacto> findAll() {
-        List<Contacto> contactoList = FXCollections.observableArrayList();
-        String query = "SELECT * FROM contacto";
+    public List<Datos_Cita> findAll() {
+        List<Datos_Cita> datosCitaList = FXCollections.observableArrayList();
+        String query = "SELECT * FROM datos_cita";
         try {
             Statement statement = conn.createStatement();
             ResultSet rs = statement.executeQuery(query);
             while (rs.next()) {
-                Contacto c = new Contacto();
-                c.setId_contacto(rs.getInt("id_contacto"));
+                Datos_Cita c = new Datos_Cita();
+                c.setId_cita(rs.getInt("id_cita"));
                 c.setNombre_completo(rs.getString("nombre_completo"));
                 c.setCorreo(rs.getString("correo"));
                 c.setTelefono(rs.getInt("telefono"));
                 c.setFecha_cita(rs.getDate("fecha_cita"));
                 c.setHora_cita(rs.getTime("hora_cita"));
                 c.setPropiedad(rs.getInt("propiedad"));
+                c.setId_usuario(rs.getInt("id_usuario"));
 
-                contactoList.add(c);
+                datosCitaList.add(c);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return contactoList;
+        return datosCitaList;
+    }
+
+    public List<Datos_Cita> findCitaByUser(int id_usuario) {
+        List<Datos_Cita> datosCitaList = FXCollections.observableArrayList();
+        String query = "SELECT * FROM datos_cita dc " + "JOIN usuario u ON dc.id_usuario = u.id " + "WHERE u.id = ?";
+        try (PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setInt(1, id_usuario);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                Datos_Cita c = new Datos_Cita();
+                c.setId_cita(rs.getInt("id_cita"));
+                c.setNombre_completo(rs.getString("nombre_completo"));
+                c.setCorreo(rs.getString("correo"));
+                c.setTelefono(rs.getInt("telefono"));
+                c.setFecha_cita(rs.getDate("fecha_cita"));
+                c.setHora_cita(rs.getTime("hora_cita"));
+                c.setPropiedad(rs.getInt("propiedad"));
+                datosCitaList.add(c);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return datosCitaList;
     }
 
     @Override
-    public boolean save(Contacto c) {
-        String query = "INSERT INTO contacto (nombre_completo, correo, telefono, fecha_cita, hora_cita, propiedad) VALUES (?, ?, ?, ?, ?, ?)";
+    public boolean save(Datos_Cita c) {
+        String query = "INSERT INTO datos_cita (nombre_completo, correo, telefono, fecha_cita, hora_cita, propiedad, id_usuario) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try {
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setString(1, c.getNombre_completo());
@@ -73,6 +98,7 @@ public class ContactoDao extends MySQLConnection implements Dao<Contacto> {
             ps.setDate(4, c.getFecha_cita());
             ps.setTime(5, c.getHora_cita());
             ps.setInt(6, c.getPropiedad());
+            ps.setInt(7, c.getId_usuario());
             ps.execute();
             System.out.println("Información cargada con exito");
             return true;
@@ -83,8 +109,8 @@ public class ContactoDao extends MySQLConnection implements Dao<Contacto> {
     }
 
     @Override
-    public boolean update(Contacto c) {
-        String query = "UPDATE contacto SET nombre_completo = ?, correo = ?, telefono = ?, fecha_cita = ?, hora_cita = ?, propiedad=? WHERE id_contacto = ?";
+    public boolean update(Datos_Cita c) {
+        String query = "UPDATE datos_cita SET nombre_completo = ?, correo = ?, telefono = ?, fecha_cita = ?, hora_cita = ?, propiedad=?, id_usuario WHERE id_cita = ?";
         try {
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setString(1, c.getNombre_completo());
@@ -93,7 +119,8 @@ public class ContactoDao extends MySQLConnection implements Dao<Contacto> {
             ps.setDate(4, c.getFecha_cita());
             ps.setTime(5, c.getHora_cita());
             ps.setInt(6, c.getPropiedad());
-            ps.setInt(7, c.getId_contacto());
+            ps.setInt(7, c.getId_usuario());
+            ps.setInt(8, c.getId_cita());
             ps.execute();
             return true;
         } catch (SQLException e) {
@@ -104,7 +131,7 @@ public class ContactoDao extends MySQLConnection implements Dao<Contacto> {
 
     @Override
     public boolean delete(int id) {
-        String query = "DELETE FROM contacto WHERE id_contacto = ?";
+        String query = "DELETE FROM datos_cita WHERE id_cita = ?";
         try {
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setInt(1, id);

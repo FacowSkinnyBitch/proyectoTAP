@@ -1,46 +1,48 @@
 package com.example.examentap.models;
 
 import java.sql.Time;
-import java.time.LocalDate;
 import java.util.Date;
 
-public class Contacto {
-    private int id_contacto;
+public class Datos_Cita {
+    private int id_cita;
     private String nombre_completo;
     private String correo;
     private int telefono;
     private Date fecha_cita;
     private Time hora_cita;
     private int propiedad;
+    private int id_usuario;
 
-    public Contacto() {
+    public Datos_Cita() {
 
     }
-    public Contacto(int id_contacto,String nombre_completo, String correo, int telefono, Date fecha_cita, Time hora_cita, int propiedad) {
-        this.id_contacto = id_contacto;
+    public Datos_Cita(int id_cita, String nombre_completo, String correo, int telefono, Date fecha_cita, Time hora_cita, int propiedad, int id_usuario) {
+        this.id_cita = id_cita;
         this.nombre_completo = nombre_completo;
         this.correo = correo;
         this.telefono = telefono;
         this.fecha_cita = fecha_cita;
         this.hora_cita = hora_cita;
         this.propiedad = propiedad;
+        this.id_usuario = id_usuario;
     }
 
-    public Contacto(String nombre_completo, String correo, int telefono, Date fecha_cita, Time hora_cita, int propiedad) {
+    public Datos_Cita(String nombre_completo, String correo, int telefono, Date fecha_cita, Time hora_cita, int propiedad, int id_usuario) {
         this.nombre_completo = nombre_completo;
         this.correo = correo;
         this.telefono = telefono;
         this.fecha_cita = fecha_cita;
         this.hora_cita = hora_cita;
         this.propiedad = propiedad;
+        this.id_usuario = id_usuario;
     }
 
-    public int getId_contacto() {
-        return id_contacto;
+    public int getId_cita() {
+        return id_cita;
     }
 
-    public void setId_contacto(int id_contacto) {
-        this.id_contacto = id_contacto;
+    public void setId_cita(int id_contacto) {
+        this.id_cita = id_contacto;
     }
 
     public String getNombre_completo() {
@@ -77,6 +79,14 @@ public class Contacto {
 
     public Time getHora_cita() {
         return hora_cita;
+    }
+
+    public int getId_usuario() {
+        return id_usuario;
+    }
+
+    public void setId_usuario(int id_usuario) {
+        this.id_usuario = id_usuario;
     }
 
     public void setHora_cita(Time hora_cita) {

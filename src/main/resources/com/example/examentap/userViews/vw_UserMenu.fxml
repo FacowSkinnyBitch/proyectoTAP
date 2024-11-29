@@ -20,7 +20,8 @@
 <?import javafx.scene.control.ComboBox?>
 <BorderPane xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.example.examentap.controllers.UserMenu_Controller"
-            stylesheets="@../cssFiles/estilosGenerales.css">
+            stylesheets="@../cssFiles/estilosGenerales.css"
+            prefHeight="750.0" prefWidth="1200.0">
     <top>
         <HBox alignment="CENTER" spacing="15">
             <Label fx:id="title" text="Venta Propiedades"/>
@@ -38,9 +39,9 @@
             </HBox>
             <TableView fx:id="tv_Propiedades" >
                 <columns>
-                    <TableColumn fx:id="col_idPropiedades" text="ID Propiedades">
+                    <TableColumn fx:id="col_idPropiedad" text="ID Propiedades">
                         <cellValueFactory>
-                            <PropertyValueFactory fx:id="id_venta_propiedades" />
+                            <PropertyValueFactory fx:id="id_propiedad" />
                         </cellValueFactory>
                     </TableColumn>
                     <TableColumn fx:id="col_descripcion" text="DESCRIPCION">
@@ -76,7 +77,7 @@
     </center>
     <right>
         <!--   FORMULARIO PARA LOS CONTACTOS     -->
-        <GridPane alignment="CENTER" hgap="10" vgap="20">
+        <GridPane fx:id="gpFromCita" alignment="CENTER" hgap="10" vgap="20">
             <padding>
                 <Insets bottom="20.0" right="20.0" top="20.0"/>
             </padding>
@@ -95,7 +96,7 @@
             <Label text="Hora de la Cita:" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
             <TextField fx:id="tf_hora_cita" promptText="HH:MM" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
 
-            <Button fx:id="btn_Ingresar" text="Enviar" GridPane.columnIndex="0" GridPane.rowIndex="5" onAction="#onAgregarrCita">
+            <Button fx:id="btn_Ingresar" text="Enviar" GridPane.columnIndex="0" GridPane.rowIndex="5" onAction="#onAgregarCita">
                 <graphic>
                     <FontIcon iconLiteral="anto-send" iconSize="20" iconColor="black"/>
                 </graphic>
@@ -116,6 +117,11 @@
 
             <Button text="Logout" onAction="#logout"
             style="-fx-background-color: none;-fx-border-color: black;-fx-text-fill: red;-fx-font-size: 15px"/>
+            <Button fx:id="btn_viewPropiedad" text="Mostrar Cita">
+                <graphic>
+                    <FontIcon iconLiteral="anto-frown" iconSize="20" iconColor="black"/>
+                </graphic>
+            </Button>
             <TextArea fx:id="ta_All_Propiedades" prefWidth="250" prefHeight="300" maxHeight="300" maxWidth="250" editable="false"/>
             <ImageView fx:id="iv_imagen" fitWidth="200" fitHeight="200" preserveRatio="true" />
         </VBox>

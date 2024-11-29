@@ -1,8 +1,8 @@
 package com.example.examentap.controllers;
 
-import com.example.examentap.databases.dao.ContactoDao;
+import com.example.examentap.databases.dao.CitasDao;
 import com.example.examentap.databases.dao.PropiedadesDao;
-import com.example.examentap.models.Contacto;
+import com.example.examentap.models.Datos_Cita;
 import com.example.examentap.models.Propiedades;
 import com.example.examentap.models.Usuario;
 import javafx.collections.FXCollections;
@@ -21,6 +21,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -39,20 +40,25 @@ public class UserMenu_Controller implements Initializable {
     @FXML
     private TextArea ta_All_Propiedades;
     @FXML
+    private TextArea ta_All_Propiedades2;
+    @FXML
     private TextField tf_nombre,tf_correo,tf_telefono,tf_hora_cita;
     @FXML
     private DatePicker dp_fecha_cita;
     @FXML
-    private Button btn_Ingresar, btn_Cancelar, btn_Cita;
+    private Button btn_Ingresar, btn_Cancelar, btn_Cita, btn_MostrarCitas;
     @FXML
     private ImageView iv_imagen;
+    @FXML
+    private ImageView iv_imagen2;
+    @FXML private GridPane gpFromCita;
 
     @FXML private ComboBox cb_filtro,cb_filtroProp;
     //    tabla
     @FXML
     private TableView tv_Propiedades = new TableView();
     @FXML
-    private TableColumn<Propiedades, Integer> col_idPropiedades;
+    private TableColumn<Propiedades, Integer> col_idPropiedad;
     @FXML
     private TableColumn<Propiedades, String> col_descripcion;
     @FXML
@@ -62,26 +68,26 @@ public class UserMenu_Controller implements Initializable {
 
     private boolean activador = false;
 
-    private Usuario userIniciado;
+    private Usuario usuarioIniciado;
 
     private PropiedadesDao propDao = new PropiedadesDao();
     private List<Propiedades> propiedadesList = new ArrayList<Propiedades>();
 
-    private ContactoDao contactoDao = new ContactoDao();
-    private List<Contacto> contactoList = new ArrayList<Contacto>();
+    private CitasDao citasDao = new CitasDao();
+    private List<Datos_Cita> datosCitaList = new ArrayList<Datos_Cita>();
 
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        col_idPropiedades.setCellValueFactory(new PropertyValueFactory<>("id_propiedad"));
+        col_idPropiedad.setCellValueFactory(new PropertyValueFactory<>("id_propiedad"));
         col_descripcion.setCellValueFactory(new PropertyValueFactory<>("descripcion"));
         col_tipoPropiedad.setCellValueFactory(new PropertyValueFactory<>("tipo_propiedad"));
         col_status.setCellValueFactory(new PropertyValueFactory<>("status"));
         iniciarTabla();
         desactivarForm();
         String[] status = {"Renta","Venta","Todo"};
-        String[] tipo_prop = {"Casa","Negocio","Condominio"};
+        String[] tipo_prop = {"Casa","Negocio","Condominio","Todo"};
         cb_filtro.setItems(FXCollections.observableArrayList(status));
         cb_filtroProp.setItems(FXCollections.observableArrayList(tipo_prop));
 
@@ -108,12 +114,23 @@ public class UserMenu_Controller implements Initializable {
             }else if(cb_filtroProp.getSelectionModel().getSelectedItem().equals("Condominio")){
                 propiedadesList = propDao.filterPropByTipoProp(3);
                 tv_Propiedades.setItems(FXCollections.observableList(propiedadesList));
+            }else{
+                propiedadesList = propDao.findAll();
+                tv_Propiedades.setItems(FXCollections.observableList(propiedadesList));
             }
         });
 
     }
-    public void currentUser(Usuario u){
-        userIniciado = u;
+    public void registeredUser(Usuario u){
+        usuarioIniciado = u;
+        if(usuarioIniciado == null){
+            //desactivar boton y formulario
+            gpFromCita.setVisible(false);
+            btn_Cita.setVisible(false);
+            btn_Cita.setVisible(false);
+            btn_MostrarCitas.setVisible(false);
+        }
+        System.out.println("Hola " + u.getNombre() + "bienvenido :)");
     }
     public void iniciarTabla(){
         propiedadesList = propDao.findAll();
@@ -129,15 +146,16 @@ public class UserMenu_Controller implements Initializable {
                         System.out.println("Nada seleccionado");
                     }else{
                         // Cargar la imagen asociada a la propiedad
-                        String imagePath = getClass().getResource("/com/example/examentap/images/" + p.getImagen()).toExternalForm();
-                        iv_imagen.setImage(new Image(imagePath));
-
-                        ta_All_Propiedades.setText(p.toString());
+                        /*String imagePath = getClass().getResource("/com/example/examentap/images/" + p.getImagen()).toExternalForm();
+                        iv_imagen2.setImage(new Image(imagePath));
+                        ta_All_Propiedades2.setText(p.toString());*/
+                        onMostrarPropiedad(p);
                     }
             }
         });
 
     }
+
 
     private void desactivarForm(){
         tf_nombre.setDisable(!activador);
@@ -153,9 +171,11 @@ public class UserMenu_Controller implements Initializable {
     private void onGenerarCita(ActionEvent event) {
         activador = true;
         desactivarForm();
-        tf_nombre.setText(userIniciado.getUser());
-        tf_correo.setText(userIniciado.getEmail());
-        tf_telefono.setText(userIniciado.getTelefono());
+        tf_nombre.setText(usuarioIniciado.getNombre());
+        tf_nombre.setEditable(false);
+        tf_correo.setText(usuarioIniciado.getEmail());
+        tf_correo.setEditable(false);
+        tf_telefono.setText(usuarioIniciado.getTelefono());
     }
     @FXML
     private void onCancelarCita(ActionEvent event) {
@@ -164,10 +184,10 @@ public class UserMenu_Controller implements Initializable {
         limpiarCampos();
     }
     @FXML
-    private void onAgregarrCita(ActionEvent event) {
+    private void onAgregarCita(ActionEvent event) {
         activador = false;
-        if(tf_nombre.getText().isEmpty()||tf_correo.getText().isEmpty()||tf_telefono.getText().isEmpty()||dp_fecha_cita.getValue()==null||tf_hora_cita.getText().isEmpty()) {
-            System.out.println("Nada ingresado");
+        if(tf_telefono.getText().isEmpty() || dp_fecha_cita.getValue()==null || tf_hora_cita.getText().isEmpty()) {
+            System.out.println("Faltan campos por llenar");
             mostrarAlerta();
         }else{
             System.out.println("Agregando datos...");
@@ -197,8 +217,8 @@ public class UserMenu_Controller implements Initializable {
         alerta.showAndWait(); // Mostrar la alerta y esperar a que el usuario la cierre
     }
     public boolean agregarCita(){
-        String nombre = tf_nombre.getText();
-        String correo = tf_correo.getText();
+        String nombre = usuarioIniciado.getNombre();
+        String correo = usuarioIniciado.getEmail();
         int telefono = Integer.parseInt(tf_telefono.getText());
         LocalDate fecha = dp_fecha_cita.getValue();
         String hora = tf_hora_cita.getText();
@@ -210,35 +230,41 @@ public class UserMenu_Controller implements Initializable {
                     "Error al cargar la cita.",
                     "Necesita seleccionar una propiedad para hacer una cita.");
         }else{
-            Contacto contacto = new Contacto(nombre, correo, telefono, Date.valueOf(fecha), Time.valueOf(horaCita), p.getId_propiedad());
-            contactoDao.save(contacto);
+            Datos_Cita datosCita = new Datos_Cita(nombre, correo, telefono, Date.valueOf(fecha), Time.valueOf(horaCita), p.getId_propiedad(),usuarioIniciado.getId());
+            citasDao.save(datosCita);
         }
         return true;
     }
     @FXML
     private void onMostrarCita(ActionEvent ae) {
         try {
-             Stage stage;
-             FXMLLoader loader;
-             Parent root;
-            //FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("vw_login.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/examentap/userViews/vw_citas.fxml"));
+            Parent root = loader.load();
+            CitasController citaController = loader.getController();
+            citaController.registeredUser(usuarioIniciado);
 
-            loader = new FXMLLoader(getClass().getResource("/com/example/examentap/userViews/vw_contactos.fxml"));
-            root = loader.load();
-
-            stage = new Stage();
+            Stage stage = new Stage();
             stage.setTitle("Contactos");
             stage.setScene(new Scene(root));
             stage.initModality(Modality.APPLICATION_MODAL); // Para bloquear la ventana principal mientras esta está abierta
             stage.show();
-           /* Parent root1 = FXMLLoader.load(getClass().getResource("vw_contactos.fxml"));
-            Stage stage1 = (Stage)((Node)ae.getSource()).getScene().getWindow();
-            Scene scene1 = new Scene(root1);
-            stage1.setScene(scene1);
-            stage1.centerOnScreen();
-            stage1.initModality(Modality.APPLICATION_MODAL); // Para bloquear la ventana principal mientras esta está abierta
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
-            stage1.show();*/
+    private void onMostrarPropiedad(Propiedades p) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/examentap/userViews/vw_propSelected.fxml"));
+            Parent root = loader.load();
+            propiedadSeleccionada ps = loader.getController();
+            ps.mostrarDatos(p);
+
+            Stage stage = new Stage();
+            stage.setTitle("Propiedad Seleccionada");
+            stage.setScene(new Scene(root));
+            stage.initModality(Modality.APPLICATION_MODAL); // Para bloquear la ventana principal mientras esta está abierta
+            stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -303,6 +329,7 @@ public class UserMenu_Controller implements Initializable {
 
     public void logout(ActionEvent ae){
         if(mostrarAlerta(Alert.AlertType.INFORMATION,"Logout","Cerrando seseion...", "¿Seguro que desea cerrar sesión?")){
+            usuarioIniciado=null;
             openWindow(ae,"/com/example/examentap/vw_login.fxml","Login");
         }
     }

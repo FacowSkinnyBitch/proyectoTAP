@@ -77,6 +77,7 @@ public class UsersController implements Initializable {
         cargarTablaUsuario();
         metodoCRUD();
         initContextMenu();
+        initMetodosCrud();
     }
     private void initContextMenu(){
         FontIcon iconDelete = new FontIcon();
@@ -115,7 +116,20 @@ public class UsersController implements Initializable {
 
         usuarioList = usuarioDAO.findAll();
         tvUsuarios.setItems(FXCollections.observableArrayList(usuarioList));
+    }
 
+    private void initMetodosCrud(){
+        menuItemDeleteUser.setOnAction(event -> {
+            Usuario usuarioSeleccionado = (Usuario) tvUsuarios.getSelectionModel().getSelectedItem();
+            if(usuarioSeleccionado != null){
+                if(confirmDelete()){
+                    System.out.println("id deleted: "+usuarioSeleccionado.getId());
+                    usuarioDAO.delete(usuarioSeleccionado.getId());
+                    //reloadAll();
+                    //borrar los usuarios que se encuentren en la tabla de datos_cita
+                }
+            }
+        });
     }
     private boolean confirmDelete(){
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);

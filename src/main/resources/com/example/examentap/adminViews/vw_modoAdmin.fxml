@@ -8,21 +8,20 @@
 
 <?import javafx.geometry.Insets?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
-<BorderPane xmlns="http://javafx.com/javafx"
+<BorderPane fx:id="bpPrincipal" xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.example.examentap.controllers.AdminController"
-            prefHeight="400.0" prefWidth="600.0">
+            prefHeight="550.0" prefWidth="980.0"
+            style="-fx-background-color: grey">
         <left>
-                <VBox alignment="TOP_LEFT" spacing="10">
-                        <Button text="Return" onAction="#onReturn"></Button>
-                </VBox>
-        </left>
-        <top>
-                <HBox spacing="20" alignment="CENTER">
+                <VBox alignment="CENTER" spacing="10"
+                style="-fx-background-color: #030bab;-fx-background-radius: 15px">
                         <padding>
-                                <Insets bottom="20.0" right="20.0" top="20.0"/>
+                                <Insets bottom="20.0" right="20.0" top="20.0" left="20.0"/>
                         </padding>
-                        <Button fx:id="btn_propiedades" text="View Propiedades" onAction="#onPpropiedadesView">
+
+                        <Button text="Return" onAction="#onReturn"></Button>
+                        <Button fx:id="btn_propiedades" text="View Propiedades" onAction="#showPropiedades">
                                 <graphic>
                                         <FontIcon />
                                 </graphic>
@@ -30,9 +29,24 @@
                         <Button fx:id="btn_users" text="View Users" onAction="#onUsersView"></Button>
                         <Button fx:id="btn_citas" text="View Citas" onAction="#onCitasView"></Button>
 
-                </HBox>
-        </top>
-        <right>
+                </VBox>
+        </left>
 
-        </right>
+        <bottom>
+                <HBox alignment="CENTER">
+                        <Button fx:id="btn_generarGraficos" text="Propiedades vendidas"
+                                style="-fx-background-color: #349f0f">
+                                <graphic>
+                                        <FontIcon iconLiteral="antf-eye" iconSize="20" iconColor="#000000"/>
+                                </graphic>
+                        </Button>
+                        <Button fx:id="btn_generarGraficos2" text="Citas Atendidas"
+                                style="-fx-background-color: #349f0f">
+                                <graphic>
+                                        <FontIcon iconLiteral="antf-eye" iconSize="20" iconColor="#000000"/>
+                                </graphic>
+                        </Button>
+                </HBox>
+        </bottom>
+
 </BorderPane>

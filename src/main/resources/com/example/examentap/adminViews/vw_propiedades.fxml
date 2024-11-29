@@ -6,10 +6,79 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.geometry.Insets?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+<BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.example.examentap.controllers.PropiedadesController"
-            prefHeight="400.0" prefWidth="600.0">
-    <Button text="Return" onAction="#onReturn"></Button>
+            prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: grey">
+    <top>
 
-</AnchorPane>
+        <HBox alignment="CENTER_LEFT" spacing="5">
+            <padding>
+                <Insets top="20" left="50" right="50" bottom="20"/>
+            </padding>
+
+                <Button fx:id="btn_generarPDF" text="Generar PDF"
+                        style="-fx-background-color: #d78634">
+                    <graphic>
+                        <FontIcon iconLiteral="antf-eye" iconSize="20" iconColor="#000000"/>
+                    </graphic>
+                </Button>
+                <Button fx:id="btn_generarExcel" text="Generar Excel"
+                        style="-fx-background-color: #349f0f">
+                    <graphic>
+                        <FontIcon iconLiteral="antf-eye" iconSize="20" iconColor="#000000"/>
+                    </graphic>
+                </Button>
+
+        </HBox>
+    </top>
+    <center>
+        <VBox alignment="CENTER" spacing="15">
+            <padding>
+                <Insets top="20" left="50" right="50" bottom="20"/>
+            </padding>
+            <TableView fx:id="propiedadesTable">
+                <columns>
+                    <TableColumn fx:id="tv_id" text="ID">
+                        <cellValueFactory>
+                            <PropertyValueFactory fx:id="id_propiedad"/>
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="tv_direccion" text="DIRECCION">
+                    <cellValueFactory>
+                        <PropertyValueFactory fx:id="direccion"/>
+                    </cellValueFactory>
+                </TableColumn>
+                    <TableColumn fx:id="tv_precio" text="PRECIO">
+                        <cellValueFactory>
+                            <PropertyValueFactory fx:id="precio"/>
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="tv_tipoProp" text="TIPO PROPIEDAD">
+                        <cellValueFactory>
+                            <PropertyValueFactory fx:id="tipo_propiedad"/>
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="tv_status" text="STATUS">
+                        <cellValueFactory>
+                            <PropertyValueFactory fx:id="status"/>
+                        </cellValueFactory>
+                    </TableColumn>
+
+
+                </columns>
+            </TableView>
+        </VBox>
+    </center>
+    <right>
+        <VBox>
+            <padding>
+                <Insets top="20" right="50" bottom="20"/>
+            </padding>
+            <Label text="Form for edit propieties" style="-fx-font-size: 20px"/>
+        </VBox>
+    </right>
+</BorderPane>

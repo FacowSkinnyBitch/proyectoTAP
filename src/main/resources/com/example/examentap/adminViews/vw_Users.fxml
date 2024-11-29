@@ -7,91 +7,110 @@
 <?import javafx.scene.layout.*?>
 
 <?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.geometry.Insets?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.example.examentap.controllers.UsersController"
-      prefHeight="400.0" prefWidth="600.0">
-    <HBox alignment="TOP_LEFT" spacing="15">
-        <Button text="Return" onAction="#onReturn"/>
-        <Button text="Create" onAction="#onReturn"/>
-        <Button text="Read" onAction="#onReturn"/>
-        <Button text="Update" onAction="#onReturn"/>
-        <Button text="Delete" onAction="#onReturn"/>
+      prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: grey">
+
+    <HBox alignment="CENTER_LEFT" spacing="5">
+        <padding>
+            <Insets top="20" left="50" right="50" bottom="20"/>
+        </padding>
+
+        <Button fx:id="btn_generarPDF" text="Generar PDF"
+                style="-fx-background-color: #d78634">
+            <graphic>
+                <FontIcon iconLiteral="antf-eye" iconSize="20" iconColor="#000000"/>
+            </graphic>
+        </Button>
+        <Button fx:id="btn_generarExcel" text="Generar Excel"
+                style="-fx-background-color: #349f0f">
+            <graphic>
+                <FontIcon iconLiteral="antf-eye" iconSize="20" iconColor="#000000"/>
+            </graphic>
+        </Button>
 
     </HBox>
+
     <TableView fx:id="tvUsuarios">
+        <padding>
+            <Insets left="20" right="20" top="50" bottom="50"/>
+        </padding>
+
         <columns>
-            <TableColumn fx:id="tvid">
+            <TableColumn fx:id="tvid" text="ID">
                 <cellValueFactory>
                     <PropertyValueFactory fx:id="id"/>
                 </cellValueFactory>
             </TableColumn>
         </columns>
         <columns>
-            <TableColumn fx:id="tvusuario">
+            <TableColumn fx:id="tvusuario" text="USERNAME">
                 <cellValueFactory>
                     <PropertyValueFactory fx:id="user"/>
                 </cellValueFactory>
             </TableColumn>
         </columns>
         <columns>
-            <TableColumn fx:id="tvnombre">
+            <TableColumn fx:id="tvnombre" text="NOMBRE">
                 <cellValueFactory>
                     <PropertyValueFactory fx:id="nombre"/>
                 </cellValueFactory>
             </TableColumn>
         </columns>
         <columns>
-            <TableColumn fx:id="tvprimer_apellido">
+            <TableColumn fx:id="tvprimer_apellido" text="PRIMER APELLIDO">
                 <cellValueFactory>
                     <PropertyValueFactory fx:id="primer_apellido"/>
                 </cellValueFactory>
             </TableColumn>
         </columns>
         <columns>
-            <TableColumn fx:id="tvsegundo_apellido">
+            <TableColumn fx:id="tvsegundo_apellido" text="SEGUNDO APELLIDO">
                 <cellValueFactory>
                     <PropertyValueFactory fx:id="segundo_apellido"/>
                 </cellValueFactory>
             </TableColumn>
         </columns>
         <columns>
-            <TableColumn fx:id="tvemail">
+            <TableColumn fx:id="tvemail" text="EMAIL">
                 <cellValueFactory>
                     <PropertyValueFactory fx:id="email"/>
                 </cellValueFactory>
             </TableColumn>
         </columns>
         <columns>
-            <TableColumn fx:id="tvcontraseya">
+            <TableColumn fx:id="tvcontraseya"  text="CONTRASEÑA">
                 <cellValueFactory>
                     <PropertyValueFactory fx:id="contraseya"/>
                 </cellValueFactory>
             </TableColumn>
         </columns>
         <columns>
-            <TableColumn fx:id="tvdireccion">
+            <TableColumn fx:id="tvdireccion" text="DIRECCIÓN">
                 <cellValueFactory>
                     <PropertyValueFactory fx:id="direccion"/>
                 </cellValueFactory>
             </TableColumn>
         </columns>
         <columns>
-            <TableColumn fx:id="tvgenero">
+            <TableColumn fx:id="tvgenero" text="GENERO">
                 <cellValueFactory>
                     <PropertyValueFactory fx:id="genero"/>
                 </cellValueFactory>
             </TableColumn>
         </columns>
         <columns>
-            <TableColumn fx:id="tvnacimiento">
+            <TableColumn fx:id="tvnacimiento" text="FECHA NACIMIENTO">
                 <cellValueFactory>
                     <PropertyValueFactory fx:id="nacimiento"/>
                 </cellValueFactory>
             </TableColumn>
         </columns>
         <columns>
-            <TableColumn fx:id="tvrole">
+            <TableColumn fx:id="tvrole" text="ROLE">
                 <cellValueFactory>
                     <PropertyValueFactory fx:id="role"/>
                 </cellValueFactory>

@@ -1,15 +1,10 @@
 package com.example.examentap;
 
+import com.example.examentap.controllers.AdminController;
 import com.example.examentap.controllers.UserMenu_Controller;
-import com.example.examentap.controllers.UsersController;
-import com.example.examentap.databases.dao.ContactoDao;
-import com.example.examentap.databases.dao.PropiedadesDao;
 import com.example.examentap.databases.dao.UsuarioDAO;
-import com.example.examentap.models.Contacto;
 import com.example.examentap.models.Navegacion;
-import com.example.examentap.models.Propiedades;
 import com.example.examentap.models.Usuario;
-import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -24,7 +19,6 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
-import java.util.List;
 
 public class LoginController implements Initializable {
     //form
@@ -53,7 +47,7 @@ public class LoginController implements Initializable {
         for(Usuario u: usuarioDAO.findAll()){
             if(u.getUser().equals(user) && u.getContraseya().equals(pass)){
                 if(u.getRole().equals("Admin")){
-                    adminMenu(ae);
+                    adminMenu(ae, u);
                     System.out.println(u.getUser()+" "+u.getRole());
                     banderita = true;
                 }else{
@@ -72,18 +66,46 @@ public class LoginController implements Initializable {
     //regresar de escena
     private void onUsuarioInvitado(ActionEvent ae) {
         if(mostrarAlerta(Alert.AlertType.INFORMATION,"Modo Invitado","Entrando como invitado","¿Deseas iniciar como invitado?")){
-            openWindow(ae,"invitadosViews/vw_modoInvitado.fxml","Modo Invitado");
+            openWindow(ae,"userViews/vw_UserMenu.fxml","Modo Invitado");
         }
     }
     private void userMenu(ActionEvent ae, Usuario user) {
-        UserMenu_Controller u = new UserMenu_Controller();
-        u.currentUser(user);
-        openWindow(ae,"userViews/vw_UserMenu.fxml","Modo Usuario");
+        //openWindow(ae,"userViews/vw_UserMenu.fxml","Modo Usuario");
+        try{
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("userViews/vw_UserMenu.fxml"));
+            Parent root = loader.load();
+            UserMenu_Controller userController = loader.getController();
+            userController.registeredUser(user);
+
+            Stage stage = (Stage)((Node)ae.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setTitle("Menú Usuario");
+            stage.setScene(scene);
+            stage.centerOnScreen();
+            stage.show();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
 
     }
-    private void adminMenu(ActionEvent ae) {
+    private void adminMenu(ActionEvent ae, Usuario user) {
         //nav.openWindow(ae,"adminViews/vw_modoAdmin.fxml","Modo Administrador");
-        openWindow(ae,"adminViews/vw_modoAdmin.fxml","Modo Administrador");
+        //openWindow(ae,"adminViews/vw_modoAdmin.fxml","Modo Administrador");
+        try{
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("adminViews/vw_modoAdmin.fxml"));
+            Parent root = loader.load();
+            AdminController adminController = loader.getController();
+            adminController.registeredUser(user.getUser());
+
+            Stage stage = (Stage)((Node)ae.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setTitle("Menu Administrador");
+            stage.show();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
     }
     private void openWindow(ActionEvent ae, String file,String title){
         try {

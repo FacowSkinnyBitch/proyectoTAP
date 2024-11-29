@@ -59,6 +59,7 @@ public class UsuarioDAO extends MySQLConnection implements Dao<Usuario> {
                 u.setContraseya(rs.getString("contraseya"));
                 u.setTelefono(rs.getString("telefono"));
                 u.setDireccion(rs.getString("direccion"));
+                u.setGenero(rs.getString("genero"));
                 u.setNacimiento(rs.getDate("nacimiento"));
                 u.setRole(rs.getString("role"));
 

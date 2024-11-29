@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+<?import javafx.geometry.Insets?>
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.example.examentap.controllers.CitasController"
+      prefHeight="400.0" prefWidth="600.0">
+
+    <Label text="Mensajes de Contactos" style="-fx-font-size: 20px" />
+    <HBox alignment="CENTER_LEFT" spacing="5">
+        <padding>
+            <Insets top="20" left="50" right="50" bottom="20"/>
+        </padding>
+
+        <Button fx:id="btn_generarPDF" text="Generar PDF"
+                style="-fx-background-color: #d78634">
+            <graphic>
+                <FontIcon iconLiteral="antf-eye" iconSize="20" iconColor="#000000"/>
+            </graphic>
+        </Button>
+        <Button fx:id="btn_generarExcel" text="Generar Excel"
+                style="-fx-background-color: #349f0f">
+            <graphic>
+                <FontIcon iconLiteral="antf-eye" iconSize="20" iconColor="#000000"/>
+            </graphic>
+        </Button>
+
+    </HBox>
+    <TableView fx:id="citasTable" layoutX="10.0" layoutY="10.0" prefHeight="300.0" prefWidth="480.0">
+        <columns>
+            <TableColumn fx:id="idCita" text="ID" prefWidth="50.0"/>
+            <TableColumn fx:id="nombreCompleto" text="Nombre Completo" prefWidth="150.0"/>
+            <TableColumn fx:id="correo" text="Correo" prefWidth="150.0"/>
+            <TableColumn fx:id="telefono" text="Teléfono" prefWidth="100.0"/>
+            <TableColumn fx:id="fecha" text="Fecha Cita" prefWidth="100.0"/>
+            <TableColumn fx:id="hora" text="Hora Cita" prefWidth="100.0"/>
+            <TableColumn fx:id="propiedad" text="Solicitud de Propiedad" prefWidth="100.0"/>
+            <TableColumn fx:id="id_usuario cita" text="ID" prefWidth="100.0"/>
+        </columns>
+    </TableView>
+</VBox>
