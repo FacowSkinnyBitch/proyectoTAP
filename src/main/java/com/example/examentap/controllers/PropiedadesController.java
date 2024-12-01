@@ -30,8 +30,9 @@ public class PropiedadesController implements Initializable {
     @FXML private TableColumn<Propiedades, Double> tv_precio;
     @FXML private TableColumn<Propiedades, Integer> tv_tipoProp;
     @FXML private TableColumn<Propiedades, Boolean> tv_status;
+    @FXML private TableColumn<Propiedades, String> tv_Ciudad;
 
-    @FXML private ComboBox cb_filtroStatusProp,cb_filtroTipoProp;
+    @FXML private ComboBox cb_filtroStatusProp,cb_filtroTipoProp, cb_filtroCiudad;
     //    tabla
 
 
@@ -42,16 +43,20 @@ public class PropiedadesController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         tv_id.setCellValueFactory(new PropertyValueFactory<>("id_propiedad"));
-        tv_direccion.setCellValueFactory(new PropertyValueFactory<>("descripcion"));
+        tv_direccion.setCellValueFactory(new PropertyValueFactory<>("direccion"));
         tv_precio.setCellValueFactory(new PropertyValueFactory<>("precio"));
         tv_tipoProp.setCellValueFactory(new PropertyValueFactory<>("tipo_propiedad"));
         tv_status.setCellValueFactory(new PropertyValueFactory<>("status"));
+        tv_Ciudad.setCellValueFactory(new PropertyValueFactory<>("ciudad"));
 
         initTable();
         String[] status = {"Renta","Venta","Todo"};
         String[] tipo_prop = {"Casa","Negocio","Condominio","Todo"};
+        String[] ciudadUbicada = {"León", "Guadalajara", "Querétaro", "Morelia"};
         cb_filtroStatusProp.setItems(FXCollections.observableArrayList(status));
         cb_filtroTipoProp.setItems(FXCollections.observableArrayList(tipo_prop));
+        cb_filtroCiudad.setItems(FXCollections.observableArrayList(ciudadUbicada));
+
 
 
         cb_filtroStatusProp.valueProperty().addListener(event -> {
@@ -81,6 +86,21 @@ public class PropiedadesController implements Initializable {
                 propiedadesList = propDao.findAll();
                 propiedadesTable.setItems(FXCollections.observableList(propiedadesList));
             }
+        });
+        cb_filtroCiudad.valueProperty().addListener(event -> {
+           if(cb_filtroCiudad.getSelectionModel().getSelectedItem().toString().equals("León")){
+               propiedadesList = propDao.filterPropByCiudad(1);
+               propiedadesTable.setItems(FXCollections.observableList(propiedadesList));
+           }else if(cb_filtroCiudad.getSelectionModel().getSelectedItem().equals("Guadalajara")){
+               propiedadesList = propDao.filterPropByCiudad(2);
+               propiedadesTable.setItems(FXCollections.observableList(propiedadesList));
+           }else if (cb_filtroCiudad.getSelectionModel().getSelectedItem().equals("Querétaro")) {
+               propiedadesList = propDao.filterPropByCiudad(3);
+               propiedadesTable.setItems(FXCollections.observableList(propiedadesList));
+           } else if (cb_filtroCiudad.getSelectionModel().getSelectedItem().equals("Morelia")) {
+               propiedadesList = propDao.filterPropByCiudad(4);
+               propiedadesTable.setItems(FXCollections.observableList(propiedadesList));
+           }
         });
 
 

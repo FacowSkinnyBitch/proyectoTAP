@@ -42,6 +42,7 @@
             <HBox alignment="CENTER" spacing="15">
                 <ComboBox fx:id="cb_filtroStatusProp" promptText="Estado de la Propiedad" />
                 <ComboBox fx:id="cb_filtroTipoProp" promptText="Tipo Propiedad" />
+                <ComboBox fx:id="cb_filtroCiudad" promptText="Ciudad ubicada"/>
             </HBox>
 
             <TableView fx:id="propiedadesTable">
@@ -71,7 +72,11 @@
                             <PropertyValueFactory fx:id="status"/>
                         </cellValueFactory>
                     </TableColumn>
-
+                    <TableColumn fx:id="tv_Ciudad" text="Ciudad">
+                        <cellValueFactory>
+                            <PropertyValueFactory fx:id="ciudad"/>
+                        </cellValueFactory>
+                    </TableColumn>
 
                 </columns>
             </TableView>

@@ -180,8 +180,8 @@ public class PropiedadesDao extends MySQLConnection implements Dao<Propiedades> 
     public List<Propiedades> filterPropByCiudad(int id) {
         List<Propiedades> propiedadesList = FXCollections.observableArrayList();
         String query = "Select * From propiedad p " +
-                "Join ciudad c on p.id_ciudad = c.id_ciudad" +
-                "join tipo_propiedad tp on p.tipo_propiedad = tp.id_tipo_propiedad" +
+                "Join ciudad c on p.id_ciudad = c.id_ciudad " +
+                "join tipo_propiedad tp on p.tipo_propiedad = tp.id_tipo_propiedad " +
                 "where c.id_ciudad = '"+ id+"' ";
         try{
             Statement statement = conn.createStatement();
