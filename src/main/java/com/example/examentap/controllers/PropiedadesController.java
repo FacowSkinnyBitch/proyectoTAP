@@ -10,9 +10,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -29,21 +31,79 @@ public class PropiedadesController implements Initializable {
     @FXML private TableColumn<Propiedades, Integer> tv_tipoProp;
     @FXML private TableColumn<Propiedades, Boolean> tv_status;
 
+    @FXML private ComboBox cb_filtroStatusProp,cb_filtroTipoProp;
+    //    tabla
+
+
+
     private PropiedadesDao propDao = new PropiedadesDao();
     private List<Propiedades> propiedadesList = new ArrayList<Propiedades>();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        initTable();
-    }
-    private void initTable() {
         tv_id.setCellValueFactory(new PropertyValueFactory<>("id_propiedad"));
-        tv_direccion.setCellValueFactory(new PropertyValueFactory<>("direccion"));
+        tv_direccion.setCellValueFactory(new PropertyValueFactory<>("descripcion"));
         tv_precio.setCellValueFactory(new PropertyValueFactory<>("precio"));
         tv_tipoProp.setCellValueFactory(new PropertyValueFactory<>("tipo_propiedad"));
         tv_status.setCellValueFactory(new PropertyValueFactory<>("status"));
+
+        initTable();
+        String[] status = {"Renta","Venta","Todo"};
+        String[] tipo_prop = {"Casa","Negocio","Condominio","Todo"};
+        cb_filtroStatusProp.setItems(FXCollections.observableArrayList(status));
+        cb_filtroTipoProp.setItems(FXCollections.observableArrayList(tipo_prop));
+
+
+        cb_filtroStatusProp.valueProperty().addListener(event -> {
+            if(cb_filtroStatusProp.getSelectionModel().getSelectedItem().equals("Renta")){
+                propiedadesList = propDao.filterPropByStatus("renta");
+                propiedadesTable.setItems(FXCollections.observableList(propiedadesList));
+
+            }else if(cb_filtroStatusProp.getSelectionModel().getSelectedItem().equals("Venta")){
+                propiedadesList = propDao.filterPropByStatus("venta");
+                propiedadesTable.setItems(FXCollections.observableList(propiedadesList));
+            }else{
+                propiedadesList = propDao.findAll();
+                propiedadesTable.setItems(FXCollections.observableList(propiedadesList));
+            }
+        });
+        cb_filtroTipoProp.valueProperty().addListener(event -> {
+            if(cb_filtroTipoProp.getSelectionModel().getSelectedItem().toString().equals("Casa")){
+                propiedadesList = propDao.filterPropByTipoProp(1);
+                propiedadesTable.setItems(FXCollections.observableList(propiedadesList));
+            }else if(cb_filtroTipoProp.getSelectionModel().getSelectedItem().equals("Negocio")){
+                propiedadesList = propDao.filterPropByTipoProp(2);
+                propiedadesTable.setItems(FXCollections.observableList(propiedadesList));
+            }else if(cb_filtroTipoProp.getSelectionModel().getSelectedItem().equals("Condominio")){
+                propiedadesList = propDao.filterPropByTipoProp(3);
+                propiedadesTable.setItems(FXCollections.observableList(propiedadesList));
+            }else{
+                propiedadesList = propDao.findAll();
+                propiedadesTable.setItems(FXCollections.observableList(propiedadesList));
+            }
+        });
+
+
+    }
+    private void initTable() {
+
         propiedadesList = propDao.findAll();
         propiedadesTable.setItems(FXCollections.observableList(propiedadesList));
+
+
+        propiedadesTable.setOnMouseClicked(mouseEvent ->{
+            Propiedades p = (Propiedades) propiedadesTable.getSelectionModel().getSelectedItem();
+            switch(mouseEvent.getClickCount()) {
+                case 1:
+                    break;
+                case 2:
+                    if(propiedadesTable.getSelectionModel().getSelectedItem() == null) {
+                        System.out.println("Nada seleccionado");
+                    }else{
+                        onMostrarPropiedad(p);
+                    }
+            }
+        });
 
     }
 
@@ -59,6 +119,23 @@ public class PropiedadesController implements Initializable {
             stage.setTitle("Login");
             stage.setScene(scene);
             stage.centerOnScreen();
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void onMostrarPropiedad(Propiedades p) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/examentap/userViews/vw_propSelected.fxml"));
+            Parent root = loader.load();
+            propiedadSeleccionada ps = loader.getController();
+            ps.mostrarDatos(p);
+
+            Stage stage = new Stage();
+            stage.setTitle("Propiedad Seleccionada");
+            stage.setScene(new Scene(root));
+            stage.initModality(Modality.APPLICATION_MODAL); // Para bloquear la ventana principal mientras esta está abierta
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
