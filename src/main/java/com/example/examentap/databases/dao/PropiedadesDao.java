@@ -79,10 +79,10 @@ public class PropiedadesDao extends MySQLConnection implements Dao<Propiedades> 
     public List<Propiedades> findAll() {
         List<Propiedades> propiedadesList = FXCollections.observableArrayList();
         String query = "SELECT p.id_propiedad, p.direccion, p.precio, p.descripcion, p.num_cuartos, p.num_bayos, " +
-                "p.metros_cuadrados, tp.tipo_propiedad, p.status, p.ayo_construccion,c.ciuadad, p.imagen " +
+                "p.metros_cuadrados, tp.tipo_propiedad, p.status, p.ayo_construccion, c.ciudad, p.imagen " +
                 "FROM propiedad p " +
                 "JOIN tipo_propiedad tp ON p.tipo_propiedad = tp.id_tipo_propiedad " +
-                "JOIN ciudad c on p.id_ciudad = c.id_ciudad" +
+                "JOIN ciudad c on p.id_ciudad = c.id_ciudad " +
                 "order by p.id_propiedad asc";
         try {
             Statement statement = conn.createStatement();
