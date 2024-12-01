@@ -101,7 +101,7 @@ public class UsuarioDAO extends MySQLConnection implements Dao<Usuario> {
     @Override
     public boolean update(Usuario u) {
         String query = "UPDATE usuario SET " +
-                "user=?,nombre=?,primer_apellido=?,segundo_apellido=?,email=?,contraseya=?,telefono=?,direccion=?,genero=?,nacimiento=?,role=?" +
+                "user=?, nombre=?, primer_apellido=?, segundo_apellido=?, email=?, contraseya=?, telefono=?, direccion=?, genero=?, nacimiento=?, role=?" +
                 "WHERE id = ?";
         try {
             PreparedStatement ps = conn.prepareStatement(query);

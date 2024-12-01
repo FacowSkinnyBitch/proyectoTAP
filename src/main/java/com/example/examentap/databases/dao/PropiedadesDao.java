@@ -14,7 +14,7 @@ public class PropiedadesDao extends MySQLConnection implements Dao<Propiedades> 
     @Override
     public Optional<Propiedades> findById(int id) {
         Optional<Propiedades> optionalP = Optional.empty();
-        String query = "select * from propiedad where id_propiedad = ?";
+        String query = "select * from propiedad where id_propiedad = ? ";
         try {
             PreparedStatement statement = conn.prepareStatement(query);
             statement.setLong(1, id);
@@ -83,7 +83,7 @@ public class PropiedadesDao extends MySQLConnection implements Dao<Propiedades> 
                 "FROM propiedad p " +
                 "JOIN tipo_propiedad tp ON p.tipo_propiedad = tp.id_tipo_propiedad " +
                 "JOIN ciudad c on p.id_ciudad = c.id_ciudad " +
-                "order by p.id_propiedad asc";
+                "order by p.id_propiedad asc ";
         try {
             Statement statement = conn.createStatement();
             ResultSet rs = statement.executeQuery(query);
@@ -112,7 +112,10 @@ public class PropiedadesDao extends MySQLConnection implements Dao<Propiedades> 
 
     public List<Propiedades> filterPropByStatus(String status) {
         List<Propiedades> propiedadesList = FXCollections.observableArrayList();
-        String query = "select * from propiedad where status = '"+status+"' ";
+        String query = "select * from propiedad p "+
+                "JOIN ciudad c ON p.id_ciudad = c.id_ciudad "+
+                "JOIN tipo_propiedad tp on p.tipo_propiedad = tp.id_tipo_propiedad "+
+                "where status = '"+status+"' ";
         try {
             Statement statement = conn.createStatement();
             ResultSet rs = statement.executeQuery(query);
@@ -145,7 +148,7 @@ public class PropiedadesDao extends MySQLConnection implements Dao<Propiedades> 
         List<Propiedades> propiedadesList = FXCollections.observableArrayList();
         String query = "select * from propiedad p " +
                         "join tipo_propiedad tp on p.tipo_propiedad = tp.id_tipo_propiedad " +
-                        "JOIN ciudad c ON p.id_ciudad = c.id_ciudad" +
+                        "JOIN ciudad c ON p.id_ciudad = c.id_ciudad " +
                         "where tp.id_tipo_propiedad = '"+ id+"' ";
         try {
             Statement statement = conn.createStatement();
