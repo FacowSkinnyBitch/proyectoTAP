@@ -12,7 +12,7 @@ public class MainApplication extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("vw_login.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 400, 400);
-        System.out.println("alaa");
+        System.out.println(" m");
         stage.setTitle("Inicio");
         stage.setScene(scene);
         stage.show();
