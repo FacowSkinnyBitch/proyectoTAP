@@ -11,8 +11,11 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.awt.*;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -76,6 +79,48 @@ public class AdminController implements Initializable {
         FxmlLoader object = new FxmlLoader();
         Pane view = object.getPage(file);
         bpPrincipal.setCenter(view);
+    }
+
+    @FXML
+    private void onPropiedadesVendidas(ActionEvent event) {
+        abrirVistaGraficaSeleccionada("Graficas de Propiedades",0);
+    }
+
+    @FXML
+    private void onCitasAtendidas(ActionEvent event) {
+        abrirVistaGraficaSeleccionada("Estatus de Citas",1);
+
+    }
+
+    private void abrirVistaGraficaSeleccionada(String titulo, int seleccion) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/examentap/adminViews/vw_graficosEstadisticos.fxml"));
+            Parent root = loader.load();
+
+            ChartsController chartsController = loader.getController();
+            chartsController.selectedButon(seleccion);
+
+            Stage stage = new Stage();
+            stage.setTitle(titulo);
+            stage.setScene(new Scene(root));
+            stage.initModality(Modality.APPLICATION_MODAL); // Para bloquear la ventana principal mientras esta está abierta
+            stage.setResizable(false);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    //metodo para abrir reportes pdf o excel
+    private void openFile(String filename) {
+        if (Desktop.isDesktopSupported()) {
+            try {
+                File myFile = new File(filename);
+                Desktop.getDesktop().open(myFile);
+            } catch (IOException ex) {
+                // no application registered for PDFs
+            }
+        }
     }
 
     @FXML

@@ -85,6 +85,23 @@ public class CitasDao extends MySQLConnection implements Dao<Datos_Cita> {
         }
         return datosCitaList;
     }
+    public int countCitaByStatus(String status) {
+        String query = "SELECT COUNT(c.status) AS total FROM datos_cita c WHERE status = '" + status + "'";
+        int total = 0;
+
+        try {
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery(query);
+
+            if (rs.next()) {
+                total = rs.getInt("total");
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return total;
+    }
 
     @Override
     public boolean save(Datos_Cita c) {

@@ -22,6 +22,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -44,7 +45,7 @@ public class UserMenu_Controller implements Initializable {
     @FXML
     private Button btn_Ingresar, btn_Cancelar, btn_Cita, btn_MostrarCitas;
 
-    @FXML private GridPane gpFromCita;
+    @FXML private GridPane gpFromCita, gpPropiedades;
 
     @FXML private ComboBox cb_filtro,cb_filtroProp, cb_filtroCiudad;
     //    tabla

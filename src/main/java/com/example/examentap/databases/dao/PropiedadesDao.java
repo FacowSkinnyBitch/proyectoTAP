@@ -5,9 +5,8 @@ import com.example.examentap.models.Propiedades;
 import javafx.collections.FXCollections;
 
 import java.sql.*;
+import java.util.*;
 import java.util.Date;
-import java.util.List;
-import java.util.Optional;
 
 public class PropiedadesDao extends MySQLConnection implements Dao<Propiedades> {
     Connection conn = getConnection();
@@ -144,6 +143,25 @@ public class PropiedadesDao extends MySQLConnection implements Dao<Propiedades> 
 
     }
 
+    public int countPropByStatus(String status) {
+        String query = "SELECT COUNT(p.status) AS total FROM propiedad p WHERE status = '" + status + "'";
+        int total = 0;
+
+        try {
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery(query);
+
+            if (rs.next()) {
+                total = rs.getInt("total");
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return total;
+    }
+
+
     public List<Propiedades> filterPropByTipoProp(int id) {
         List<Propiedades> propiedadesList = FXCollections.observableArrayList();
         String query = "select * from propiedad p " +
@@ -179,6 +197,28 @@ public class PropiedadesDao extends MySQLConnection implements Dao<Propiedades> 
          select*from propiedad p join tipo_propiedad tp on p.tipo_propiedad = tp.id_tipo_propiedad where tp.id_tipo_propiedad=1;
          */
     }
+    public Map<String, Integer> countPropsByTipoProp() {
+        Map<String, Integer> results = new HashMap<>();
+        String query = "SELECT tp.tipo_propiedad AS tipo_propiedad, COUNT(*) AS total " +
+                "FROM propiedad p " +
+                "JOIN tipo_propiedad tp ON p.tipo_propiedad = tp.id_tipo_propiedad " +
+                "GROUP BY tp.tipo_propiedad " +
+                "ORDER BY total DESC";
+        try {
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery(query);
+
+            while (rs.next()) {
+                results.put(rs.getString("tipo_propiedad"), rs.getInt("total"));
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return results;
+    }
+
+
 
     public List<Propiedades> filterPropByCiudad(int id) {
         List<Propiedades> propiedadesList = FXCollections.observableArrayList();

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+<?import javafx.geometry.Insets?>
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.example.examentap.controllers.ChartsController"
+      prefHeight="400.0" prefWidth="600.0" alignment="CENTER">
+    <padding>
+        <Insets top="20" bottom="20" left="40" right="40"/>
+    </padding>
+    <Label fx:id="lblTitle" />
+    <GridPane fx:id="chartsContainer"></GridPane>
+    <Button fx:id="btn_CloseWindow" text="Cerrar" prefWidth="180" onAction="#onCloseCurrentView">
+        <graphic>
+            <FontIcon iconLiteral="antf-calendar" iconSize="20" iconColor="red"/>
+        </graphic>
+    </Button>
+</VBox>

@@ -7,6 +7,11 @@ module com.example.examentap {
     requires java.desktop;
     requires java.sql;
     requires mysql.connector.j;
+    requires kernel;
+    requires layout;
+    requires io;
+    requires org.slf4j;
+    requires org.apache.poi.ooxml;
 
     opens com.example.examentap to javafx.fxml;
     exports com.example.examentap;

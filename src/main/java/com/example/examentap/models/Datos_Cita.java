@@ -12,11 +12,12 @@ public class Datos_Cita {
     private Time hora_cita;
     private int id_propiedad;
     private int id_usuario;
+    private String status;
 
     public Datos_Cita() {
 
     }
-    public Datos_Cita(int id_cita, String nombre_completo, String correo, int telefono, Date fecha_cita, Time hora_cita, int id_propiedad, int id_usuario) {
+    public Datos_Cita(int id_cita, String nombre_completo, String correo, int telefono, Date fecha_cita, Time hora_cita, int id_propiedad, int id_usuario,String status) {
         this.id_cita = id_cita;
         this.nombre_completo = nombre_completo;
         this.correo = correo;
@@ -25,6 +26,7 @@ public class Datos_Cita {
         this.hora_cita = hora_cita;
         this.id_propiedad = id_propiedad;
         this.id_usuario = id_usuario;
+        this.status = status;
     }
 
     public Datos_Cita(String nombre_completo, String correo, int telefono, Date fecha_cita, Time hora_cita, int id_propiedad, int id_usuario) {
@@ -99,5 +101,13 @@ public class Datos_Cita {
 
     public void setId_propiedad(int id_propiedad) {
         this.id_propiedad = id_propiedad;
+    }
+
+    public String isStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

@@ -56,13 +56,16 @@
 
         <bottom>
                 <HBox alignment="CENTER">
-                        <Button fx:id="btn_generarGraficos" text="Propiedades vendidas"
+                        <padding>
+                                <Insets bottom="20" top="20"/>
+                        </padding>
+                        <Button fx:id="btn_generarGraficos" text="Propiedades vendidas" onAction="#onPropiedadesVendidas"
                                 style="-fx-background-color: #349f0f">
                                 <graphic>
                                         <FontIcon iconLiteral="anto-bar-chart" iconSize="20" iconColor="#000000"/>
                                 </graphic>
                         </Button>
-                        <Button fx:id="btn_generarGraficos2" text="Citas Atendidas"
+                        <Button fx:id="btn_generarGraficos2" text="Citas Atendidas" onAction="#onCitasAtendidas"
                                 style="-fx-background-color: #349f0f">
                                 <graphic>
                                         <FontIcon iconLiteral="antf-eye" iconSize="20" iconColor="#000000"/>
