@@ -13,10 +13,11 @@ public class Propiedades {
     private String tipo_propiedad;
     private String status;
     private Date ayo_construccion;
+    private String ciudad;
     private String imagen;
     public Propiedades() {}
 
-    public Propiedades(int id_propiedad, String direccion, double precio, String descripcion, int num_cuartos, int num_bayos, double metros_cuadrados, String tipo_propiedad, String status, Date ayo_construccion, String imagen) {
+    public Propiedades(int id_propiedad, String direccion, double precio, String descripcion, int num_cuartos, int num_bayos, double metros_cuadrados, String tipo_propiedad, String status, Date ayo_construccion, String ciudad, String imagen) {
         this.id_propiedad = id_propiedad;
         this.direccion = direccion;
         this.precio = precio;
@@ -27,6 +28,7 @@ public class Propiedades {
         this.tipo_propiedad = tipo_propiedad;
         this.status = status;
         this.ayo_construccion = ayo_construccion;
+        this.ciudad = ciudad;
         this.imagen = imagen;
     }
 
@@ -118,6 +120,14 @@ public class Propiedades {
         this.imagen = imagen;
     }
 
+    public String getCiudad() {
+        return ciudad;
+    }
+
+    public void setCiudad(String ciudad) {
+        this.ciudad = ciudad;
+    }
+
     @Override
     public String toString() {
         return "Descripción general de la propiedad" +
@@ -130,6 +140,7 @@ public class Propiedades {
                 "\nMetros cuadrados: " + metros_cuadrados +
                 "\nTipo propiedad: " + tipo_propiedad +
                 "\nStatus: " + status +
-                "\nAño de construccion: " + ayo_construccion;
+                "\nAño de construccion: " + ayo_construccion +
+                "\nCiudad: " + ciudad;
     }
 }

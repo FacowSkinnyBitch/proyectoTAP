@@ -32,6 +32,7 @@ public class PropiedadesDao extends MySQLConnection implements Dao<Propiedades> 
                 p.setTipo_propiedad(rs.getString("tipo_propiedad"));
                 p.setStatus(rs.getString("status"));
                 p.setAyo_construccion(rs.getDate("ayo_construccion"));
+                p.setCiudad(rs.getString("ciudad"));
                 p.setImagen(rs.getString("imagen"));
                 optionalP = Optional.of(p);
             }
@@ -78,9 +79,10 @@ public class PropiedadesDao extends MySQLConnection implements Dao<Propiedades> 
     public List<Propiedades> findAll() {
         List<Propiedades> propiedadesList = FXCollections.observableArrayList();
         String query = "SELECT p.id_propiedad, p.direccion, p.precio, p.descripcion, p.num_cuartos, p.num_bayos, " +
-                "p.metros_cuadrados, tp.tipo_propiedad, p.status, p.ayo_construccion, p.imagen " +
+                "p.metros_cuadrados, tp.tipo_propiedad, p.status, p.ayo_construccion,c.ciuadad, p.imagen " +
                 "FROM propiedad p " +
                 "JOIN tipo_propiedad tp ON p.tipo_propiedad = tp.id_tipo_propiedad " +
+                "JOIN ciudad c on p.id_ciudad = c.id_ciudad" +
                 "order by p.id_propiedad asc";
         try {
             Statement statement = conn.createStatement();
@@ -97,6 +99,7 @@ public class PropiedadesDao extends MySQLConnection implements Dao<Propiedades> 
                 p.setTipo_propiedad(rs.getString("tipo_propiedad")); // tipo de propiedad
                 p.setStatus(rs.getString("status"));
                 p.setAyo_construccion(rs.getDate("ayo_construccion"));
+                p.setCiudad(rs.getString("ciudad"));
                 p.setImagen(rs.getString("imagen"));
                 propiedadesList.add(p);
             }
@@ -126,6 +129,7 @@ public class PropiedadesDao extends MySQLConnection implements Dao<Propiedades> 
                 p.setTipo_propiedad(rs.getString("tipo_propiedad")); // tipo de propiedad
                 p.setStatus(rs.getString("status"));
                 p.setAyo_construccion(rs.getDate("ayo_construccion"));
+                p.setCiudad(rs.getString("ciudad"));
                 p.setImagen(rs.getString("imagen"));
                 propiedadesList.add(p);
             }
@@ -134,14 +138,14 @@ public class PropiedadesDao extends MySQLConnection implements Dao<Propiedades> 
             throw new RuntimeException(e);
         }
         return propiedadesList;
-        /*
-         */
+
     }
 
     public List<Propiedades> filterPropByTipoProp(int id) {
         List<Propiedades> propiedadesList = FXCollections.observableArrayList();
         String query = "select * from propiedad p " +
                         "join tipo_propiedad tp on p.tipo_propiedad = tp.id_tipo_propiedad " +
+                        "JOIN ciudad c ON p.id_ciudad = c.id_ciudad" +
                         "where tp.id_tipo_propiedad = '"+ id+"' ";
         try {
             Statement statement = conn.createStatement();
@@ -159,6 +163,7 @@ public class PropiedadesDao extends MySQLConnection implements Dao<Propiedades> 
                 p.setTipo_propiedad(rs.getString("tipo_propiedad")); // tipo de propiedad
                 p.setStatus(rs.getString("status"));
                 p.setAyo_construccion(rs.getDate("ayo_construccion"));
+                p.setCiudad(rs.getString("ciudad"));
                 p.setImagen(rs.getString("imagen"));
                 propiedadesList.add(p);
             }
@@ -171,11 +176,46 @@ public class PropiedadesDao extends MySQLConnection implements Dao<Propiedades> 
          select*from propiedad p join tipo_propiedad tp on p.tipo_propiedad = tp.id_tipo_propiedad where tp.id_tipo_propiedad=1;
          */
     }
+
+    public List<Propiedades> filterPropByCiudad(int id) {
+        List<Propiedades> propiedadesList = FXCollections.observableArrayList();
+        String query = "Select * From propiedad p " +
+                "Join ciudad c on p.id_ciudad = c.id_ciudad" +
+                "join tipo_propiedad tp on p.tipo_propiedad = tp.id_tipo_propiedad" +
+                "where c.id_ciudad = '"+ id+"' ";
+        try{
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery(query);
+
+            while (rs.next()) {
+                Propiedades p = new Propiedades();
+                p.setId_propiedad(rs.getInt("id_propiedad"));
+                p.setDireccion(rs.getString("direccion"));
+                p.setPrecio(rs.getDouble("precio"));
+                p.setDescripcion(rs.getString("descripcion"));
+                p.setNum_cuartos(rs.getInt("num_cuartos"));
+                p.setNum_bayos(rs.getInt("num_bayos"));
+                p.setMetros_cuadrados(rs.getDouble("metros_cuadrados"));
+                p.setTipo_propiedad(rs.getString("tipo_propiedad")); // tipo de propiedad
+                p.setStatus(rs.getString("status"));
+                p.setAyo_construccion(rs.getDate("ayo_construccion"));
+                p.setCiudad(rs.getString("ciudad"));
+                p.setImagen(rs.getString("imagen"));
+                propiedadesList.add(p);
+
+            }
+
+        }catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return propiedadesList;
+    }
+
     @Override
     public boolean save(Propiedades p) {
         String query = "insert into propiedad " +
-                        " (direccion, precio, descripcion,num_cuartos,num_bayos,metros_cuadrados,tipo_propiedad,status,ayo_construccion,imagen)" +
-                        " values (?, ?, ?, ?, ?, ?,?,?,?)";
+                        " (direccion, precio, descripcion,num_cuartos,num_bayos,metros_cuadrados,tipo_propiedad,status,ayo_construccion,id_ciudad,imagen)" +
+                        " values (?, ?, ?, ?, ?, ?,?,?,?,?, ?)";
         try {
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setString(1, p.getDireccion());
@@ -186,7 +226,9 @@ public class PropiedadesDao extends MySQLConnection implements Dao<Propiedades> 
             ps.setDouble(6, p.getMetros_cuadrados());
             ps.setString(7, p.getTipo_propiedad());
             ps.setString(8,p.getStatus());
-            ps.setString(9, p.getImagen());
+            ps.setDate(9,p.getAyo_construccion());
+            ps.setString(10, p.getCiudad());
+            ps.setString(11, p.getImagen());
             ps.execute();
             return true;
         } catch (SQLException e) {
@@ -198,7 +240,7 @@ public class PropiedadesDao extends MySQLConnection implements Dao<Propiedades> 
     @Override
     public boolean update(Propiedades p) {
         String query = "update propiedad set" +
-                "direccion=?, precio=?, descripcion=?,num_cuartos=?,num_bayos=?,metros_cuadrados=?,tipo_propiedad=?,status=?,ayo_construccion=?,imagen=? " +
+                "direccion=?, precio=?, descripcion=?,num_cuartos=?,num_bayos=?,metros_cuadrados=?,tipo_propiedad=?,status=?,ayo_construccion=?, id_ciudad = ?,imagen=? " +
                 "where id_propiedad = ?";
         try {
             PreparedStatement ps = conn.prepareStatement(query);
@@ -211,8 +253,9 @@ public class PropiedadesDao extends MySQLConnection implements Dao<Propiedades> 
             ps.setString(7, p.getTipo_propiedad());
             ps.setString(8,p.getStatus());
             ps.setDate(9, p.getAyo_construccion());
-            ps.setString(10, p.getImagen());
-            ps.setInt(11, p.getId_propiedad());
+            ps.setString(10, p.getCiudad());
+            ps.setString(11, p.getImagen());
+            ps.setInt(12, p.getId_propiedad());
             ps.execute();
             return true;
         } catch (SQLException e) {
