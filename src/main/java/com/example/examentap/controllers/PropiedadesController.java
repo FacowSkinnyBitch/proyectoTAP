@@ -52,7 +52,7 @@ public class PropiedadesController implements Initializable {
         initTable();
         String[] status = {"Renta","Venta","Todo"};
         String[] tipo_prop = {"Casa","Negocio","Condominio","Todo"};
-        String[] ciudadUbicada = {"León", "Guadalajara", "Querétaro", "Morelia"};
+        String[] ciudadUbicada = {"León", "Guadalajara", "Querétaro", "Morelia", "Todo"};
         cb_filtroStatusProp.setItems(FXCollections.observableArrayList(status));
         cb_filtroTipoProp.setItems(FXCollections.observableArrayList(tipo_prop));
         cb_filtroCiudad.setItems(FXCollections.observableArrayList(ciudadUbicada));
@@ -99,6 +99,9 @@ public class PropiedadesController implements Initializable {
                propiedadesTable.setItems(FXCollections.observableList(propiedadesList));
            } else if (cb_filtroCiudad.getSelectionModel().getSelectedItem().equals("Morelia")) {
                propiedadesList = propDao.filterPropByCiudad(4);
+               propiedadesTable.setItems(FXCollections.observableList(propiedadesList));
+           }else{
+               propiedadesList = propDao.findAll();
                propiedadesTable.setItems(FXCollections.observableList(propiedadesList));
            }
         });
