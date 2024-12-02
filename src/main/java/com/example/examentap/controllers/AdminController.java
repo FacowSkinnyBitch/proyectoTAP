@@ -1,6 +1,7 @@
 package com.example.examentap.controllers;
 
 import com.example.examentap.models.Usuario;
+import com.example.examentap.reports.ExcelReports;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -26,6 +27,8 @@ public class AdminController implements Initializable {
     @FXML private VBox vb_left;
     @FXML
     private ImageView iv_imagen;
+
+    public static final String DEST7 = "results/excel/Usuarios.xlsx";
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -109,6 +112,13 @@ public class AdminController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    private void onGenerarExcel(){
+        ExcelReports document = new ExcelReports();
+        document.createExcel(DEST7,0);
+        openFile(DEST7);
     }
 
     //metodo para abrir reportes pdf o excel
