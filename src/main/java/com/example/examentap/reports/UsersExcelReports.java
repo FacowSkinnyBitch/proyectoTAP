@@ -2,17 +2,15 @@ package com.example.examentap.reports;
 import com.example.examentap.databases.dao.UsuarioDAO;
 import com.example.examentap.models.Usuario;
 import org.apache.poi.ss.usermodel.*;
-import org.apache.poi.util.IOUtils;
 import org.apache.poi.xssf.usermodel.*;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
 import java.util.Optional;
 
-public class ExcelReports {
+public class UsersExcelReports {
     UsuarioDAO usuarioDao = new UsuarioDAO();
 
     public void createExcel(String filename, int user_id){

@@ -19,7 +19,7 @@ import com.itextpdf.layout.properties.UnitValue;
 import java.io.IOException;
 
 
-public class PDFReports {
+public class PropiedadesPDFReports {
     PropiedadesDao propiedadesDao = new PropiedadesDao();
 
     public void createPdf(String dest) throws IOException {

@@ -2,6 +2,9 @@ package com.example.examentap.controllers;
 
 import com.example.examentap.databases.dao.UsuarioDAO;
 import com.example.examentap.models.Usuario;
+import com.example.examentap.reports.UsersExcelReports;
+import com.example.examentap.reports.PropiedadesPDFReports;
+import com.example.examentap.reports.UsersPDFReport;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -11,13 +14,19 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.kordamp.ikonli.javafx.FontIcon;
 
+import java.awt.*;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
@@ -36,7 +45,11 @@ public class UsuarioAdminController implements Initializable {
         tvemail,tvcontraseya,tvdireccion,tvgenero, tvnacimiento,tvrole;
     @FXML
     private Button btn_crearNuevoUsuario;
+    @FXML
+    private Button btn_generarExcel;
 
+    public static final String DEST2 = "results/pdf/Propiedades.pdf";
+    public static final String DEST7 = "results/excel/Usuarios.xlsx";
 
     ContextMenu contextMenu = new ContextMenu();
     MenuItem menuItemSelectUser = new MenuItem("Info User");
@@ -83,6 +96,41 @@ public class UsuarioAdminController implements Initializable {
 
         tvUsuarios.setContextMenu(contextMenu);
 
+    }
+    @FXML
+    private void onGenerarPdf() throws IOException {
+        File file = new File(DEST2);
+        file.getParentFile().mkdirs();
+        new UsersPDFReport().createPdf(DEST2);
+        openFile(DEST2);
+        showMessage("Report generated!");
+    }
+
+    @FXML
+    private void onGenerarExcel(){
+        UsersExcelReports document = new UsersExcelReports();
+        document.createExcel(DEST7,0);
+        openFile(DEST7);
+    }
+
+    //metodo para abrir reportes pdf o excel
+    private void openFile(String filename) {
+        if (Desktop.isDesktopSupported()) {
+            try {
+                File myFile = new File(filename);
+                Desktop.getDesktop().open(myFile);
+            } catch (IOException ex) {
+                // no application registered for PDFs
+            }
+        }
+    }
+
+    //metodo para mostrar mensajes
+    private void showMessage(String message){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("PDF generated...");
+        alert.setContentText(message);
+        alert.show();
     }
 
     @Override

@@ -1,12 +1,8 @@
 package com.example.examentap.controllers;
 
 import com.example.examentap.databases.dao.PropiedadesDao;
-import com.example.examentap.models.Propiedades;
 import com.example.examentap.models.Tipo_Propiedad;
 import com.example.examentap.models.Usuario;
-import com.example.examentap.reports.ExcelReports;
-import com.example.examentap.reports.PDFEspecificReport;
-import com.example.examentap.reports.PDFReports;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,7 +10,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -26,7 +21,6 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class AdminController implements Initializable {
@@ -39,8 +33,8 @@ public class AdminController implements Initializable {
     @FXML
     private ImageView iv_imagen;
 
-    public static final String DEST7 = "results/excel/Usuarios.xlsx";
-    public static final String DEST2 = "results/pdf/Propiedades.pdf";
+
+
     public static final String DEST3 = "results/pdf/TipoPropiedades.pdf";
 
     @Override
@@ -127,21 +121,9 @@ public class AdminController implements Initializable {
         }
     }
 
-    @FXML
-    private void onGenerarExcel(){
-        ExcelReports document = new ExcelReports();
-        document.createExcel(DEST7,0);
-        openFile(DEST7);
-    }
 
-    @FXML
-    private void onGenerarPdf() throws IOException {
-        File file = new File(DEST2);
-        file.getParentFile().mkdirs();
-        new PDFReports().createPdf(DEST2);
-        openFile(DEST2);
-        showMessage("Report generated!");
-    }
+
+
     /*
     @FXML
     private void onGenerarEspecifiPdf() throws IOException{
@@ -206,13 +188,7 @@ public class AdminController implements Initializable {
         }
     }
 
-    //metodo para mostrar mensajes
-    private void showMessage(String message){
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("PDF generated...");
-        alert.setContentText(message);
-        alert.show();
-    }
+
 
     @FXML
     public void terminarApp(ActionEvent event) {

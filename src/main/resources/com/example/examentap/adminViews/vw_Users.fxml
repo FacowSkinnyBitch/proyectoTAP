@@ -19,13 +19,13 @@
             <Insets top="20" left="50" right="50" bottom="20"/>
         </padding>
 
-        <Button fx:id="btn_generarPDF" text="Generar PDF"
+        <Button fx:id="btn_generarPDF" text="Generar PDF" onAction="#onGenerarPdf"
                 style="-fx-background-color: #d78634">
             <graphic>
                 <FontIcon iconLiteral="antf-file-pdf" iconSize="20" iconColor="#000000"/>
             </graphic>
         </Button>
-        <Button fx:id="btn_generarExcel" text="Generar Excel"
+        <Button fx:id="btn_generarExcel" text="Generar Excel" onAction="#onGenerarExcel"
                 style="-fx-background-color: #349f0f">
             <graphic>
                 <FontIcon iconLiteral="antf-file-excel" iconSize="20" iconColor="#000000"/>
