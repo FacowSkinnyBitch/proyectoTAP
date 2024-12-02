@@ -51,6 +51,7 @@ public class UsuarioAdminController implements Initializable {
     public static final String DEST2 = "results/pdf/Usuarios.pdf";
     public static final String DEST3 = "results/excel/Usuarios.xlsx";
 
+
     ContextMenu contextMenu = new ContextMenu();
     //MenuItem menuItemSelectUser = new MenuItem("Info User");
     MenuItem menuItemDeleteUser = new MenuItem("Delete");
@@ -298,57 +299,48 @@ public class UsuarioAdminController implements Initializable {
     private Dialog<Usuario> crearDialogoEdicion(Usuario usuario) {
         Dialog<Usuario> dialog = new Dialog<>();
         dialog.setTitle("Editar Usuario");
-        dialog.setHeaderText("Actualiza los datos del usuario");
 
-        // Botones de confirmación
-        ButtonType guardarButtonType = new ButtonType("Guardar", ButtonBar.ButtonData.OK_DONE);
-        dialog.getDialogPane().getButtonTypes().addAll(guardarButtonType, ButtonType.CANCEL);
+        // Cargar el FXML
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/examentap/adminViews/vw_adminEditUser.fxml") );
+        DialogPane dialogPane;
+        try {
+            dialogPane = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null; // Retorna null en caso de error
+        }
 
-        // Campos de edición
-        GridPane grid = new GridPane();
-        grid.setHgap(10);
-        grid.setVgap(10);
+        // Obtener campos del controlador
+        TextField txtUser = (TextField) dialogPane.lookup("#txtUser");
+        TextField txtNombre = (TextField) dialogPane.lookup("#txtNombre");
+        TextField txtPrimerApellido = (TextField) dialogPane.lookup("#txtPrimerApellido");
+        TextField txtSegundoApellido = (TextField) dialogPane.lookup("#txtSegundoApellido");
+        TextField txtEmail = (TextField) dialogPane.lookup("#txtEmail");
+        TextField txtContraseya = (TextField) dialogPane.lookup("#txtContraseya");
+        TextField txtTelefono = (TextField) dialogPane.lookup("#txtTelefono");
+        TextField txtDireccion = (TextField) dialogPane.lookup("#txtDireccion");
+        TextField txtGenero = (TextField) dialogPane.lookup("#txtGenero");
+        DatePicker dpNacimiento = (DatePicker) dialogPane.lookup("#dpNacimiento");
+        TextField txtRole = (TextField) dialogPane.lookup("#txtRole");
 
-        TextField txtUser = new TextField(usuario.getUser());
-        TextField txtNombre = new TextField(usuario.getNombre());
-        TextField txtPrimerApellido = new TextField(usuario.getPrimer_apellido());
-        TextField txtSegundoApellido = new TextField(usuario.getSegundo_apellido());
-        TextField txtEmail = new TextField(usuario.getEmail());
-        TextField txtContraseya = new TextField(usuario.getContraseya());
-        TextField txtTelefono = new TextField(usuario.getTelefono());
-        TextField txtDireccion = new TextField(usuario.getDireccion());
-        TextField txtGenero = new TextField(usuario.getGenero());
-        DatePicker dpNacimiento = new DatePicker(usuario.getNacimiento().toLocalDate());
-        TextField txtRole = new TextField(usuario.getRole());
+        // Configurar valores iniciales
+        txtUser.setText(usuario.getUser());
+        txtNombre.setText(usuario.getNombre());
+        txtPrimerApellido.setText(usuario.getPrimer_apellido());
+        txtSegundoApellido.setText(usuario.getSegundo_apellido());
+        txtEmail.setText(usuario.getEmail());
+        txtContraseya.setText(usuario.getContraseya());
+        txtTelefono.setText(usuario.getTelefono());
+        txtDireccion.setText(usuario.getDireccion());
+        txtGenero.setText(usuario.getGenero());
+        dpNacimiento.setValue(usuario.getNacimiento().toLocalDate());
+        txtRole.setText(usuario.getRole());
 
-        grid.add(new Label("Usuario:"), 0, 0);
-        grid.add(txtUser, 1, 0);
-        grid.add(new Label("Nombre:"), 0, 1);
-        grid.add(txtNombre, 1, 1);
-        grid.add(new Label("Primer Apellido:"), 0, 2);
-        grid.add(txtPrimerApellido, 1, 2);
-        grid.add(new Label("Segundo Apellido:"), 0, 3);
-        grid.add(txtSegundoApellido, 1, 3);
-        grid.add(new Label("Email:"), 0, 4);
-        grid.add(txtEmail, 1, 4);
-        grid.add(new Label("Contraseña:"), 0, 5);
-        grid.add(txtContraseya, 1, 5);
-        grid.add(new Label("Teléfono:"), 0, 6);
-        grid.add(txtTelefono, 1, 6);
-        grid.add(new Label("Dirección:"), 0, 7);
-        grid.add(txtDireccion, 1, 7);
-        grid.add(new Label("Género:"), 0, 8);
-        grid.add(txtGenero, 1, 8);
-        grid.add(new Label("Nacimiento:"), 0, 9);
-        grid.add(dpNacimiento, 1, 9);
-        grid.add(new Label("Role:"), 0, 10);
-        grid.add(txtRole, 1, 10);
+        dialog.setDialogPane(dialogPane);
 
-        dialog.getDialogPane().setContent(grid);
-
-        // Al hacer clic en Guardar, actualizar el objeto Usuario
+        // Configurar botón Guardar
         dialog.setResultConverter(dialogButton -> {
-            if (dialogButton == guardarButtonType) {
+            if (dialogButton == dialogPane.getButtonTypes().get(0)) { // Botón Guardar
                 usuario.setUser(txtUser.getText());
                 usuario.setNombre(txtNombre.getText());
                 usuario.setPrimer_apellido(txtPrimerApellido.getText());
@@ -367,61 +359,40 @@ public class UsuarioAdminController implements Initializable {
 
         return dialog;
     }
+
 
     private Dialog<Usuario> crearDialogoCreacion(Usuario usuario) {
         Dialog<Usuario> dialog = new Dialog<>();
         dialog.setTitle("Crear Nuevo Usuario");
-        dialog.setHeaderText("Ingresa los datos del nuevo usuario");
 
-        // Botones de confirmación
-        ButtonType guardarButtonType = new ButtonType("Guardar", ButtonBar.ButtonData.OK_DONE);
-        dialog.getDialogPane().getButtonTypes().addAll(guardarButtonType, ButtonType.CANCEL);
+        // Cargar el FXML
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/examentap/adminViews/vw_adminCreateUser.fxml"));
+        DialogPane dialogPane;
+        try {
+            dialogPane = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
 
-        // Campos de entrada
-        GridPane grid = new GridPane();
-        grid.setHgap(10);
-        grid.setVgap(10);
+        // Obtener campos del controlador
+        TextField txtUser = (TextField) dialogPane.lookup("#txtUser");
+        TextField txtNombre = (TextField) dialogPane.lookup("#txtNombre");
+        TextField txtPrimerApellido = (TextField) dialogPane.lookup("#txtPrimerApellido");
+        TextField txtSegundoApellido = (TextField) dialogPane.lookup("#txtSegundoApellido");
+        TextField txtEmail = (TextField) dialogPane.lookup("#txtEmail");
+        PasswordField txtContraseya = (PasswordField) dialogPane.lookup("#txtContraseya");
+        TextField txtTelefono = (TextField) dialogPane.lookup("#txtTelefono");
+        TextField txtDireccion = (TextField) dialogPane.lookup("#txtDireccion");
+        TextField txtGenero = (TextField) dialogPane.lookup("#txtGenero");
+        DatePicker dpNacimiento = (DatePicker) dialogPane.lookup("#dpNacimiento");
+        TextField txtRole = (TextField) dialogPane.lookup("#txtRole");
 
-        TextField txtUser = new TextField();
-        TextField txtNombre = new TextField();
-        TextField txtPrimerApellido = new TextField();
-        TextField txtSegundoApellido = new TextField();
-        TextField txtEmail = new TextField();
-        PasswordField txtContraseya = new PasswordField();
-        TextField txtTelefono = new TextField();
-        TextField txtDireccion = new TextField();
-        TextField txtGenero = new TextField();
-        DatePicker dpNacimiento = new DatePicker();
-        TextField txtRole = new TextField();
+        dialog.setDialogPane(dialogPane);
 
-        grid.add(new Label("Usuario:"), 0, 0);
-        grid.add(txtUser, 1, 0);
-        grid.add(new Label("Nombre:"), 0, 1);
-        grid.add(txtNombre, 1, 1);
-        grid.add(new Label("Primer Apellido:"), 0, 2);
-        grid.add(txtPrimerApellido, 1, 2);
-        grid.add(new Label("Segundo Apellido:"), 0, 3);
-        grid.add(txtSegundoApellido, 1, 3);
-        grid.add(new Label("Email:"), 0, 4);
-        grid.add(txtEmail, 1, 4);
-        grid.add(new Label("Contraseña:"), 0, 5);
-        grid.add(txtContraseya, 1, 5);
-        grid.add(new Label("Teléfono:"), 0, 6);
-        grid.add(txtTelefono, 1, 6);
-        grid.add(new Label("Dirección:"), 0, 7);
-        grid.add(txtDireccion, 1, 7);
-        grid.add(new Label("Género:"), 0, 8);
-        grid.add(txtGenero, 1, 8);
-        grid.add(new Label("Nacimiento:"), 0, 9);
-        grid.add(dpNacimiento, 1, 9);
-        grid.add(new Label("Role:"), 0, 10);
-        grid.add(txtRole, 1, 10);
-
-        dialog.getDialogPane().setContent(grid);
-
-        // Al hacer clic en Guardar, actualizar el objeto Usuario
+        // Configurar botón Guardar
         dialog.setResultConverter(dialogButton -> {
-            if (dialogButton == guardarButtonType) {
+            if (dialogButton == dialogPane.getButtonTypes().get(0)) { // Botón Guardar
                 usuario.setUser(txtUser.getText());
                 usuario.setNombre(txtNombre.getText());
                 usuario.setPrimer_apellido(txtPrimerApellido.getText());
@@ -440,5 +411,6 @@ public class UsuarioAdminController implements Initializable {
 
         return dialog;
     }
+
 
 }
