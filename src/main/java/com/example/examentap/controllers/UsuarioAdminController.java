@@ -48,8 +48,8 @@ public class UsuarioAdminController implements Initializable {
     @FXML
     private Button btn_generarExcel;
 
-    public static final String DEST2 = "results/pdf/Propiedades.pdf";
-    public static final String DEST7 = "results/excel/Usuarios.xlsx";
+    public static final String DEST2 = "results/pdf/Usuarios.pdf";
+    public static final String DEST3 = "results/excel/Usuarios.xlsx";
 
     ContextMenu contextMenu = new ContextMenu();
     MenuItem menuItemSelectUser = new MenuItem("Info User");
@@ -102,15 +102,18 @@ public class UsuarioAdminController implements Initializable {
         File file = new File(DEST2);
         file.getParentFile().mkdirs();
         new UsersPDFReport().createPdf(DEST2);
-        openFile(DEST2);
+
         showMessage("Report generated!");
+        if(showMessage("PDF Citas")){
+            openFile(DEST2);
+        }
     }
 
     @FXML
     private void onGenerarExcel(){
         UsersExcelReports document = new UsersExcelReports();
-        document.createExcel(DEST7,0);
-        openFile(DEST7);
+        document.createExcel(DEST3,0);
+        openFile(DEST3);
     }
 
     //metodo para abrir reportes pdf o excel
@@ -126,11 +129,12 @@ public class UsuarioAdminController implements Initializable {
     }
 
     //metodo para mostrar mensajes
-    private void showMessage(String message){
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("PDF generated...");
-        alert.setContentText(message);
-        alert.show();
+    private boolean showMessage(String message){
+        Alert a = new Alert(Alert.AlertType.CONFIRMATION);
+        a.setTitle("PDF generated...");
+        a.setContentText(message);
+        Optional<ButtonType> result = a.showAndWait();
+        return (result.get() == ButtonType.OK);
     }
 
     @Override
