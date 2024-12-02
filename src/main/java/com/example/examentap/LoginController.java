@@ -68,6 +68,8 @@ public class LoginController implements Initializable {
             Stage stage = (Stage) ((Node) ae.getSource()).getScene().getWindow();
             stage.setTitle(titulo);
             stage.setScene(new Scene(root));
+            stage.setWidth(500);
+            stage.setHeight(710);
             stage.centerOnScreen();
             stage.show();
         } catch (IOException e) {
