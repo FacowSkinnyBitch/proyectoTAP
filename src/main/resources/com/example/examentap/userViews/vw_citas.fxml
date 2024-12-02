@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
@@ -11,6 +8,7 @@
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.example.examentap.controllers.CitasController"
+      stylesheets="@/com/example/examentap/cssFiles/citasUser.css"
       prefHeight="400.0" prefWidth="750.0" alignment="CENTER" spacing="20">
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
