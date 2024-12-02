@@ -71,11 +71,35 @@ public class UsuarioDAO extends MySQLConnection implements Dao<Usuario> {
         return userList;
     }
 
+    public boolean save(Usuario usuario) {
+        String query = "INSERT INTO usuario (user, nombre, primer_apellido, segundo_apellido, email, contraseya, telefono, direccion, genero, nacimiento, role) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        try (PreparedStatement statement = conn.prepareStatement(query)) {
+            statement.setString(1, usuario.getUser());
+            statement.setString(2, usuario.getNombre());
+            statement.setString(3, usuario.getPrimer_apellido());
+            statement.setString(4, usuario.getSegundo_apellido());
+            statement.setString(5, usuario.getEmail());
+            statement.setString(6, usuario.getContraseya());
+            statement.setString(7, usuario.getTelefono());
+            statement.setString(8, usuario.getDireccion());
+            statement.setString(9, usuario.getGenero());
+            statement.setDate(10, usuario.getNacimiento());
+            statement.setString(11, usuario.getRole());
+
+            int rowsAffected = statement.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+
     @Override
-    public boolean save(Usuario u) {
-        String query = "INSERT INTO usuario (" +
-                "user,nombre,primer_apellido,segundo_apellido,email,contraseya,telefono,direccion,genero,nacimiento,role) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    public boolean update(Usuario u) {
+        String query = "UPDATE usuario SET " +
+                "user=?, nombre=?, primer_apellido=?, segundo_apellido=?, email=?, contraseya=?, " +
+                "telefono=?, direccion=?, genero=?, nacimiento=?, role=? WHERE id=?";
         try {
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setString(1, u.getUser());
@@ -89,8 +113,8 @@ public class UsuarioDAO extends MySQLConnection implements Dao<Usuario> {
             ps.setString(9, u.getGenero());
             ps.setDate(10, u.getNacimiento());
             ps.setString(11, u.getRole());
+            ps.setInt(12, u.getId());
             ps.execute();
-            System.out.println("Información cargada con exito");
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -98,44 +122,28 @@ public class UsuarioDAO extends MySQLConnection implements Dao<Usuario> {
         return false;
     }
 
-    @Override
-    public boolean update(Usuario u) {
-        String query = "UPDATE usuario SET " +
-                "user=?, nombre=?, primer_apellido=?, segundo_apellido=?, email=?, contraseya=?, telefono=?, direccion=?, genero=?, nacimiento=?, role=?" +
-                "WHERE id = ?";
-        try {
-            PreparedStatement ps = conn.prepareStatement(query);
-            ps.setString(1, u.getUser());
-            ps.setString(2, u.getNombre());
-            ps.setString(3, u.getPrimer_apellido());
-            ps.setString(4, u.getSegundo_apellido());
-            ps.setString(5, u.getEmail());
-            ps.setString(6, u.getContraseya());
-            ps.setString(7, u.getTelefono());
-            ps.setString(8, u.getDireccion());
-            ps.setString(9, u.getGenero());
-            ps.setDate(9, u.getNacimiento());
-            ps.setString(10, u.getRole());
-            ps.setInt(11, u.getId());
-            ps.execute();
-            return true;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
 
     @Override
     public boolean delete(int id) {
-        String query = "DELETE FROM usuario WHERE id = ?";
+        String deleteCitasQuery = "DELETE FROM datos_cita WHERE id_usuario = ?";
+        String deleteUserQuery = "DELETE FROM usuario WHERE id = ?";
+
         try {
-            PreparedStatement ps = conn.prepareStatement(query);
-            ps.setInt(1, id);
-            ps.execute();
+            // Primero, eliminamos las citas relacionadas con el usuario
+            PreparedStatement ps1 = conn.prepareStatement(deleteCitasQuery);
+            ps1.setInt(1, id);
+            ps1.executeUpdate();
+
+            // Luego, eliminamos el usuario
+            PreparedStatement ps2 = conn.prepareStatement(deleteUserQuery);
+            ps2.setInt(1, id);
+            ps2.executeUpdate();
+
             return true;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
+
 }
 
