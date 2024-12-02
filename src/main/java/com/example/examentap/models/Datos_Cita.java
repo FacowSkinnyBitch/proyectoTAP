@@ -110,4 +110,18 @@ public class Datos_Cita {
     public void setStatus(String status) {
         this.status = status;
     }
+
+    @Override
+    public String toString() {
+        return "Datos_Cita" +
+                "id_cita=" + id_cita +
+                ", nombre_completo='" + nombre_completo + '\'' +
+                ", correo='" + correo + '\'' +
+                ", telefono=" + telefono +
+                ", fecha_cita=" + fecha_cita +
+                ", hora_cita=" + hora_cita +
+                ", id_propiedad=" + id_propiedad +
+                ", id_usuario=" + id_usuario +
+                ", status='" + status;
+    }
 }

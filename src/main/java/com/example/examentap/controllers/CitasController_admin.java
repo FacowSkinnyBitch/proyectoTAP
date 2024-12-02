@@ -14,12 +14,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import org.kordamp.ikonli.javafx.FontIcon;
 
 import java.awt.*;
 import java.io.File;
@@ -57,8 +57,28 @@ public class CitasController_admin implements Initializable {
     public static final String DEST1 = "results/pdf/Citas.pdf";
     public static final String DEST2 = "results/excel/Citas.xlsx";
 
+    ContextMenu contextMenu = new ContextMenu();
+    javafx.scene.control.MenuItem menuItemDeleteCita = new javafx.scene.control.MenuItem("Delete");
+    javafx.scene.control.MenuItem menuItemUpdateCita = new javafx.scene.control.MenuItem("Update");
+    javafx.scene.control.MenuItem menuItemStatus = new MenuItem("Status");
+
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        iniciarTabla();
+        initContextMenu();
+
+        citasTable.setOnMouseClicked(mouseEvent ->{
+            Datos_Cita datCitas =(Datos_Cita) citasTable.getSelectionModel().getSelectedItem();
+            if (mouseEvent.getClickCount() == 2) {
+                //onReadUser(selectedUser);
+                System.out.println("Cita seleccionada: "+ datCitas.toString() );
+            }
+        });
+
+    }
+    public void iniciarTabla(){
+        citasTable.setContextMenu(contextMenu);
         col_idCita.setCellValueFactory(new PropertyValueFactory<>("id_cita"));
         col_nombreCompleto.setCellValueFactory(new PropertyValueFactory<>("nombre_completo"));
         col_correo.setCellValueFactory(new PropertyValueFactory<>("correo"));
@@ -67,13 +87,68 @@ public class CitasController_admin implements Initializable {
         col_hora.setCellValueFactory(new PropertyValueFactory<>("hora_cita"));
         col_idPropiedad.setCellValueFactory(new PropertyValueFactory<>("id_propiedad"));
         col_idUsuario.setCellValueFactory(new PropertyValueFactory<>("id_usuario"));
-        iniciarTabla();
 
-    }
-    public void iniciarTabla(){
         datosCitaList = citasDao.findAll();
         citasTable.setItems(FXCollections.observableArrayList(datosCitaList));
+
+        menuItemUpdateCita.setOnAction(event -> {
+            Datos_Cita dCita = (Datos_Cita) citasTable.getSelectionModel().getSelectedItem();
+            onUpdateCita(dCita);
+        });
+        menuItemDeleteCita.setOnAction(event -> {
+            Datos_Cita dCita = (Datos_Cita) citasTable.getSelectionModel().getSelectedItem();
+
+            onDeleteCita(dCita);
+        });
+        menuItemStatus.setOnAction(event -> {
+            Datos_Cita dCita = (Datos_Cita) citasTable.getSelectionModel().getSelectedItem();
+
+            onDeleteCita(dCita);
+        });
     }
+
+
+
+    private void initContextMenu(){
+        FontIcon iconDelete = new FontIcon();
+        iconDelete.setIconLiteral("anto-delete");
+        iconDelete.setIconSize(20);
+        iconDelete.setIconColor(Color.BLACK);
+        menuItemDeleteCita.setGraphic(iconDelete);
+
+        FontIcon iconUpdate = new FontIcon();
+        iconUpdate.setIconLiteral("anto-up-square");
+        iconUpdate.setIconSize(20);
+        iconUpdate.setIconColor(Color.PURPLE);
+        menuItemUpdateCita.setGraphic(iconUpdate);
+
+
+        FontIcon iconStatus = new FontIcon();
+        iconStatus.setIconLiteral("anto-info-circle");
+        iconStatus.setIconSize(20);
+        iconStatus.setIconColor(Color.BLUE);
+        menuItemStatus.setGraphic(iconStatus);
+
+        contextMenu.getItems().addAll(menuItemUpdateCita,menuItemDeleteCita,menuItemStatus);
+
+    }
+
+    private void onUpdateCita(Datos_Cita datCita) {}
+    private void onDeleteCita(Datos_Cita datCita) {}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     @FXML
     private void generarPDF() throws IOException {
