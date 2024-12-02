@@ -39,6 +39,16 @@
                                 </graphic>
                         </Button>
 
+                        <Button fx:id="btn_reportPDF" text="Generate PDF">
+                                <graphic>
+
+                                </graphic>
+                        </Button>
+
+                        <Button fx:id="btn_reportExcel" text="Generate Excel" onAction="#onGenerarExcel">
+
+                        </Button>
+
                         <Button text="Return" onAction="#onReturn">
                                 <graphic>
                                         <FontIcon iconLiteral="anto-logout" iconColor="green" iconSize="15"/>
