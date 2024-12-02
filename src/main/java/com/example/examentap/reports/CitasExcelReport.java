@@ -17,8 +17,8 @@ public class CitasExcelReport {
     public void createExcel(String filename, int cita_id){
         XSSFWorkbook workbook = new XSSFWorkbook();
 
-        XSSFSheet sheet = workbook.createSheet("Users");
-        XSSFSheet sheet2 = workbook.createSheet("Total Users by category");
+        XSSFSheet sheet = workbook.createSheet("Citas");
+
 
         XSSFRow row = sheet.createRow(0);
 

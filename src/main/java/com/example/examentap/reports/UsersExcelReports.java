@@ -17,7 +17,7 @@ public class UsersExcelReports {
         XSSFWorkbook workbook = new XSSFWorkbook();
 
         XSSFSheet sheet = workbook.createSheet("Users");
-        XSSFSheet sheet2 = workbook.createSheet("Total Users by category");
+
 
         XSSFRow row = sheet.createRow(0);
 
