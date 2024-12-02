@@ -28,6 +28,13 @@
             </graphic>
         </Button>
 
+        <Button fx:id="btn_nuevaCita" text="Nueva Cita" onAction="#onMostrarCita"
+                style="-fx-background-color: BLUE">
+            <graphic>
+                <FontIcon iconLiteral="antf-eye" iconSize="20" iconColor="#000000"/>
+            </graphic>
+        </Button>
+
     </HBox>
     <TableView fx:id="citasTable" layoutX="10.0" layoutY="10.0" prefHeight="300.0" prefWidth="480.0">
         <columns>
@@ -69,6 +76,11 @@
             <TableColumn fx:id="col_idUsuario" text="ID Usuario" prefWidth="100.0">
                 <cellValueFactory>
                     <PropertyValueFactory property="id_usuario"/>
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="col_status" text="Status" prefWidth="100.0">
+                <cellValueFactory>
+                    <PropertyValueFactory property="status"/>
                 </cellValueFactory>
             </TableColumn>
         </columns>

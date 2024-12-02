@@ -18,6 +18,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.paint.Color;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.kordamp.ikonli.javafx.FontIcon;
 
@@ -50,6 +51,8 @@ public class CitasController_admin implements Initializable {
     private TableColumn<Datos_Cita, Integer> col_idPropiedad;
     @FXML
     private TableColumn<Datos_Cita, Integer> col_idUsuario;
+    @FXML
+    private TableColumn<Datos_Cita, String> col_status;
     private final CitasDao citasDao = new CitasDao();
     private List<Datos_Cita> datosCitaList = new ArrayList<Datos_Cita>();
 
@@ -67,11 +70,13 @@ public class CitasController_admin implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         iniciarTabla();
         initContextMenu();
+        metodosCRUD();
 
         citasTable.setOnMouseClicked(mouseEvent ->{
-            Datos_Cita datCitas =(Datos_Cita) citasTable.getSelectionModel().getSelectedItem();
             if (mouseEvent.getClickCount() == 2) {
+                Datos_Cita datCitas =(Datos_Cita) citasTable.getSelectionModel().getSelectedItem();
                 //onReadUser(selectedUser);
+                onMostrarCita(datCitas,1);
                 System.out.println("Cita seleccionada: "+ datCitas.toString() );
             }
         });
@@ -87,28 +92,13 @@ public class CitasController_admin implements Initializable {
         col_hora.setCellValueFactory(new PropertyValueFactory<>("hora_cita"));
         col_idPropiedad.setCellValueFactory(new PropertyValueFactory<>("id_propiedad"));
         col_idUsuario.setCellValueFactory(new PropertyValueFactory<>("id_usuario"));
+        col_status.setCellValueFactory(new PropertyValueFactory<>("id_usuario"));
 
         datosCitaList = citasDao.findAll();
         citasTable.setItems(FXCollections.observableArrayList(datosCitaList));
 
-        menuItemUpdateCita.setOnAction(event -> {
-            Datos_Cita dCita = (Datos_Cita) citasTable.getSelectionModel().getSelectedItem();
-            onUpdateCita(dCita);
-        });
-        menuItemDeleteCita.setOnAction(event -> {
-            Datos_Cita dCita = (Datos_Cita) citasTable.getSelectionModel().getSelectedItem();
 
-            onDeleteCita(dCita);
-        });
-        menuItemStatus.setOnAction(event -> {
-            Datos_Cita dCita = (Datos_Cita) citasTable.getSelectionModel().getSelectedItem();
-
-            onDeleteCita(dCita);
-        });
     }
-
-
-
     private void initContextMenu(){
         FontIcon iconDelete = new FontIcon();
         iconDelete.setIconLiteral("anto-delete");
@@ -132,23 +122,73 @@ public class CitasController_admin implements Initializable {
         contextMenu.getItems().addAll(menuItemUpdateCita,menuItemDeleteCita,menuItemStatus);
 
     }
+    @FXML
+    public void onMostrarCita(ActionEvent actionEvent) {
+        onMostrarCita(null,3);
+    }
+    private void metodosCRUD(){
+        menuItemUpdateCita.setOnAction(event -> {
+            Datos_Cita dCita = (Datos_Cita) citasTable.getSelectionModel().getSelectedItem();
+            onMostrarCita(dCita,2);
 
-    private void onUpdateCita(Datos_Cita datCita) {}
-    private void onDeleteCita(Datos_Cita datCita) {}
+        });
+        menuItemDeleteCita.setOnAction(event -> {
+            Datos_Cita dCita = (Datos_Cita) citasTable.getSelectionModel().getSelectedItem();
+            if(confirmDelete()){
+                System.out.println("Cita eliminada: "+ dCita.getId_cita());
+                citasDao.deleteCita(dCita.getId_cita(),dCita.getId_propiedad(),dCita.getId_usuario());
+                iniciarTabla();
+            }
+        });
+        menuItemStatus.setOnAction(event -> {
+            Datos_Cita dCita = (Datos_Cita) citasTable.getSelectionModel().getSelectedItem();
+
+            //changeStatus(dCita);
+        });
+    }
 
 
+    private boolean confirmDelete(){
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmar Borrado");
+        alert.setContentText("¿Esta seguro que quiere borrar la cita seleccionada?");
+        Optional<ButtonType> result = alert.showAndWait();
+        return (result.get() == ButtonType.OK);
+    }
 
+    private void onMostrarCita(Datos_Cita dtc, int modo) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/examentap/adminViews/vw_crudCitas.fxml"));
+            Parent root = loader.load();
+            String title = "";
+            CrudCitasController citaController = loader.getController();
+            if(modo==1){
+                //modo ver info
+                citaController.citaSeleccionada(dtc, modo);
+                title = "Informacion Cita";
+            }else if(modo == 2){
+                //modo editar
+                citaController.citaSeleccionada(dtc, modo);
+                title = "Editar Cita";
+            }else if(modo == 3){
+                citaController.citaSeleccionada(dtc, modo);
+                title = "Nueva Cita";
+            }
 
+            Stage stage = new Stage();
+            stage.setTitle(title);
+            Scene scene = new Scene(root);
+            stage.setWidth(720);
+            stage.setHeight(510);
+            scene.getStylesheets().add(getClass().getResource("/com/example/examentap/cssFiles/citasUser.css").toExternalForm());
+            stage.setScene(scene);
+            stage.initModality(Modality.APPLICATION_MODAL); // Para bloquear la ventana principal mientras esta está abierta
+            stage.show();
 
-
-
-
-
-
-
-
-
-
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     @FXML
     private void generarPDF() throws IOException {
@@ -170,7 +210,6 @@ public class CitasController_admin implements Initializable {
         Optional<ButtonType> result = a.showAndWait();
         return (result.get() == ButtonType.OK);
     }
-
     @FXML
     private void generarExcel(){
         CitasExcelReport document = new CitasExcelReport();
@@ -192,14 +231,11 @@ public class CitasController_admin implements Initializable {
         }
     }
 
-    //metodo para mostrar mensajes
-    /*
-    private void showMessage(String message){
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("PDF generated...");
-        alert.setContentText(message);
-        alert.show();
+    @FXML
+    public void onCloseForm(ActionEvent event) {
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.close();
     }
 
-     */
+
 }

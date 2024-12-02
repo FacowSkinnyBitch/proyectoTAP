@@ -103,7 +103,7 @@ public class Datos_Cita {
         this.id_propiedad = id_propiedad;
     }
 
-    public String isStatus() {
+    public String getStatus() {
         return status;
     }
 
