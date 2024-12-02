@@ -18,8 +18,8 @@
     </padding>
 
     <Label fx:id="title" text="Inicio" focusTraversable="true" style="-fx-font-size: 35"/>
-    <TextField fx:id="tf_user" promptText="Username"/>
-    <PasswordField fx:id="pf_pass" promptText="Password"/>
+    <TextField fx:id="tf_user" promptText="Usuario"/>
+    <PasswordField fx:id="pf_pass" promptText="Contraseña"/>
 
     <Button fx:id="btn_invitado" text="Modo Invitado" alignment="BOTTOM_LEFT" onAction="#iniciarModoInvitado">
     </Button>

@@ -116,8 +116,12 @@
                 <Insets bottom="20.0" top="20.0" left="20.0"/>
             </padding>
 
-            <Button text="Logout" onAction="#logout"
-            style="-fx-background-color: none;-fx-border-color: black;-fx-text-fill: red;-fx-font-size: 15px"/>
+            <Button text="" onAction="#logout"
+            style="-fx-background-color: none;-fx-border-color: black;-fx-text-fill: #138dde;-fx-font-size: 15px">
+            <graphic>
+                <FontIcon iconLiteral="anto-logout" iconSize="20" iconColor="red"/>
+            </graphic>
+            </Button>
             <Button fx:id="btn_close" text="Salir" onAction="#terminarApp">
                 <graphic>
                     <FontIcon iconLiteral="antf-close-circle" iconSize="20" iconColor="red"/>

@@ -291,17 +291,27 @@ public class UserMenu_Controller implements Initializable {
         }
     }
     private boolean mostrarAlerta(Alert.AlertType alertType, String title, String header, String content) {
-        // Crear la alerta de tipo ERROR
         Alert alerta = new Alert(alertType);
         alerta.setTitle(title);
         alerta.setHeaderText(header);
         alerta.setContentText(content);
-        Optional<ButtonType> result = alerta.showAndWait();
-        return (result.get() == ButtonType.OK);
+
+        // Aplicar estilo CSS al DialogPane
+        try {
+            alerta.getDialogPane().getStylesheets().add(
+                    getClass().getResource("/com/example/examentap/cssFiles/alerta.css").toExternalForm()
+            );
+            alerta.getDialogPane().getStyleClass().add("dialog-pane");
+        } catch (NullPointerException e) {
+            System.err.println("Error: No se encontró el archivo CSS en /cssFiles/alerta.css");
+        }
+
+        Optional<ButtonType> resultado = alerta.showAndWait();
+        return resultado.isPresent() && resultado.get() == ButtonType.OK;
     }
 
     public void logout(ActionEvent ae){
-        if(mostrarAlerta(Alert.AlertType.INFORMATION,"Logout","Cerrando seseion...", "¿Seguro que desea cerrar sesión?")){
+        if(mostrarAlerta(Alert.AlertType.INFORMATION,"Logout","Cerrando sesion...", "¿Seguro que desea cerrar sesión?")){
             usuarioIniciado=null;
             openWindow(ae,"/com/example/examentap/vw_login.fxml","Login");
         }
