@@ -4,7 +4,7 @@
 }
 
 VBox {
-    -fx-background-color: linear-gradient(to bottom, #a5f1e1, #054649); /* Degradado suave de blanco a azul claro */
+    -fx-background-color: linear-gradient(to bottom, #a5f1e1, #043334); /* Degradado suave de blanco a azul claro */
     -fx-border-color: #d3d3d3; /* Borde suave */
     -fx-border-width: 2px;
     -fx-border-radius: 10px;

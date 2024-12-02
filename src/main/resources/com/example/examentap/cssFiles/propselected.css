@@ -1,9 +1,12 @@
 /* Fondo general */
-.root {
-    -fx-background-color: #1e1e1e; /* Fondo oscuro */
-    -fx-border-radius: 15px;
-    -fx-padding: 20px;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.6), 15, 0.5, 0, 5); /* Sombra */
+VBox {
+    -fx-background-color: linear-gradient(to bottom, #c4a6f3, #24033d); /* Degradado suave de blanco a azul claro */
+    -fx-border-color: #d3d3d3; /* Borde suave */
+    -fx-border-width: 2px;
+    -fx-border-radius: 10px;
+    -fx-padding: 20px; /* Espaciado interno */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0.5, 0, 4); /* Sombra */
+    -fx-spacing: 20px; /* Separación uniforme */
 }
 
 /* Título */

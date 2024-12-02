@@ -1,6 +1,6 @@
 /* General DialogPane Style */
 .dialog-pane {
-    -fx-background-color: linear-gradient(to bottom, #2c2c2c, #3a3a3a); /* Fondo degradado oscuro */
+    -fx-background-color: linear-gradient(to bottom, #0df5d7, #460505); /* Fondo degradado oscuro */
     -fx-border-color: #5a5a5a; /* Borde gris oscuro */
     -fx-border-width: 2px;
     -fx-border-radius: 15px; /* Bordes redondeados */
@@ -10,7 +10,7 @@
 
 /* Header Panel (Título de la alerta) */
 .dialog-pane .header-panel {
-    -fx-background-color: linear-gradient(to right, #6c63ff, #4a47ff); /* Fondo degradado morado */
+    -fx-background-color: linear-gradient(to right, #e1e0ef, #000000); /* Fondo degradado morado */
     -fx-text-fill: white; /* Texto blanco */
     -fx-font-size: 20px;
     -fx-font-weight: bold;
