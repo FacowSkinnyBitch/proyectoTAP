@@ -254,12 +254,17 @@ public class UserMenu_Controller implements Initializable {
 
             Stage stage = new Stage();
             stage.setTitle("Propiedad Seleccionada");
-            stage.setScene(new Scene(root));
+            Scene scene = new Scene(root);
+            stage.setWidth(700);
+            stage.setHeight(610);
+            scene.getStylesheets().add(getClass().getResource("/com/example/examentap/cssFiles/propselected.css").toExternalForm());
+            stage.setScene(scene);
             stage.initModality(Modality.APPLICATION_MODAL); // Para bloquear la ventana principal mientras esta está abierta
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
     public void limpiarCampos(){
         tf_nombre.clear();
