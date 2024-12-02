@@ -2,6 +2,10 @@ package com.example.examentap.controllers;
 
 import com.example.examentap.databases.dao.PropiedadesDao;
 import com.example.examentap.models.Propiedades;
+import com.example.examentap.models.Tipo_Propiedad;
+import com.example.examentap.reports.PDFEspecificReport;
+import com.example.examentap.reports.PropiedadesPDFReports;
+import com.example.examentap.reports.UsersPDFReport;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -10,17 +14,18 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.awt.*;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class PropiedadesController implements Initializable {
@@ -39,6 +44,11 @@ public class PropiedadesController implements Initializable {
 
     private PropiedadesDao propDao = new PropiedadesDao();
     private List<Propiedades> propiedadesList = new ArrayList<Propiedades>();
+
+    public static final String DEST1 = "results/pdf/Propiedades.pdf";
+    public static final String DEST2 = "results/pdf/TipoPropiedades.pdf";
+    PropiedadesDao dao = new PropiedadesDao();
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -163,6 +173,59 @@ public class PropiedadesController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    private void generarPDF() throws IOException {
+        File file = new File(DEST1);
+        file.getParentFile().mkdirs();
+        new PropiedadesPDFReports().createPdf(DEST1);
+
+
+        if(showMessage("PDF Usuarios")){
+            openFile(DEST1);
+        }
+    }
+
+    @FXML
+    private void generarExcel(){
+
+    }
+
+    //metodo para abrir reportes pdf o excel
+    private void openFile(String filename) {
+        if (Desktop.isDesktopSupported()) {
+            try {
+                File myFile = new File(filename);
+                Desktop.getDesktop().open(myFile);
+            } catch (IOException ex) {
+                // no application registered for PDFs
+            }
+        }
+    }
+
+    @FXML
+    private void generarPdfFiltrado() throws IOException {
+        Tipo_Propiedad tpPropiedad = new Tipo_Propiedad();
+        if(tpPropiedad == null){
+            showMessage("Select a category");
+        } else  {
+            List<Propiedades> tipoPropiedades =(tpPropiedad.getId_tipo_propiedad() == 0)? dao.findAll() : dao.filterPropByTipoProp(tpPropiedad.getId_tipo_propiedad());
+            File file = new File(DEST2);
+            file.getParentFile().mkdirs();
+            new PDFEspecificReport().createPdf(DEST2, tipoPropiedades);
+            showMessage("The products report with esoecific id was generated");
+            openFile(DEST2);
+        }
+    }
+
+    //metodo para mostrar mensajes
+    private boolean showMessage(String message){
+        Alert a = new Alert(Alert.AlertType.CONFIRMATION);
+        a.setTitle("PDF generated...");
+        a.setContentText(message);
+        Optional<ButtonType> result = a.showAndWait();
+        return (result.get() == ButtonType.OK);
     }
 
 }

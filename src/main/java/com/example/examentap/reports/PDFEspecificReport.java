@@ -23,7 +23,7 @@ public class PDFEspecificReport {
 
     PropiedadesDao propiedadesDao = new PropiedadesDao();
 
-    public void createPdf(String dest, List<Propiedades> propiedadesCategory) throws IOException {
+    public void createPdf(String dest, List<Propiedades> propiedadesFiltro) throws IOException {
         //Initialize PDF writer
         PdfWriter writer = new PdfWriter(dest);
 
@@ -40,7 +40,7 @@ public class PDFEspecificReport {
                 .useAllAvailableWidth();
         process(table, null, bold, true);
 
-        for(Propiedades p : propiedadesCategory) {
+        for(Propiedades p : propiedadesFiltro) {
             process(table, p, font, false);
         }
         //table.addCell(new Cell().add(new Paragraph(" ")));
