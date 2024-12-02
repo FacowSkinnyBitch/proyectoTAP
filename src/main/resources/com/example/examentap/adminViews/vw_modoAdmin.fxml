@@ -39,7 +39,7 @@
                                 </graphic>
                         </Button>
 
-                        <Button fx:id="btn_reportPDF" text="Generate PDF">
+                        <Button fx:id="btn_reportPDF" text="Generate PDF" onAction="#onGenerarPdf">
                                 <graphic>
 
                                 </graphic>

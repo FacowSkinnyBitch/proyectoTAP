@@ -2,6 +2,7 @@ package com.example.examentap.controllers;
 
 import com.example.examentap.models.Usuario;
 import com.example.examentap.reports.ExcelReports;
+import com.example.examentap.reports.PDFReports;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,6 +10,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -29,6 +31,7 @@ public class AdminController implements Initializable {
     private ImageView iv_imagen;
 
     public static final String DEST7 = "results/excel/Usuarios.xlsx";
+    public static final String DEST2 = "results/pdf/products.pdf";
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -121,6 +124,15 @@ public class AdminController implements Initializable {
         openFile(DEST7);
     }
 
+    @FXML
+    private void onGenerarPdf() throws IOException {
+        File file = new File(DEST2);
+        file.getParentFile().mkdirs();
+        new PDFReports().createPdf(DEST2);
+        openFile(DEST2);
+        showMesaage("Report generated!");
+    }
+
     //metodo para abrir reportes pdf o excel
     private void openFile(String filename) {
         if (Desktop.isDesktopSupported()) {
@@ -131,6 +143,14 @@ public class AdminController implements Initializable {
                 // no application registered for PDFs
             }
         }
+    }
+
+    //metodo para mostrar mensajes
+    private void showMesaage(String message){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("PDF generated...");
+        alert.setContentText(message);
+        alert.show();
     }
 
     @FXML
