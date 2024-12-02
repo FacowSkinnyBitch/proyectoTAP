@@ -32,6 +32,10 @@
             </graphic>
         </Button>
 
+        <Button fx:id="btn_crearNuevoUsuario" text="Crear un nuevo usuario" >
+
+        </Button>
+
     </HBox>
 
     <TableView fx:id="tvUsuarios">
