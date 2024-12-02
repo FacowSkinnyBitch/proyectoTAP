@@ -21,7 +21,6 @@ import java.net.URL;
 import java.util.*;
 
 public class LoginController implements Initializable {
-    //form
     @FXML
     private TextField tf_user;
     @FXML
@@ -61,13 +60,14 @@ public class LoginController implements Initializable {
         abrirVentana(ae, "vw_signup.fxml", "Registrar Usuario");
     }
 
-     //Metodo para abrir una ventana sin controlador específico
     private void abrirVentana(ActionEvent ae, String rutaFXML, String titulo) {
         try {
             Parent root = FXMLLoader.load(getClass().getResource(rutaFXML));
             Stage stage = (Stage) ((Node) ae.getSource()).getScene().getWindow();
             stage.setTitle(titulo);
             stage.setScene(new Scene(root));
+            stage.setWidth(500);
+            stage.setHeight(710);
             stage.centerOnScreen();
             stage.show();
         } catch (IOException e) {
@@ -106,13 +106,26 @@ public class LoginController implements Initializable {
     }
 
     private boolean mostrarAlerta(Alert.AlertType tipo, String titulo, String encabezado, String contenido) {
+        // Crear la alerta
         Alert alerta = new Alert(tipo);
         alerta.setTitle(titulo);
         alerta.setHeaderText(encabezado);
         alerta.setContentText(contenido);
+
+        // Aplicar estilo CSS al DialogPane
+        try {
+            alerta.getDialogPane().getStylesheets().add(
+                    getClass().getResource("/com/example/examentap/cssFiles/alerta.css").toExternalForm()
+            );
+            alerta.getDialogPane().getStyleClass().add("dialog-pane");
+        } catch (NullPointerException e) {
+            System.err.println("Error: No se encontró el archivo CSS en /cssFiles/alerta.css");
+        }
+
         Optional<ButtonType> resultado = alerta.showAndWait();
         return resultado.isPresent() && resultado.get() == ButtonType.OK;
     }
+
 
     @FXML
     public void terminarApp(ActionEvent event) {

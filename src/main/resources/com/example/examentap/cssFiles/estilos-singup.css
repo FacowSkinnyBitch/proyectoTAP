@@ -1,0 +1,108 @@
+/* General Styles */
+* {
+    -fx-font-family: "Arial";
+    -fx-font-size: 10px;
+}
+
+/* VBox (Root Container) */
+VBox {
+    -fx-background-color: linear-gradient(to bottom, #a5f1e1, #042e2f); /* Degradado suave de blanco a azul claro */
+    -fx-border-color: #d3d3d3; /* Borde suave */
+    -fx-border-width: 2px;
+    -fx-border-radius: 10px;
+    -fx-padding: 20px; /* Espaciado interno */
+    -fx-spacing: 20px; /* Separación uniforme */
+}
+
+
+Label#title {
+    -fx-font-size: 50px; /* Tamaño grande */
+    -fx-font-weight: bold; /* Negrita */
+    -fx-text-fill: #fc0000; /* Color llamativo (morado) */
+    -fx-alignment: center; /* Centrado */
+    -fx-padding: 10px; /* Espaciado interno */
+    -fx-effect: dropshadow(gaussian, rgba(31, 9, 241, 0.7), 15, 0.7, 0, 5); /* Sombra suave */
+}
+
+/* TextField and PasswordField Styles */
+TextField, PasswordField {
+    -fx-border-color: transparent;
+    -fx-border-radius: 10px; /* Bordes redondeados */
+    -fx-background-radius: 10px;
+    -fx-background-color: #ffffff; /* Fondo blanco */
+    -fx-padding: 10px;
+    -fx-prompt-text-fill: #a0a0a0; /* Color del texto de placeholder */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.15), 5, 0.5, 0, 2); /* Sombra para hacerlo más llamativo */
+    -fx-transition: 0.3s ease-in-out; /* Transición suave para los cambios */
+}
+
+/* Efectos al enfocar (focus) */
+TextField:focused, PasswordField:focused {
+    -fx-border-color: #6c63ff; /* Borde morado cuando se enfoca */
+    -fx-border-width: 2px;
+    -fx-effect: dropshadow(gaussian, rgba(108, 99, 255, 0.6), 10, 0.5, 0, 3); /* Sombra morada */
+}
+
+/* HBox for Gender Options */
+HBox {
+    -fx-spacing: 30px; /* Separación entre elementos */
+}
+
+/* RadioButton Styles */
+RadioButton {
+    -fx-font-size: 34px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #000000; /* Color del texto */
+}
+
+RadioButton:selected {
+    -fx-mark-color: #6c63ff; /* Color al seleccionar */
+}
+
+/* DatePicker Styles */
+DatePicker {
+    -fx-border-color: #525050;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-padding: 10px;
+    -fx-prompt-text-fill: #f1e9e9;
+}
+
+DatePicker:focused {
+    -fx-border-color: #6c63ff;
+    -fx-border-width: 2px;
+    -fx-effect: dropshadow(gaussian, rgba(108, 99, 255, 0.6), 10, 0.5, 0, 3);
+}
+
+/* Buttons */
+Button {
+    -fx-background-color: linear-gradient(to bottom, #6c63ff, #5753f0);
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-padding: 10px 15px;
+    -fx-min-width: 100px;
+}
+
+Button:hover {
+    -fx-background-color: linear-gradient(to bottom, #5753f0, #3e3abf); /* Efecto hover */
+}
+
+Button:pressed {
+    -fx-background-color: #3e3abf; /* Color al presionar */
+}
+
+/* Button "Cancelar" */
+Button#btn_close {
+    -fx-background-color: linear-gradient(to bottom, #ff5f5f, #ff3e3e);
+    -fx-text-fill: white;
+}
+
+Button#btn_close:hover {
+    -fx-background-color: linear-gradient(to bottom, #ff3e3e, #ff1f1f);
+}
+
+Button#btn_close:pressed {
+    -fx-background-color: #ff1f1f;
+}

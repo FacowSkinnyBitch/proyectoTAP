@@ -1,0 +1,52 @@
+/* Fondo general */
+VBox {
+    -fx-background-color: linear-gradient(to bottom, #c4a6f3, #24033d); /* Degradado suave de blanco a azul claro */
+    -fx-border-color: #d3d3d3; /* Borde suave */
+    -fx-border-width: 2px;
+    -fx-border-radius: 10px;
+    -fx-padding: 20px; /* Espaciado interno */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0.5, 0, 4); /* Sombra */
+    -fx-spacing: 20px; /* Separación uniforme */
+}
+
+/* Título */
+.label-title {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white; /* Texto blanco para el título */
+    -fx-padding: 10px;
+    -fx-alignment: center;
+}
+
+/* Estilo para las etiquetas */
+.label {
+    -fx-text-fill: #f5f5f5; /* Texto gris claro */
+    -fx-font-size: 14px;
+}
+
+/* Estilo para los valores dinámicos */
+.label-value {
+    -fx-text-fill: white; /* Texto blanco */
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+}
+
+/* Imagen */
+.image-view {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0.5, 0, 2); /* Sombra */
+    -fx-border-radius: 10px;
+}
+
+/* Botón */
+.button {
+    -fx-background-color: linear-gradient(to bottom, #6c63ff, #4a47ff); /* Fondo degradado morado */
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-border-radius: 10px;
+    -fx-padding: 10px 20px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 8, 0.5, 0, 2);
+}
+
+.button:hover {
+    -fx-background-color: linear-gradient(to bottom, #4a47ff, #2c2aff); /* Hover morado más claro */
+}

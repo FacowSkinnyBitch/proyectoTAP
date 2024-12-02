@@ -1,0 +1,68 @@
+/* General DialogPane Style */
+.dialog-pane {
+    -fx-background-color: linear-gradient(to bottom, #0df5d7, #460505); /* Fondo degradado oscuro */
+    -fx-border-color: #5a5a5a; /* Borde gris oscuro */
+    -fx-border-width: 2px;
+    -fx-border-radius: 15px; /* Bordes redondeados */
+    -fx-padding: 20px; /* Espaciado interno */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.8), 15, 0.5, 0, 5); /* Sombra */
+}
+
+/* Header Panel (Título de la alerta) */
+.dialog-pane .header-panel {
+    -fx-background-color: linear-gradient(to right, #e1e0ef, #000000); /* Fondo degradado morado */
+    -fx-text-fill: white; /* Texto blanco */
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-alignment: center; /* Centrado */
+    -fx-padding: 15px;
+    -fx-border-radius: 15px 15px 0 0; /* Bordes redondeados solo en la parte superior */
+}
+
+/* Content Text (Mensaje de la alerta) */
+.dialog-pane .content {
+    -fx-text-fill: #d1d1d1; /* Texto gris claro */
+    -fx-font-size: 14px;
+    -fx-padding: 20px;
+    -fx-background-color: transparent; /* Fondo transparente */
+}
+
+/* Button Styles */
+.dialog-pane .button-bar .button {
+    -fx-background-color: linear-gradient(to bottom, #6c63ff, #4a47ff); /* Fondo degradado morado */
+    -fx-text-fill: white; /* Texto blanco */
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-border-radius: 10px; /* Bordes redondeados */
+    -fx-background-radius: 10px;
+    -fx-padding: 10px 15px;
+    -fx-min-width: 100px; /* Ancho mínimo */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 8, 0.5, 0, 2); /* Sombra */
+}
+
+.dialog-pane .button-bar .button:hover {
+    -fx-background-color: linear-gradient(to bottom, #4a47ff, #2c2aff); /* Efecto hover */
+    -fx-text-fill: #f0f0f0; /* Texto más claro */
+}
+
+.dialog-pane .button-bar .button:pressed {
+    -fx-background-color: #3a37ff; /* Fondo más oscuro al presionar */
+    -fx-effect: none; /* Sin sombra al presionar */
+}
+
+/* Cancel Button (Botón cancelar) */
+.dialog-pane .button-bar .button:default-cancel {
+    -fx-background-color: linear-gradient(to bottom, #ff5f5f, #e63939); /* Fondo rojo degradado */
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+}
+
+.dialog-pane .button-bar .button:default-cancel:hover {
+    -fx-background-color: linear-gradient(to bottom, #e63939, #c13030); /* Hover rojo */
+}
+
+.dialog-pane .button-bar .button:default-cancel:pressed {
+    -fx-background-color: #a82828; /* Fondo rojo oscuro al presionar */
+}

@@ -2,6 +2,10 @@ package com.example.examentap.controllers;
 
 import com.example.examentap.databases.dao.PropiedadesDao;
 import com.example.examentap.models.Propiedades;
+import com.example.examentap.models.Tipo_Propiedad;
+import com.example.examentap.reports.PDFEspecificReport;
+import com.example.examentap.reports.PropiedadesPDFReports;
+import com.example.examentap.reports.UsersPDFReport;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -10,17 +14,21 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import org.kordamp.ikonli.javafx.FontIcon;
 
+import java.awt.*;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class PropiedadesController implements Initializable {
@@ -33,12 +41,19 @@ public class PropiedadesController implements Initializable {
     @FXML private TableColumn<Propiedades, String> tv_Ciudad;
 
     @FXML private ComboBox cb_filtroStatusProp,cb_filtroTipoProp, cb_filtroCiudad;
-    //    tabla
-
-
 
     private PropiedadesDao propDao = new PropiedadesDao();
     private List<Propiedades> propiedadesList = new ArrayList<Propiedades>();
+
+    public static final String DEST1 = "results/pdf/Propiedades.pdf";
+    public static final String DEST2 = "results/pdf/TipoPropiedades.pdf";
+    PropiedadesDao dao = new PropiedadesDao();
+
+    ContextMenu contextMenu = new ContextMenu();
+    MenuItem menuItemSelectUser = new MenuItem("Info User");
+    MenuItem menuItemDeleteUser = new MenuItem("Delete");
+    MenuItem menuItemUpdate = new MenuItem("Update");
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -50,6 +65,8 @@ public class PropiedadesController implements Initializable {
         tv_Ciudad.setCellValueFactory(new PropertyValueFactory<>("ciudad"));
 
         initTable();
+        initContextMenu();
+
         String[] status = {"Renta","Venta","Todo"};
         String[] tipo_prop = {"Casa","Negocio","Condominio","Todo"};
         String[] ciudadUbicada = {"León", "Guadalajara", "Querétaro", "Morelia", "Todo"};
@@ -58,7 +75,7 @@ public class PropiedadesController implements Initializable {
         cb_filtroCiudad.setItems(FXCollections.observableArrayList(ciudadUbicada));
 
 
-
+        //filtros de la tabla
         cb_filtroStatusProp.valueProperty().addListener(event -> {
             if(cb_filtroStatusProp.getSelectionModel().getSelectedItem().equals("Renta")){
                 propiedadesList = propDao.filterPropByStatus("renta");
@@ -109,10 +126,8 @@ public class PropiedadesController implements Initializable {
 
     }
     private void initTable() {
-
         propiedadesList = propDao.findAll();
         propiedadesTable.setItems(FXCollections.observableList(propiedadesList));
-
 
         propiedadesTable.setOnMouseClicked(mouseEvent ->{
             Propiedades p = (Propiedades) propiedadesTable.getSelectionModel().getSelectedItem();
@@ -128,6 +143,27 @@ public class PropiedadesController implements Initializable {
             }
         });
 
+    }
+    private void initContextMenu(){
+        FontIcon iconDelete = new FontIcon();
+        iconDelete.setIconLiteral("antf-info-circle");
+        iconDelete.setIconSize(20);
+        iconDelete.setIconColor(Color.BLUE);
+        menuItemSelectUser.setGraphic(iconDelete);
+
+
+        FontIcon iconComplete = new FontIcon();
+        iconComplete.setIconLiteral("antf-read");
+        iconComplete.setIconSize(20);
+        iconComplete.setIconColor(Color.GREEN);
+        menuItemUpdate.setGraphic(iconComplete);
+
+        FontIcon iconIncomplete = new FontIcon();
+        iconIncomplete.setIconLiteral("antf-delete");
+        iconIncomplete.setIconSize(20);
+        iconIncomplete.setIconColor(Color.RED);
+        contextMenu.getItems().addAll(menuItemSelectUser,menuItemUpdate,menuItemDeleteUser);
+        menuItemDeleteUser.setGraphic(iconIncomplete);
     }
 
     @FXML
@@ -163,6 +199,59 @@ public class PropiedadesController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    private void generarPDF() throws IOException {
+        File file = new File(DEST1);
+        file.getParentFile().mkdirs();
+        new PropiedadesPDFReports().createPdf(DEST1);
+
+
+        if(showMessage("PDF Usuarios")){
+            openFile(DEST1);
+        }
+    }
+
+    @FXML
+    private void generarExcel(){
+
+    }
+
+    //metodo para abrir reportes pdf o excel
+    private void openFile(String filename) {
+        if (Desktop.isDesktopSupported()) {
+            try {
+                File myFile = new File(filename);
+                Desktop.getDesktop().open(myFile);
+            } catch (IOException ex) {
+                // no application registered for PDFs
+            }
+        }
+    }
+
+    @FXML
+    private void generarPdfFiltrado() throws IOException {
+        Tipo_Propiedad tpPropiedad = new Tipo_Propiedad();
+        if(tpPropiedad == null){
+            showMessage("Select a category");
+        } else  {
+            List<Propiedades> tipoPropiedades =(tpPropiedad.getId_tipo_propiedad() == 0)? dao.findAll() : dao.filterPropByTipoProp(tpPropiedad.getId_tipo_propiedad());
+            File file = new File(DEST2);
+            file.getParentFile().mkdirs();
+            new PDFEspecificReport().createPdf(DEST2, tipoPropiedades);
+            showMessage("The products report with esoecific id was generated");
+            openFile(DEST2);
+        }
+    }
+
+    //metodo para mostrar mensajes
+    private boolean showMessage(String message){
+        Alert a = new Alert(Alert.AlertType.CONFIRMATION);
+        a.setTitle("PDF generated...");
+        a.setContentText(message);
+        Optional<ButtonType> result = a.showAndWait();
+        return (result.get() == ButtonType.OK);
     }
 
 }

@@ -9,6 +9,7 @@
 <?import javafx.geometry.Insets?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.collections.FXCollections?>
 <BorderPane fx:id="bpPrincipal" xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.example.examentap.controllers.AdminController"
@@ -39,15 +40,7 @@
                                 </graphic>
                         </Button>
 
-                        <Button fx:id="btn_reportPDF" text="Generate PDF">
-                                <graphic>
 
-                                </graphic>
-                        </Button>
-
-                        <Button fx:id="btn_reportExcel" text="Generate Excel" onAction="#onGenerarExcel">
-
-                        </Button>
 
                         <Button text="Return" onAction="#onReturn">
                                 <graphic>

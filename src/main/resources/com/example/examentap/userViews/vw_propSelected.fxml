@@ -1,24 +1,73 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.image.ImageView?>
+
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.example.examentap.controllers.propiedadSeleccionada"
-      prefHeight="400.0" prefWidth="600.0"
+      prefHeight="350.0" prefWidth="600.0"
       alignment="CENTER" spacing="20">
     <padding>
-        <Insets bottom="20.0" top="20.0" left="20.0"/>
+        <Insets bottom="20.0" top="20.0" left="20.0" right="20.0"/>
     </padding>
 
-    <TextArea fx:id="ta_All_Propiedades2" prefWidth="250" prefHeight="300" maxHeight="300" maxWidth="250" editable="false"/>
-    <ImageView fx:id="iv_imagen2" fitWidth="200" fitHeight="200" preserveRatio="true" />
-    <Button fx:id="cerrarButton" layoutX="200.0" layoutY="320.0" text="Cerrar" onAction="#onClosePropiedadView"/>
+    <Label text="Detalles de la Propiedad Seleccionada" styleClass="label-title"/>
 
+    <!-- Contenedor horizontal -->
+    <HBox spacing="20" alignment="CENTER">
+        <!-- Contenedor de los detalles -->
+        <GridPane fx:id="gridPaneDetalles" hgap="10" vgap="10" alignment="CENTER_LEFT">
+            <!-- ID Propiedad -->
+            <Label text="ID Propiedad:" styleClass="label" GridPane.rowIndex="0" GridPane.columnIndex="0" />
+            <Label fx:id="labelIdPropiedad" text="1" styleClass="label-value" GridPane.rowIndex="0" GridPane.columnIndex="1" />
+
+            <!-- Dirección -->
+            <Label text="Dirección:" styleClass="label" GridPane.rowIndex="1" GridPane.columnIndex="0" />
+            <Label fx:id="labelDireccion" text="Calle Falsa 123" styleClass="label-value" GridPane.rowIndex="1" GridPane.columnIndex="1" />
+
+            <!-- Precio -->
+            <Label text="Precio:" styleClass="label" GridPane.rowIndex="2" GridPane.columnIndex="0" />
+            <Label fx:id="labelPrecio" text="250000.0" styleClass="label-value" GridPane.rowIndex="2" GridPane.columnIndex="1" />
+
+            <!-- Descripción -->
+            <Label text="Descripción:" styleClass="label" GridPane.rowIndex="3" GridPane.columnIndex="0" />
+            <Label fx:id="labelDescripcion" text="Casa amplia con jardín" styleClass="label-value" GridPane.rowIndex="3" GridPane.columnIndex="1" />
+
+            <!-- Número de cuartos -->
+            <Label text="Número de cuartos:" styleClass="label" GridPane.rowIndex="4" GridPane.columnIndex="0" />
+            <Label fx:id="labelNumCuartos" text="3" styleClass="label-value" GridPane.rowIndex="4" GridPane.columnIndex="1" />
+
+            <!-- Número de baños -->
+            <Label text="Número de baños:" styleClass="label" GridPane.rowIndex="5" GridPane.columnIndex="0" />
+            <Label fx:id="labelNumBanos" text="2" styleClass="label-value" GridPane.rowIndex="5" GridPane.columnIndex="1" />
+
+            <!-- Metros cuadrados -->
+            <Label text="Metros cuadrados:" styleClass="label" GridPane.rowIndex="6" GridPane.columnIndex="0" />
+            <Label fx:id="labelMetrosCuadrados" text="150.5" styleClass="label-value" GridPane.rowIndex="6" GridPane.columnIndex="1" />
+
+            <!-- Tipo de propiedad -->
+            <Label text="Tipo de propiedad:" styleClass="label" GridPane.rowIndex="7" GridPane.columnIndex="0" />
+            <Label fx:id="labelTipoPropiedad" text="Casa" styleClass="label-value" GridPane.rowIndex="7" GridPane.columnIndex="1" />
+
+            <!-- Status -->
+            <Label text="Status:" styleClass="label" GridPane.rowIndex="8" GridPane.columnIndex="0" />
+            <Label fx:id="labelStatus" text="venta" styleClass="label-value" GridPane.rowIndex="8" GridPane.columnIndex="1" />
+
+            <!-- Año de construcción -->
+            <Label text="Año de construcción:" styleClass="label" GridPane.rowIndex="9" GridPane.columnIndex="0" />
+            <Label fx:id="labelAyoConstruccion" text="2010" styleClass="label-value" GridPane.rowIndex="9" GridPane.columnIndex="1" />
+
+            <!-- Ciudad -->
+            <Label text="Ciudad:" styleClass="label" GridPane.rowIndex="10" GridPane.columnIndex="0" />
+            <Label fx:id="labelCiudad" text="León" styleClass="label-value" GridPane.rowIndex="10" GridPane.columnIndex="1" />
+        </GridPane>
+
+        <!-- Contenedor para la imagen -->
+        <VBox alignment="CENTER" spacing="15">
+            <ImageView fx:id="iv_imagen2" fitWidth="300" fitHeight="200" preserveRatio="true" styleClass="image-view" />
+            <Button fx:id="cerrarButton" text="Cerrar" onAction="#onClosePropiedadView" styleClass="button" />
+        </VBox>
+    </HBox>
 </VBox>

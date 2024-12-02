@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
@@ -11,12 +8,12 @@
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.example.examentap.controllers.registroController"
-      prefHeight="350.0" prefWidth="600.0"
+      stylesheets="@cssFiles/estilos-singup.css"
       alignment="CENTER" spacing="20">
     <padding>
         <Insets bottom="20.0" right="20.0" top="20.0" left="20.0"/>
     </padding>
-    <Label text="Sigin" style="-fx-font-size: 20px; -fx-text-fill: green" focusTraversable="true"/>
+    <Label text="Registro" style="-fx-font-size: 20px; -fx-text-fill: #045204" focusTraversable="true"/>
     <!-- username,nombre,apellidos, correo, contraseña y confirmacion, telefono, direccion, genero, fecha nacimiento -->
     <TextField fx:id="tf_user" promptText="Usuario"/>
     <TextField fx:id="tf_nombre"  promptText="Nombre"/>
@@ -28,16 +25,20 @@
     <TextField fx:id="tf_telefono"  promptText="12345678"/>
     <TextField fx:id="tf_direccion"  promptText="Dirección"/>
     <HBox spacing="30" alignment="CENTER">
-        <RadioButton fx:id="rb_women" text="Mujer"/>
-        <RadioButton fx:id="rb_man" text="Hombre"/>
-        <RadioButton fx:id="rb_other" text="Otro"/>
+        <RadioButton fx:id="rb_women" text="Mujer" style="-fx-font-size: 14"/>
+        <RadioButton fx:id="rb_man" text="Hombre" style="-fx-font-size: 14"/>
+        <RadioButton fx:id="rb_other" text="Otro" style="-fx-font-size: 14"/>
     </HBox>
     <DatePicker fx:id="fechaN" promptText="YY-MM-DD"/>
     <HBox spacing="20" alignment="CENTER">
-        <Button text="Registrarse" onAction="#onRegistrarse"/>
+        <Button text="Registrarse" onAction="#onRegistrarse">
+        <graphic>
+            <FontIcon iconLiteral="antf-edit" iconSize="16" iconColor="#282bbc"/>
+        </graphic>
+        </Button>
         <Button fx:id="btn_close" text="Cancelar" onAction="#returnLogin">
             <graphic>
-                <FontIcon iconLiteral="antf-close-circle" iconSize="20" iconColor="red"/>
+                <FontIcon iconLiteral="antf-close-circle" iconSize="16" iconColor="red"/>
             </graphic>
         </Button>
     </HBox>

@@ -34,6 +34,8 @@ public class CitasController {
     private TableColumn<Datos_Cita, Integer> col_idPropiedad;
     private Usuario usuarioIngresado;
 
+
+
     @FXML
     private void initialize() {
         col_idCita.setCellValueFactory(new PropertyValueFactory<>("id_cita"));
@@ -60,4 +62,6 @@ public class CitasController {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.close();
     }
+
+
 }

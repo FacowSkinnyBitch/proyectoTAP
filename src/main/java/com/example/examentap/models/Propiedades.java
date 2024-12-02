@@ -128,6 +128,7 @@ public class Propiedades {
         this.ciudad = ciudad;
     }
 
+
     @Override
     public String toString() {
         return "Descripción general de la propiedad" +
@@ -142,5 +143,9 @@ public class Propiedades {
                 "\nStatus: " + status +
                 "\nAño de construccion: " + ayo_construccion +
                 "\nCiudad: " + ciudad;
+
     }
+
+
+
 }
