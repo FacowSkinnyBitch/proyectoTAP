@@ -21,7 +21,6 @@ import java.net.URL;
 import java.util.*;
 
 public class LoginController implements Initializable {
-    //form
     @FXML
     private TextField tf_user;
     @FXML
@@ -61,7 +60,6 @@ public class LoginController implements Initializable {
         abrirVentana(ae, "vw_signup.fxml", "Registrar Usuario");
     }
 
-     //Metodo para abrir una ventana sin controlador específico
     private void abrirVentana(ActionEvent ae, String rutaFXML, String titulo) {
         try {
             Parent root = FXMLLoader.load(getClass().getResource(rutaFXML));
