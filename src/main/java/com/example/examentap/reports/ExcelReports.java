@@ -60,9 +60,7 @@ public class ExcelReports {
         XSSFCell cellHeader10 = row.createCell(9);
         cellHeader10.setCellValue("PROPERTY ACQUIRED");
         cellHeader10.setCellStyle(cellTitleStyle);
-        XSSFCell cellHeader11 = row.createCell(10);
-        cellHeader11.setCellValue("IMAGE");
-        cellHeader11.setCellStyle(cellTitleStyle);
+
 
         int row_number = 1;
         CellStyle cellStyleDateFormat = workbook.createCellStyle();
@@ -83,7 +81,6 @@ public class ExcelReports {
         }
 
         for (Usuario user : users) {
-            // Resto del código
 
             XSSFRow newRow = sheet.createRow(row_number++);
 
@@ -116,36 +113,6 @@ public class ExcelReports {
             cell9.setCellValue(user.getGenero());
             cell9.setCellStyle(cellStyleDateFormat);
 
-
-
-            XSSFCell cell10 = newRow.createCell(9);
-            //cell7.setCellValue(product.getCategory().getName());
-            //cell8.setCellStyle(cellContentStyle);
-            //InputStream inputStream1 = getClass().getResourceAsStream("/img/" + product.getImage());
-
-            /*
-            try {
-                //byte[] inputImageBytes1 = IOUtils.toByteArray(inputStream1);
-                //int inputImagePictureID1 = workbook.addPicture(inputImageBytes1, workbook.PICTURE_TYPE_JPEG);
-                XSSFDrawing drawing = (XSSFDrawing) sheet.createDrawingPatriarch();
-                XSSFClientAnchor imageAnchor = new XSSFClientAnchor();
-                imageAnchor.setCol1(7); // Sets the column (0 based) of the first cell.
-                imageAnchor.setCol2(8); // Sets the column (0 based) of the Second cell.
-
-                imageAnchor.setRow1(row_number-1); // Sets the row (0 based) of the first cell.
-                imageAnchor.setRow2(row_number); // Sets the row (0 based) of the Second cell.
-                XSSFPicture myPicture = drawing.createPicture(imageAnchor, inputImagePictureID1);
-                //myPicture.resize();
-                //myPicture.getImageDimension().setSize(100, 100);
-                //newRow.setHeight((short)-1);
-                newRow.setHeightInPoints(60);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-
-             */
-
-
         }
 
         sheet.autoSizeColumn(0);
@@ -156,34 +123,6 @@ public class ExcelReports {
         sheet.autoSizeColumn(5);
         sheet.autoSizeColumn(6);
 
-
-
-        //SHEET 2 PRODUCTS BY CATEGORY
-        /*
-        XSSFRow rowSheet2 = sheet2.createRow(0);
-
-        XSSFCell cellHeaderDepartment = rowSheet2.createCell(0);
-        cellHeaderDepartment.setCellValue("Category");
-        cellHeaderDepartment.setCellStyle(cellTitleStyle);
-        XSSFCell cellHeaderTotalEmployees = rowSheet2.createCell(1);
-        cellHeaderTotalEmployees.setCellValue("Total Products");
-        cellHeaderTotalEmployees.setCellStyle(cellTitleStyle);
-
-        //row_number = 1;
-        Map<String, Integer> prodList = productDao.totalProductsByCategory();
-        AtomicInteger rowNum = new AtomicInteger(1);
-        prodList.forEach((key, value) -> {
-            XSSFRow _row = sheet2.createRow(rowNum.getAndIncrement());
-            XSSFCell cellDept = _row.createCell(0);
-            cellDept.setCellValue(key);
-            XSSFCell cellTotal = _row.createCell(1);
-            cellTotal.setCellValue(value);
-        });
-
-        sheet2.autoSizeColumn(0);
-        sheet2.autoSizeColumn(1);
-
-         */
 
         try (FileOutputStream outputStream = new FileOutputStream(filename)) {
             workbook.write(outputStream);
