@@ -20,7 +20,7 @@
 <?import javafx.scene.control.PasswordField?>
 <VBox xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.example.examentap.LoginController"
-      stylesheets="@cssFiles/estilosGenerales.css" alignment="CENTER" spacing="25"
+      stylesheets="@cssFiles/estilo-s-login.css" alignment="CENTER" spacing="25"
       prefHeight="350.0" prefWidth="400.0">
 
     <padding>

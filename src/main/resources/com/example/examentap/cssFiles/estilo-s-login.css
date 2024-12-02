@@ -1,0 +1,81 @@
+* {
+    -fx-font-family: "Source Code Pro";
+    -fx-font-size: 13px;
+}
+
+/* VBox (Root container) */
+VBox {
+    -fx-background-color: #f4f4f9;
+    -fx-border-color: #cfcfd4;
+    -fx-border-width: 2px;
+    -fx-border-radius: 10px;
+    -fx-padding: 20px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0.5, 0, 4);
+}
+
+
+Label#title {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #000000;
+}
+
+
+TextField, PasswordField {
+    -fx-border-color: #b5b5b5;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-padding: 8px;
+    -fx-prompt-text-fill: #a0a0a0;
+    -fx-focus-color: #6c63ff;
+    -fx-border-width: 1px;
+}
+
+
+Button {
+    -fx-background-color: linear-gradient(to bottom, #453fb0, #1913be);
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-padding: 10px 10px;
+    -fx-min-width: 100px;
+    -fx-alignment: CENTER;
+}
+
+Button:hover {
+    -fx-background-color: linear-gradient(to bottom, #201ae7, #a39eef);
+}
+
+Button:pressed {
+    -fx-background-color: #3e3abf;
+}
+
+
+Button#btn_invitado {
+    -fx-background-color: transparent;
+    -fx-text-fill: #6c63ff;
+    -fx-font-style: italic;
+    -fx-border-color: #6c63ff;
+    -fx-border-width: 1px;
+    -fx-border-radius: 0;
+    -fx-padding: 10px 20px;
+    -fx-min-width: 120px;
+}
+
+Button#btn_invitado:hover {
+    -fx-background-color: rgba(108, 99, 255, 0.1);
+    -fx-text-fill: #3e3abf;
+}
+
+
+Button#btn_close {
+    -fx-background-color: linear-gradient(to bottom, #792020, #750606);
+    -fx-text-fill: white;
+    -fx-padding: 10px 20px;
+    -fx-min-width: 100px;
+}
+
+Button#btn_close:hover {
+    -fx-background-color: linear-gradient(to bottom, #da1d1d, #ef9a9a);
+}
