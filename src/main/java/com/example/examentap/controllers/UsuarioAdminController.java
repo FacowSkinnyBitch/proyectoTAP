@@ -104,7 +104,7 @@ public class UsuarioAdminController implements Initializable {
         new UsersPDFReport().createPdf(DEST2);
 
         showMessage("Report generated!");
-        if(showMessage("PDF Citas")){
+        if(showMessage("PDF Usuarios")){
             openFile(DEST2);
         }
     }
@@ -113,7 +113,10 @@ public class UsuarioAdminController implements Initializable {
     private void onGenerarExcel(){
         UsersExcelReports document = new UsersExcelReports();
         document.createExcel(DEST3,0);
-        openFile(DEST3);
+        //showMessage("Report generated!");
+        if(showMessage("Excel Usuarios")){
+            openFile(DEST3);
+        }
     }
 
     //metodo para abrir reportes pdf o excel

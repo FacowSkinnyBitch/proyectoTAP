@@ -100,7 +100,9 @@ public class CitasController_admin implements Initializable {
     private void generarExcel(){
         CitasExcelReport document = new CitasExcelReport();
         document.createExcel(DEST2,0);
-        openFile(DEST2);
+        if(showMessage("Excel Citas")){
+            openFile(DEST2);
+        }
     }
 
     //metodo para abrir reportes pdf o excel

@@ -107,6 +107,10 @@ public class CitasExcelReport {
             cell8.setCellValue(user.getId_usuario());
             cell8.setCellStyle(cellStyleDateFormat);
 
+            XSSFCell cell9 = newRow.createCell(8);
+            cell9.setCellValue(user.isStatus());
+            cell9.setCellStyle(cellStyleDateFormat);
+
         }
 
         sheet.autoSizeColumn(0);
