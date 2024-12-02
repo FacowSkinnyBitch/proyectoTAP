@@ -1,7 +1,11 @@
 package com.example.examentap.controllers;
 
+import com.example.examentap.databases.dao.PropiedadesDao;
+import com.example.examentap.models.Propiedades;
+import com.example.examentap.models.Tipo_Propiedad;
 import com.example.examentap.models.Usuario;
 import com.example.examentap.reports.ExcelReports;
+import com.example.examentap.reports.PDFEspecificReport;
 import com.example.examentap.reports.PDFReports;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -11,6 +15,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ComboBox;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -21,9 +26,13 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class AdminController implements Initializable {
+    @FXML
+    private ComboBox<Tipo_Propiedad> tipoPropiedad;
+    PropiedadesDao propiedadesDao = new PropiedadesDao();
     @FXML
     private BorderPane bpPrincipal;
     @FXML private VBox vb_left;
@@ -31,7 +40,8 @@ public class AdminController implements Initializable {
     private ImageView iv_imagen;
 
     public static final String DEST7 = "results/excel/Usuarios.xlsx";
-    public static final String DEST2 = "results/pdf/products.pdf";
+    public static final String DEST2 = "results/pdf/Propiedades.pdf";
+    public static final String DEST3 = "results/pdf/TipoPropiedades.pdf";
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -130,8 +140,59 @@ public class AdminController implements Initializable {
         file.getParentFile().mkdirs();
         new PDFReports().createPdf(DEST2);
         openFile(DEST2);
-        showMesaage("Report generated!");
+        showMessage("Report generated!");
     }
+    /*
+    @FXML
+    private void onGenerarEspecifiPdf() throws IOException{
+
+        Tipo_Propiedad propiedad = tipoPropiedad.getSelectionModel().getSelectedItem();
+        int propiedad_id = 0;
+
+        if(propiedad == null){
+            showMessage("Select a category");
+        } else {
+            List<Propiedades> propiedades  = (propiedad.getId_tipo_propiedad()==0)? propiedadesDao.findAll(): propiedadesDao.countPropsByTipoProp(propiedad.getId_tipo_propiedad());
+            File file = new File(DEST3);
+            file.getParentFile().mkdirs();
+            new PDFEspecificReport().createPdf(DEST3, propiedades);
+            showMessage("The products report with especific id was generated");
+            openFile(DEST3);
+        }
+
+
+        Tipo_Propiedad propiedad = tipoPropiedad.getSelectionModel().getSelectedItem();
+
+        if (propiedad == null) {
+            showMessage("Select a category.");
+            return;
+        }
+
+        Integer propiedadId = propiedad.getId_tipo_propiedad();
+        if (propiedadId == null) {
+            showMessage("Invalid property type selected.");
+            return;
+        }
+
+        List<Propiedades> propiedades = (propiedadId == 0)
+                ? propiedadesDao.findAll()
+                : propiedadesDao.countPropsByTipoProp(propiedadId);
+
+        if (propiedades == null || propiedades.isEmpty()) {
+            showMessage("No properties found for the selected type.");
+            return;
+        }
+
+        File file = new File(DEST3);
+        file.getParentFile().mkdirs();
+        new PDFEspecificReport().createPdf(DEST3, propiedades);
+
+        showMessage("The products report with specific ID was generated.");
+        openFile(DEST3);
+
+    }
+
+     */
 
     //metodo para abrir reportes pdf o excel
     private void openFile(String filename) {
@@ -146,7 +207,7 @@ public class AdminController implements Initializable {
     }
 
     //metodo para mostrar mensajes
-    private void showMesaage(String message){
+    private void showMessage(String message){
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("PDF generated...");
         alert.setContentText(message);

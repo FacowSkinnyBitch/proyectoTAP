@@ -17,12 +17,13 @@ import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.properties.UnitValue;
 
 import java.io.IOException;
+import java.util.List;
 
+public class PDFEspecificReport {
 
-public class PDFReports {
     PropiedadesDao propiedadesDao = new PropiedadesDao();
 
-    public void createPdf(String dest) throws IOException {
+    public void createPdf(String dest, List<Propiedades> propiedadesCategory) throws IOException {
         //Initialize PDF writer
         PdfWriter writer = new PdfWriter(dest);
 
@@ -39,7 +40,7 @@ public class PDFReports {
                 .useAllAvailableWidth();
         process(table, null, bold, true);
 
-        for(Propiedades p : propiedadesDao.findAll()){
+        for(Propiedades p : propiedadesCategory) {
             process(table, p, font, false);
         }
         //table.addCell(new Cell().add(new Paragraph(" ")));
