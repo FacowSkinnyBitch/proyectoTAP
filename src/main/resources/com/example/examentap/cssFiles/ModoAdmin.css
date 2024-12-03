@@ -1,0 +1,77 @@
+/* Fondo general */
+.root {
+    -fx-background-color: linear-gradient(to bottom, #1e1e1e, #2a2a2a); /* Degradado gris oscuro */
+    -fx-padding: 20px;
+    -fx-border-radius: 15px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.7), 15, 0.5, 0, 5); /* Sombra */
+}
+
+/* Botones generales */
+.button {
+    -fx-background-color: linear-gradient(to bottom, #3f51b5, #283593); /* Fondo azul degradado */
+    -fx-text-fill: white; /* Texto blanco */
+    -fx-font-weight: bold; /* Negrita */
+    -fx-font-size: 14px; /* Tamaño del texto */
+    -fx-border-radius: 10px; /* Bordes redondeados */
+    -fx-padding: 10px 15px; /* Espaciado interno */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 8, 0.5, 0, 2); /* Sombra */
+    -fx-transition: all 0.3s ease-in-out; /* Transiciones suaves */
+    -fx-cursor: hand; /* Cursor de mano al pasar el ratón */
+}
+
+.button:hover {
+    -fx-background-color: linear-gradient(to bottom, #283593, #1a237e); /* Hover degradado azul oscuro */
+    -fx-text-fill: #e0e0e0; /* Texto más claro */
+    -fx-scale-x: 1.1; /* Aumenta el tamaño en ancho */
+    -fx-scale-y: 1.1; /* Aumenta el tamaño en alto */
+    -fx-effect: dropshadow(gaussian, rgba(63, 81, 181, 0.6), 12, 0.5, 0, 5); /* Sombra más pronunciada */
+}
+
+.button:pressed {
+    -fx-background-color: #1a237e; /* Fondo más oscuro al presionar */
+    -fx-effect: none; /* Sin sombra */
+}
+
+/* Botones específicos */
+#btn_generarPDF {
+    -fx-background-color: linear-gradient(to bottom, #ff6f00, #ffa000); /* Fondo degradado naranja */
+    -fx-text-fill: white;
+    -fx-border-color: #ffcc80; /* Borde naranja claro */
+    -fx-border-width: 2px;
+}
+
+#btn_generarPDF:hover {
+    -fx-background-color: linear-gradient(to bottom, #ffa000, #ff6f00); /* Hover degradado */
+    -fx-scale-x: 1.15; /* Crece más al pasar el ratón */
+    -fx-scale-y: 1.15;
+    -fx-effect: dropshadow(gaussian, rgba(255, 87, 34, 0.7), 15, 0.5, 0, 5); /* Sombra naranja */
+}
+
+#btn_generarExcel {
+    -fx-background-color: linear-gradient(to bottom, #43a047, #388e3c); /* Fondo degradado verde */
+    -fx-text-fill: white;
+    -fx-border-color: #a5d6a7; /* Borde verde claro */
+    -fx-border-width: 2px;
+}
+
+#btn_generarExcel:hover {
+    -fx-background-color: linear-gradient(to bottom, #388e3c, #43a047); /* Hover degradado */
+    -fx-scale-x: 1.15; /* Crece más al pasar el ratón */
+    -fx-scale-y: 1.15;
+    -fx-effect: dropshadow(gaussian, rgba(56, 142, 60, 0.7), 15, 0.5, 0, 5); /* Sombra verde */
+}
+
+#btn_crearNuevoUsuario {
+    -fx-background-color: linear-gradient(to bottom, #3949ab, #1e88e5); /* Fondo degradado azul */
+    -fx-text-fill: white;
+    -fx-border-color: #90caf9; /* Borde azul claro */
+    -fx-border-width: 2px;
+}
+
+#btn_crearNuevoUsuario:hover {
+    -fx-background-color: linear-gradient(to bottom, #1e88e5, #3949ab); /* Hover degradado */
+    -fx-scale-x: 1.15; /* Crece más al pasar el ratón */
+    -fx-scale-y: 1.15;
+    -fx-effect: dropshadow(gaussian, rgba(30, 136, 229, 0.7), 15, 0.5, 0, 5); /* Sombra azul */
+}
+
