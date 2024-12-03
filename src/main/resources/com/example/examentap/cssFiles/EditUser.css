@@ -1,0 +1,114 @@
+/* Estilo general del DialogPane */
+.dialog-pane {
+    -fx-background-color: linear-gradient(to bottom, #2a2a2a, #1a1a1a); /* Fondo oscuro con degradado */
+    -fx-border-radius: 10px; /* Bordes redondeados */
+    -fx-padding: 20px; /* Espaciado interno */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0.5, 0, 3); /* Sombra */
+}
+
+/* Estilo del encabezado */
+.dialog-pane .header-panel {
+    -fx-background-color: linear-gradient(to right, #ff9500, #ffa726); /* Fondo naranja degradado */
+    -fx-text-fill: white; /* Texto blanco */
+    -fx-font-size: 18px; /* Tamaño de fuente */
+    -fx-font-weight: bold; /* Negrita */
+    -fx-padding: 10px; /* Espaciado interno */
+    -fx-alignment: center;
+    -fx-border-radius: 5px;
+}
+
+/* Contenido (GridPane) */
+.grid-pane {
+    -fx-hgap: 10px; /* Espaciado horizontal */
+    -fx-vgap: 15px; /* Espaciado vertical */
+    -fx-padding: 20px;
+}
+
+/* Etiquetas (Labels) */
+.label {
+    -fx-text-fill: white; /* Texto blanco */
+    -fx-font-size: 14px; /* Tamaño de fuente */
+    -fx-font-weight: bold; /* Negrita */
+}
+
+/* Campos de texto (TextField) */
+.text-field {
+    -fx-background-color: #333333; /* Fondo oscuro */
+    -fx-text-fill: white; /* Texto blanco */
+    -fx-prompt-text-fill: #bbbbbb; /* Texto de placeholder gris claro */
+    -fx-border-color: #6c63ff; /* Contorno morado */
+    -fx-border-radius: 5px; /* Bordes redondeados */
+    -fx-background-radius: 5px;
+    -fx-padding: 8px;
+}
+
+.text-field:focused {
+    -fx-border-color: #ffa726; /* Contorno naranja al enfocarse */
+    -fx-effect: dropshadow(gaussian, rgba(255, 165, 38, 0.5), 8, 0.5, 0, 0); /* Sombra naranja */
+}
+
+/* DatePicker */
+.date-picker {
+    -fx-background-color: #333333; /* Fondo oscuro */
+    -fx-text-fill: #363636; /* Texto blanco */
+    -fx-border-color: #6c63ff; /* Contorno morado */
+    -fx-border-radius: 5px; /* Bordes redondeados */
+    -fx-background-radius: 5px;
+    -fx-padding: 8px;
+}
+
+.date-picker:focused {
+    -fx-border-color: #ffa726; /* Contorno naranja al enfocarse */
+    -fx-effect: dropshadow(gaussian, rgba(255, 165, 38, 0.5), 8, 0.5, 0, 0); /* Sombra naranja */
+}
+
+/* Botones */
+.button {
+    -fx-background-color: linear-gradient(to bottom, #3f51b5, #283593); /* Fondo azul degradado */
+    -fx-text-fill: white; /* Texto blanco */
+    -fx-font-weight: bold; /* Negrita */
+    -fx-font-size: 14px; /* Tamaño del texto */
+    -fx-border-radius: 8px; /* Bordes redondeados */
+    -fx-padding: 10px 15px; /* Relleno interno */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 8, 0.5, 0, 2); /* Sombra */
+}
+
+.button:hover {
+    -fx-background-color: linear-gradient(to bottom, #283593, #1a237e); /* Hover degradado azul oscuro */
+    -fx-scale-x: 1.1; /* Efecto de aumento en ancho */
+    -fx-scale-y: 1.1; /* Efecto de aumento en alto */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 255, 0.6), 12, 0.5, 0, 5); /* Sombra llamativa */
+}
+
+.button:pressed {
+    -fx-background-color: #1a237e; /* Fondo más oscuro al presionar */
+    -fx-effect: none; /* Sin sombra */
+}
+
+/* Botón: Guardar */
+.button-ok {
+    -fx-background-color: linear-gradient(to bottom, #43a047, #388e3c); /* Fondo verde degradado */
+    -fx-border-color: #a5d6a7; /* Borde verde claro */
+    -fx-border-width: 2px;
+}
+
+.button-ok:hover {
+    -fx-background-color: linear-gradient(to bottom, #388e3c, #43a047); /* Hover degradado */
+    -fx-scale-x: 1.15; /* Efecto de aumento */
+    -fx-scale-y: 1.15;
+    -fx-effect: dropshadow(gaussian, rgba(56, 142, 60, 0.7), 15, 0.5, 0, 5); /* Sombra llamativa */
+}
+
+/* Botón: Cancelar */
+.button-cancel {
+    -fx-background-color: linear-gradient(to bottom, #d32f2f, #b71c1c); /* Fondo rojo degradado */
+    -fx-border-color: #ef9a9a; /* Borde rojo claro */
+    -fx-border-width: 2px;
+}
+
+.button-cancel:hover {
+    -fx-background-color: linear-gradient(to bottom, #b71c1c, #d32f2f); /* Hover degradado */
+    -fx-scale-x: 1.15; /* Efecto de aumento */
+    -fx-scale-y: 1.15;
+    -fx-effect: dropshadow(gaussian, rgba(183, 28, 28, 0.7), 15, 0.5, 0, 5); /* Sombra llamativa */
+}
