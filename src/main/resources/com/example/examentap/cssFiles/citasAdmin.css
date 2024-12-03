@@ -1,0 +1,114 @@
+/* Fondo general con degradado */
+.root {
+    -fx-background-color: linear-gradient(to bottom, #1e1e1e, #111111); /* Fondo oscuro con degradado */
+    -fx-padding: 20px;
+    -fx-border-radius: 15px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.7), 15, 0.5, 0, 5); /* Sombra */
+}
+
+/* Título principal */
+.label-title {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: linear-gradient(to right, #ff9500, #ffa726); /* Degradado naranja */
+    -fx-padding: 10px;
+    -fx-alignment: center;
+}
+
+/* Botones generales */
+.button {
+    -fx-background-color: linear-gradient(to bottom, #3f51b5, #283593); /* Fondo azul degradado */
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-border-radius: 10px;
+    -fx-padding: 10px 15px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 8, 0.5, 0, 2); /* Sombra */
+}
+
+.button:hover {
+    -fx-background-color: linear-gradient(to bottom, #283593, #1a237e); /* Hover degradado azul oscuro */
+    -fx-text-fill: #e0e0e0; /* Texto más claro */
+}
+
+.button:pressed {
+    -fx-background-color: #1a237e; /* Fondo más oscuro al presionar */
+    -fx-effect: none; /* Sin sombra al presionar */
+}
+
+/* Botones específicos */
+#btn_generarPDF {
+    -fx-background-color: linear-gradient(to bottom, #ff6f00, #ffa000); /* Degradado naranja */
+}
+
+#btn_generarExcel {
+    -fx-background-color: linear-gradient(to bottom, #43a047, #388e3c); /* Degradado verde */
+}
+
+#btn_nuevaCita {
+    -fx-background-color: linear-gradient(to bottom, #3949ab, #1e88e5); /* Degradado azul */
+}
+
+#btnReload {
+    -fx-background-color: linear-gradient(to bottom, #6a1b9a, #8e24aa); /* Degradado morado */
+}
+
+/* Combobox */
+.combo-box {
+    -fx-background-color: #ffffff; /* Fondo gris oscuro */
+    -fx-border-color: linear-gradient(to bottom, #4a90e2, #2b65d9); /* Borde azul brillante */
+    -fx-text-fill: #ffffff; /* Texto blanco */
+    -fx-border-radius: 5px;
+    -fx-padding: 5px;
+}
+
+.combo-box:focused {
+    -fx-border-color: linear-gradient(to bottom, #4a90e2, #2b65d9); /* Borde degradado más intenso */
+}
+
+.combo-box:hover {
+    -fx-background-color: #96f6c7; /* Fondo más claro al pasar el mouse */
+    -fx-text-fill: #e0e0e0;
+}
+
+/* Tabla de citas */
+.table-view {
+    -fx-background-color: rgba(188, 234, 248, 0.85); /* Fondo gris oscuro translúcido */
+    -fx-border-color: linear-gradient(to bottom, #4a90e2, #2b65d9); /* Borde azul brillante */
+    -fx-border-width: 2px; /* Contorno más grueso */
+    -fx-border-radius: 10px;
+    -fx-padding: 5px;
+    -fx-background-radius: 10px;
+    -fx-font-size: 14px;
+}
+
+.table-column-header {
+    -fx-background-color: linear-gradient(to bottom, #4a90e2, #2b65d9); /* Fondo azul degradado para encabezados */
+    -fx-text-fill: #ffffff; /* Texto blanco */
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-border-color: transparent;
+    -fx-border-width: 0 0 2px 0;
+}
+
+/* Celdas de la tabla */
+.table-row-cell {
+    -fx-text-fill: #f5f5f5; /* Texto blanco */
+    -fx-background-color: transparent;
+}
+
+.table-row-cell:filled:selected {
+    -fx-background-color: #3f51b5; /* Azul oscuro al seleccionar */
+    -fx-text-fill: #ffffff;
+}
+
+.table-row-cell:filled:hover {
+    -fx-background-color: #4254f1; /* Azul oscuro al pasar el mouse */
+    -fx-text-fill: #ffffff;
+}
+
+/* Margen del contenedor principal */
+.vbox {
+    -fx-spacing: 20px;
+    -fx-padding: 20px;
+}
