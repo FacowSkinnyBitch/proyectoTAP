@@ -177,25 +177,26 @@ public class UserMenu_Controller implements Initializable {
     }
     @FXML
     private void onAgregarCita(ActionEvent event) {
-        if(validarCampos()){
+        if (propiedadSeleccionada == null) {
+            mostrarAlerta(Alert.AlertType.ERROR,
+                    "Error",
+                    "Error al cargar la cita.",
+                    "Necesita seleccionar una propiedad para hacer una cita.");
+            return;
+        }
+
+        if (validarCampos()) {
             System.out.println("Agregando datos...");
-            Propiedades p = (Propiedades) tv_Propiedades.getSelectionModel().getSelectedItem();
-            if(p == null){
-                mostrarAlerta(Alert.AlertType.ERROR,
-                        "Error",
-                        "Error al cargar la cita.",
-                        "Necesita seleccionar una propiedad para hacer una cita.");
-            }else{
-                agregarCita(p.getId_propiedad());
-                mostrarAlerta(Alert.AlertType.INFORMATION,
-                        "Cita realizada",
-                        "La cita ha sido registrada con exito",
-                        "Nos pondremos en contacto contigo más tarde");
-            }
+            agregarCita(propiedadSeleccionada.getId_propiedad());
+            mostrarAlerta(Alert.AlertType.INFORMATION,
+                    "Cita realizada",
+                    "La cita ha sido registrada con éxito",
+                    "Nos pondremos en contacto contigo más tarde");
             limpiarCampos();
             desactivarForm(true);
         }
     }
+
     private boolean validarCampos() {
         boolean validacion = true;
         if (tf_telefono.getText().isEmpty() || dp_fecha_cita.getValue() == null || tf_hora_cita.getText().isEmpty()) {
@@ -337,6 +338,8 @@ public class UserMenu_Controller implements Initializable {
         cargarPropiedades(propiedadesList);
     }
 
+    private Propiedades propiedadSeleccionada; // Propiedad seleccionada
+
     public void cargarPropiedades(List<Propiedades> propiedades) {
         vboxPropiedades.getChildren().clear(); // Limpia las tarjetas existentes
 
@@ -345,7 +348,7 @@ public class UserMenu_Controller implements Initializable {
             tarjeta.setSpacing(10);
             tarjeta.setPadding(new Insets(10));
             tarjeta.setStyle("-fx-background-color: #2c2c2c; -fx-border-radius: 10px;"); // Estilo base
-            tarjeta.getStyleClass().add("inactive-card"); // Agrega clase inactiva por defecto
+            tarjeta.getStyleClass().add("inactive-card"); // Clase CSS inactiva por defecto
 
             Label lblIdTitulo = new Label("ID: " + propiedad.getId_propiedad());
             lblIdTitulo.setStyle("-fx-font-weight: bold; -fx-text-fill: white;");
@@ -371,13 +374,30 @@ public class UserMenu_Controller implements Initializable {
             // Agregar los elementos a la tarjeta
             tarjeta.getChildren().addAll(ivImagen, lblIdTitulo, lblDescripcion, lblCiudad, lblTipo, lblStatus);
 
-            // Agregar acción al hacer clic en la tarjeta (si es necesario)
-            tarjeta.setOnMouseClicked(event -> onMostrarPropiedad(propiedad));
+            // Evento al hacer clic en la tarjeta
+            // Evento al hacer clic en la tarjeta
+            tarjeta.setOnMouseClicked(event -> {
+                propiedadSeleccionada = propiedad; // Actualiza la propiedad seleccionada
+                System.out.println("Propiedad seleccionada: " + propiedadSeleccionada.getId_propiedad());
+
+                // Cambiar el estilo para mostrar que está seleccionada
+                for (Node node : vboxPropiedades.getChildren()) {
+                    node.getStyleClass().remove("selected-card"); // Remueve estilo seleccionado
+                    node.getStyleClass().add("inactive-card");   // Agrega estilo inactivo
+                }
+                tarjeta.getStyleClass().remove("inactive-card");
+                tarjeta.getStyleClass().add("selected-card"); // Marca la tarjeta seleccionada
+
+                // Mostrar la vista de la propiedad seleccionada
+                onMostrarPropiedad(propiedad); // Llama al método para abrir la vista
+            });
+
 
             // Agregar la tarjeta al contenedor
             vboxPropiedades.getChildren().add(tarjeta);
         }
     }
+
 
 
 

@@ -8,6 +8,7 @@
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.example.examentap.controllers.UsuarioAdminController"
+      stylesheets="@../cssFiles/UserAdmin.css"
       prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: grey">
 
     <HBox alignment="CENTER_LEFT" spacing="5">

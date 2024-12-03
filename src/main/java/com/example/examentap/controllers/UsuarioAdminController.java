@@ -75,23 +75,6 @@ public class UsuarioAdminController implements Initializable {
 
     }
 
-    @FXML
-    private void onReturn(ActionEvent event) throws IOException {
-        try {
-            Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            currentStage.close();
-
-            Parent root = FXMLLoader.load(getClass().getResource("/com/example/examentap/adminViews/vw_modoAdmin.fxml"));  // Ruta absoluta sugerida
-            Stage stage = new Stage();
-            Scene scene = new Scene(root,350,500);
-            stage.setTitle("Login");
-            stage.setScene(scene);
-            stage.centerOnScreen();
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     private void initContextMenu(){
         /*FontIcon iconDelete = new FontIcon();

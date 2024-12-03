@@ -1,6 +1,6 @@
 /* Fondo general */
 .root {
-    -fx-background-color: #1e1e1e; /* Fondo oscuro */
+    -fx-background-color: #2a2a2a; /* Fondo oscuro */
     -fx-padding: 20px;
     -fx-spacing: 20px;
     -fx-border-radius: 15px;
@@ -11,28 +11,111 @@
 .label {
     -fx-font-size: 15px;
     -fx-font-weight: bold;
-    -fx-text-fill: linear-gradient(to right, #9792d5, #04032f); /* Texto con degradado morado */
+    -fx-text-fill: linear-gradient(to right, #1309f1, #5f5e96); /* Texto con degradado morado */
     -fx-padding: 10px;
     -fx-alignment: center;
 }
 
+/* Campos de texto (TextField y PasswordField) */
+.text-field, .password-field {
+    -fx-background-color: #333333; /* Fondo oscuro */
+    -fx-border-color: #6c63ff; /* Contorno morado */
+    -fx-border-radius: 5px; /* Bordes redondeados */
+    -fx-background-radius: 5px;
+    -fx-text-fill: white; /* Texto blanco */
+    -fx-prompt-text-fill: #bbbbbb; /* Placeholder gris claro */
+    -fx-padding: 10px;
+    -fx-font-size: 14px;
+}
+
+.text-field:focused, .password-field:focused {
+    -fx-border-color: #ffffff; /* Contorno blanco al enfocarse */
+    -fx-border-width: 2px; /* Contorno más grueso */
+    -fx-effect: dropshadow(gaussian, rgba(255, 255, 255, 0.4), 5, 0.5, 0, 0); /* Sombra blanca */
+}
+
+.combo-box {
+    -fx-background-color: #333333; /* Fondo oscuro */
+    -fx-border-color: #6c63ff; /* Borde morado */
+    -fx-border-radius: 5px; /* Bordes redondeados */
+    -fx-background-radius: 5px;
+    -fx-text-fill: white; /* Texto blanco */
+    -fx-font-size: 14px; /* Tamaño de texto */
+    -fx-padding: 8px; /* Espaciado interno */
+}
+
+.combo-box:focused {
+    -fx-border-color: #ffffff; /* Contorno blanco al enfocarse */
+    -fx-border-width: 2px; /* Contorno más grueso */
+    -fx-effect: dropshadow(gaussian, rgba(255, 255, 255, 0.4), 5, 0.5, 0, 0); /* Sombra blanca */
+}
+
+.combo-box:hover {
+    -fx-background-color: #444444; /* Fondo más claro al pasar el mouse */
+    -fx-text-fill: white;
+}
+
+/* Opciones del ComboBox */
+.combo-box .list-cell {
+    -fx-background-color: #2a2a2a; /* Fondo oscuro para las opciones */
+    -fx-text-fill: white; /* Texto blanco para las opciones */
+    -fx-font-size: 14px; /* Tamaño de texto */
+    -fx-padding: 5px; /* Espaciado interno */
+}
+
+.combo-box .list-cell:hover {
+    -fx-background-color: #4a47ff; /* Fondo morado brillante al pasar el mouse */
+    -fx-text-fill: white; /* Texto blanco */
+}
+
+/* Opciones seleccionadas */
+.combo-box .list-cell:selected {
+    -fx-background-color: #6c63ff; /* Fondo morado al seleccionar */
+    -fx-text-fill: white; /* Texto blanco */
+}
+
+/* Botón desplegable */
+.combo-box .arrow {
+    -fx-background-color: #6c63ff; /* Fondo del botón desplegable */
+    -fx-border-radius: 5px;
+}
+
+.combo-box .arrow:hover {
+    -fx-background-color: #4a47ff; /* Fondo más oscuro al pasar el mouse */
+}
+
+/* Etiqueta interna del ComboBox */
+.combo-box .text {
+    -fx-fill: white; /* Texto blanco */
+}
+
+/* Placeholder (texto inicial cuando no hay selección) */
+.combo-box .text:empty {
+    -fx-fill: #bbbbbb; /* Texto gris claro */
+    -fx-font-style: italic;
+}
+
+
 /* Tabla general */
 .table-view {
-    -fx-background-color: #2c2c2c; /* Fondo oscuro */
-    -fx-border-color: #4a4a4a; /* Borde gris oscuro */
+    -fx-background-color: #333333; /* Fondo gris oscuro */
+    -fx-border-color: #6c63ff; /* Borde morado */
     -fx-border-radius: 10px;
     -fx-padding: 5px;
     -fx-background-radius: 10px;
     -fx-font-size: 14px;
+    -fx-text-fill: white; /* Texto blanco predeterminado */
 }
 
-/* Columnas de la tabla */
-.table-column {
-    -fx-text-fill: #e0e0e0; /* Texto gris claro */
+/* Encabezados de columnas */
+.table-column-header {
+    -fx-background-color: linear-gradient(to bottom, #0327f1, #626288); /* Fondo degradado morado */
+    -fx-text-fill: white; /* Texto blanco */
     -fx-font-weight: bold;
-    -fx-alignment: CENTER;
-    -fx-background-color: #4a4a4a; /* Fondo gris oscuro */
-    -fx-border-color: #6c63ff; /* Borde morado */
+    -fx-font-size: 14px;
+    -fx-alignment: center;
+    -fx-border-color: #ffffff; /* Borde blanco */
+    -fx-border-width: 0 0 2px 0;
 }
 
 /* Filas de la tabla */
@@ -44,31 +127,90 @@
 
 .table-row-cell:filled:selected {
     -fx-background-color: #6c63ff; /* Fondo morado al seleccionar */
-    -fx-text-fill: white;
+    -fx-text-fill: white; /* Texto blanco */
 }
 
 .table-row-cell:filled:hover {
-    -fx-background-color: #4a4a4a; /* Fondo gris oscuro al pasar el mouse */
-    -fx-text-fill: white;
+    -fx-background-color: #4a47ff; /* Fondo morado más oscuro al pasar el mouse */
+    -fx-text-fill: white; /* Texto blanco */
 }
 
-/* Botón */
+/* Celdas de la tabla */
+.table-cell {
+    -fx-text-fill: white; /* Texto blanco dentro de las celdas */
+}
+
+/* Botones generales */
 .button {
     -fx-background-color: linear-gradient(to bottom, #6c63ff, #4a47ff); /* Fondo degradado morado */
-    -fx-text-fill: white;
-    -fx-font-weight: bold;
-    -fx-font-size: 14px;
-    -fx-border-radius: 10px;
-    -fx-padding: 10px 15px;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 8, 0.5, 0, 2);
+    -fx-text-fill: white; /* Texto blanco */
+    -fx-font-weight: bold; /* Texto en negrita */
+    -fx-font-size: 14px; /* Tamaño del texto */
+    -fx-border-radius: 10px; /* Bordes redondeados */
+    -fx-padding: 10px 15px; /* Espaciado interno */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 8, 0.5, 0, 2); /* Sombra */
+    -fx-cursor: hand; /* Cambia el cursor al pasar sobre el botón */
+    -fx-transition: all 0.3s ease-in-out; /* Transición suave para los cambios */
 }
 
+/* Efecto hover (al pasar el mouse): llamativo */
 .button:hover {
     -fx-background-color: linear-gradient(to bottom, #4a47ff, #2c2aff); /* Hover degradado */
-    -fx-text-fill: #f0f0f0;
+    -fx-text-fill: #f0f0f0; /* Texto ligeramente más claro */
+    -fx-effect: dropshadow(gaussian, rgba(74, 71, 255, 0.7), 15, 0.5, 0, 5); /* Sombra más pronunciada */
+    -fx-scale-x: 1.1; /* Aumenta el ancho del botón */
+    -fx-scale-y: 1.1; /* Aumenta la altura del botón */
 }
 
+/* Efecto al presionar (click) */
 .button:pressed {
-    -fx-background-color: #3a37ff; /* Fondo más oscuro al presionar */
+    -fx-background-color: #3a37ff; /* Fondo más oscuro */
+    -fx-text-fill: white; /* Texto blanco */
     -fx-effect: none; /* Sin sombra al presionar */
+}
+
+/* Botón específico: Guardar */
+#btn_aceptar {
+    -fx-background-color: linear-gradient(to bottom, #43a047, #388e3c); /* Fondo degradado verde */
+    -fx-text-fill: white;
+    -fx-border-color: #a5d6a7; /* Borde verde claro */
+    -fx-border-width: 2px;
+}
+
+#btn_aceptar:hover {
+    -fx-background-color: linear-gradient(to bottom, #388e3c, #2e7d32); /* Hover verde más oscuro */
+    -fx-effect: dropshadow(gaussian, rgba(56, 142, 60, 0.7), 20, 0.7, 0, 5); /* Sombra verde llamativa */
+    -fx-scale-x: 1.2; /* Más grande al hover */
+    -fx-scale-y: 1.2;
+}
+
+/* Botón específico: Cancelar */
+#btn_close {
+    -fx-background-color: linear-gradient(to bottom, #d32f2f, #b71c1c); /* Fondo degradado rojo */
+    -fx-text-fill: white;
+    -fx-border-color: #ef9a9a; /* Borde rojo claro */
+    -fx-border-width: 2px;
+}
+
+#btn_close:hover {
+    -fx-background-color: linear-gradient(to bottom, #b71c1c, #8c0000); /* Hover rojo más intenso */
+    -fx-effect: dropshadow(gaussian, rgba(183, 28, 28, 0.7), 20, 0.7, 0, 5); /* Sombra roja llamativa */
+    -fx-scale-x: 1.2; /* Más grande al hover */
+    -fx-scale-y: 1.2;
+}
+
+
+/* RadioButton (opciones de status) */
+.radio-button {
+    -fx-text-fill: white; /* Texto blanco para el estado */
+    -fx-font-weight: bold;
+    -fx-font-size: 10px;
+}
+
+.radio-button:selected {
+    -fx-text-fill: white; /* Texto blanco para la opción seleccionada */
+}
+
+.radio-button .label {
+    -fx-text-fill: white; /* Asegura que las etiquetas también sean visibles */
 }
