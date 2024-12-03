@@ -75,23 +75,6 @@ public class UsuarioAdminController implements Initializable {
 
     }
 
-    @FXML
-    private void onReturn(ActionEvent event) throws IOException {
-        try {
-            Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            currentStage.close();
-
-            Parent root = FXMLLoader.load(getClass().getResource("/com/example/examentap/adminViews/vw_modoAdmin.fxml"));  // Ruta absoluta sugerida
-            Stage stage = new Stage();
-            Scene scene = new Scene(root,350,500);
-            stage.setTitle("Login");
-            stage.setScene(scene);
-            stage.centerOnScreen();
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     private void initContextMenu(){
         /*FontIcon iconDelete = new FontIcon();
@@ -240,17 +223,30 @@ public class UsuarioAdminController implements Initializable {
                             "Nombre: " + selectedUser.getNombre() + " " + selectedUser.getPrimer_apellido() + " " + selectedUser.getSegundo_apellido() + "\n" +
                             "Email: " + selectedUser.getEmail() + "\n" +
                             "Contraseña: " + selectedUser.getContraseya() + "\n" +
-                            "Telefono: " + selectedUser.getTelefono() + "\n" +
-                            "Genero: " + selectedUser.getGenero() + "\n" +
+                            "Teléfono: " + selectedUser.getTelefono() + "\n" +
+                            "Género: " + selectedUser.getGenero() + "\n" +
                             "Fecha de Nacimiento: " + selectedUser.getNacimiento() + "\n" +
                             "Rol: " + selectedUser.getRole() + "\n"
             );
+
+            // Cargar archivo CSS
+            DialogPane dialogPane = alert.getDialogPane();
+            dialogPane.getStylesheets().add(getClass().getResource("/com/example/examentap/cssFiles/alerta.css").toExternalForm());
+            dialogPane.getStyleClass().add("custom-dialog");
+
             alert.showAndWait();
         } else {
             Alert alert = new Alert(Alert.AlertType.WARNING, "Seleccione un usuario.", ButtonType.OK);
+
+            // Cargar archivo CSS para la alerta de advertencia
+            DialogPane dialogPane = alert.getDialogPane();
+            dialogPane.getStylesheets().add(getClass().getResource("/com/example/examentap/cssFiles/warning.css").toExternalForm());
+            dialogPane.getStyleClass().add("warning-dialog");
+
             alert.showAndWait();
         }
     }
+
 
     @FXML
     private void onUpdateUser(Usuario selectedUser) {
