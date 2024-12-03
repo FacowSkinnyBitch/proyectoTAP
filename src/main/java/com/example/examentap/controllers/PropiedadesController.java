@@ -250,8 +250,9 @@ public class PropiedadesController implements Initializable {
             Propiedades p = propiedadesTable.getSelectionModel().getSelectedItem();
             if (confirmDelete()) {
                 propDao.delete(p.getId_propiedad());
-                propiedadesTable.setDisable(true);
+                propiedadesTable.setDisable(false);
                 System.out.println("Propiedad eliminada con exito!");
+                propiedadesTable.setItems(FXCollections.observableArrayList(propDao.findAll()));
             }
         });
     }
