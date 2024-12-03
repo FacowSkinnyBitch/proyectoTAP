@@ -49,7 +49,7 @@ public class PropiedadesController implements Initializable {
     @FXML
     private TableColumn<Propiedades, Integer> tv_tipoProp;
     @FXML
-    private TableColumn<Propiedades, Boolean> tv_status;
+    private TableColumn<Propiedades, String> tv_status;
     @FXML
     private TableColumn<Propiedades, String> tv_Ciudad;
     @FXML
@@ -78,6 +78,7 @@ public class PropiedadesController implements Initializable {
     public static final String DEST2 = "results/pdf/TipoPropiedades.pdf";
     PropiedadesDao dao = new PropiedadesDao();
     Propiedades propSeleccionada;
+    int id_propSeleccionada,idStatus,idEstado;
 
     ContextMenu contextMenu = new ContextMenu();
     MenuItem menuItemCrearProp = new MenuItem("Crear");
@@ -85,6 +86,10 @@ public class PropiedadesController implements Initializable {
     MenuItem menuItemUpdate = new MenuItem("Update");
     MenuItem menuItemVer = new MenuItem("Mostrar");
 
+
+    String[] status = {"Renta", "Venta"};
+    String[] tipo_prop = {"Casa", "Negocio", "Condominio", "Todo"};
+    String[] ciudadUbicada = {"León", "Guadalajara", "Querétaro", "Morelia", "Todo"};
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -139,6 +144,7 @@ public class PropiedadesController implements Initializable {
                 propiedadesTable.setItems(FXCollections.observableList(propiedadesList));
             }
         });
+
     }
 
     private void initTable() {
@@ -152,9 +158,6 @@ public class PropiedadesController implements Initializable {
         propiedadesTable.setItems(FXCollections.observableList(propiedadesList));
 
 
-        String[] status = {"Renta", "Venta", "Todo"};
-        String[] tipo_prop = {"Casa", "Negocio", "Condominio", "Todo"};
-        String[] ciudadUbicada = {"León", "Guadalajara", "Querétaro", "Morelia", "Todo"};
         cb_filtroStatusProp.setItems(FXCollections.observableArrayList(status));
         cb_filtroTipoProp.setItems(FXCollections.observableArrayList(tipo_prop));
         cb_filtroCiudad.setItems(FXCollections.observableArrayList(ciudadUbicada));
@@ -169,11 +172,7 @@ public class PropiedadesController implements Initializable {
                 case 1:
                     break;
                 case 2:
-                    if (propiedadesTable.getSelectionModel().getSelectedItem() == null) {
-                        System.out.println("Nada seleccionado");
-                    } else {
-                        onMostrarPropiedad(p);
-                    }
+                    onMostrarPropiedad(p);
             }
         });
 
@@ -196,13 +195,13 @@ public class PropiedadesController implements Initializable {
         FontIcon iconIncomplete = new FontIcon();
         iconIncomplete.setIconLiteral("antf-delete");
         iconIncomplete.setIconSize(20);
-        iconIncomplete.setIconColor(Color.RED);
+        iconIncomplete.setIconColor(Color.BLUE);
         menuItemDeleteProp.setGraphic(iconIncomplete);
 
         FontIcon iconLeer = new FontIcon();
-        iconLeer.setIconLiteral("antf-delete");
+        iconLeer.setIconLiteral("antf-eye");
         iconLeer.setIconSize(20);
-        iconLeer.setIconColor(Color.RED);
+        iconLeer.setIconColor(Color.BLUE);
         menuItemVer.setGraphic(iconLeer);
 
         contextMenu.getItems().addAll(menuItemVer,menuItemCrearProp, menuItemUpdate, menuItemDeleteProp);
@@ -285,28 +284,31 @@ public class PropiedadesController implements Initializable {
 
 
     }
-    private void onCargarDatos(){
+    private void onCargarDatos() {
         Propiedades p = propiedadesTable.getSelectionModel().getSelectedItem();
-        txtDireccion.setText(p.getDireccion());
-        txtPrecio.setText(String.valueOf(p.getPrecio()));
-        txtDescripcion.setText(p.getDescripcion());
-        txtNumCuartos.setText(String.valueOf(p.getNum_cuartos()));
-        txtNumBanos.setText(String.valueOf(p.getNum_bayos()));
-        txtMetrosCuadrados.setText(String.valueOf(p.getMetros_cuadrados()));
-        txtImagen.setText(propSeleccionada.getImagen());
-        cbTipoPropiedad.setValue(String.valueOf(p.getTipo_propiedad()));
-        cbCiudad.setValue(String.valueOf(p.getCiudad()));
-        cbEstado.setValue(p.getStatus());
+        for(Propiedades prop: propDao.findAll()){
+            if(p.getId_propiedad() == prop.getId_propiedad()){
+                this.id_propSeleccionada=prop.getId_propiedad();
+            }
+        }
+
+
+
+        if (p != null) {
+            txtDireccion.setText(p.getDireccion());
+            txtPrecio.setText(String.valueOf(p.getPrecio()));
+            txtDescripcion.setText(p.getDescripcion());
+            txtNumCuartos.setText(String.valueOf(p.getNum_cuartos()));
+            txtNumBanos.setText(String.valueOf(p.getNum_bayos()));
+            txtMetrosCuadrados.setText(String.valueOf(p.getMetros_cuadrados()));
+            cbTipoPropiedad.setValue(p.getTipo_propiedad()); // Asumiendo que es un objeto compatible
+        }
     }
+
 
     private void onCrearProp() {
         Propiedades newProp = new Propiedades();
-        int id_prop = 1;
-        for(Propiedades pr: propDao.findAll()) {
-            if(pr.getId_propiedad() == Integer.parseInt(cbTipoPropiedad.getSelectionModel().getSelectedItem())) {
-                    id_prop = pr.getId_propiedad();
-            }
-        }
+
 
         newProp.setDireccion(txtDireccion.getText());
         newProp.setPrecio(Double.parseDouble(txtPrecio.getText()));
@@ -314,7 +316,7 @@ public class PropiedadesController implements Initializable {
         newProp.setNum_bayos(Integer.parseInt(txtNumBanos.getText()));
         newProp.setNum_cuartos(Integer.parseInt(txtNumCuartos.getText()));
         newProp.setMetros_cuadrados(Double.parseDouble(txtMetrosCuadrados.getText()));
-        newProp.setTipo_propiedad(String.valueOf(id_prop));
+        newProp.setTipo_propiedad(String.valueOf(cbTipoPropiedad.getValue()));
         newProp.setStatus(cbEstado.getSelectionModel().getSelectedItem());
         newProp.setAyo_construccion(Date.valueOf(dpAnyoConstruccion.getValue()));
         newProp.setImagen(txtImagen.getText());
