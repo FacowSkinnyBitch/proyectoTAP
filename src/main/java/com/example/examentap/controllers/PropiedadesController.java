@@ -15,8 +15,12 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -39,7 +43,15 @@ public class PropiedadesController implements Initializable {
     @FXML private TableColumn<Propiedades, Integer> tv_tipoProp;
     @FXML private TableColumn<Propiedades, Boolean> tv_status;
     @FXML private TableColumn<Propiedades, String> tv_Ciudad;
+    @FXML private Label lblTitleForm;
+    @FXML private VBox vbForm;
 
+    @FXML
+    private TextField txtDireccion, txtPrecio, txtDescripcion, txtNumCuartos, txtNumBanos, txtMetrosCuadrados,
+            txtImagen;
+    @FXML private ComboBox<String> cbTipoPropiedad,cbEstado, cbCiudad;
+    @FXML private DatePicker dpAnyoConstruccion;
+    @FXML private GridPane gridPane;
     @FXML private ComboBox cb_filtroStatusProp,cb_filtroTipoProp, cb_filtroCiudad;
 
     private PropiedadesDao propDao = new PropiedadesDao();
@@ -74,6 +86,9 @@ public class PropiedadesController implements Initializable {
         cb_filtroTipoProp.setItems(FXCollections.observableArrayList(tipo_prop));
         cb_filtroCiudad.setItems(FXCollections.observableArrayList(ciudadUbicada));
 
+        cbTipoPropiedad.setItems(FXCollections.observableArrayList(tipo_prop));
+        cbEstado.setItems(FXCollections.observableArrayList(status));
+        cbCiudad.setItems(FXCollections.observableArrayList(ciudadUbicada));
 
         //filtros de la tabla
         cb_filtroStatusProp.valueProperty().addListener(event -> {
@@ -162,27 +177,12 @@ public class PropiedadesController implements Initializable {
         iconIncomplete.setIconLiteral("antf-delete");
         iconIncomplete.setIconSize(20);
         iconIncomplete.setIconColor(Color.RED);
-        contextMenu.getItems().addAll(menuItemSelectUser,menuItemUpdate,menuItemDeleteUser);
         menuItemDeleteUser.setGraphic(iconIncomplete);
+        contextMenu.getItems().addAll(menuItemSelectUser,menuItemUpdate,menuItemDeleteUser);
+        propiedadesTable.setContextMenu(contextMenu);
     }
 
-    @FXML
-    private void onReturn(ActionEvent event) throws IOException {
-        try {
-            Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            currentStage.close();
 
-            Parent root = FXMLLoader.load(getClass().getResource("/com/example/examentap/adminViews/vw_modoAdmin.fxml"));  // Ruta absoluta sugerida
-            Stage stage = new Stage();
-            Scene scene = new Scene(root,350,500);
-            stage.setTitle("Login");
-            stage.setScene(scene);
-            stage.centerOnScreen();
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     private void onMostrarPropiedad(Propiedades p) {
         try {
