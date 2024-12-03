@@ -11,7 +11,7 @@
 .label {
     -fx-font-size: 15px;
     -fx-font-weight: bold;
-    -fx-text-fill: linear-gradient(to right, #d4d2ea, #1614c5); /* Texto con degradado morado */
+    -fx-text-fill: linear-gradient(to right, #1309f1, #5f5e96); /* Texto con degradado morado */
     -fx-padding: 10px;
     -fx-alignment: center;
 }
@@ -109,7 +109,7 @@
 
 /* Encabezados de columnas */
 .table-column-header {
-    -fx-background-color: linear-gradient(to bottom, #6c63ff, #4a47ff); /* Fondo degradado morado */
+    -fx-background-color: linear-gradient(to bottom, #0327f1, #626288); /* Fondo degradado morado */
     -fx-text-fill: white; /* Texto blanco */
     -fx-font-weight: bold;
     -fx-font-size: 14px;
@@ -140,7 +140,7 @@
     -fx-text-fill: white; /* Texto blanco dentro de las celdas */
 }
 
-/* Estilo base para todos los botones */
+/* Botones generales */
 .button {
     -fx-background-color: linear-gradient(to bottom, #6c63ff, #4a47ff); /* Fondo degradado morado */
     -fx-text-fill: white; /* Texto blanco */
@@ -169,67 +169,22 @@
     -fx-effect: none; /* Sin sombra al presionar */
 }
 
-/* Botón: "Nueva Cita" */
-#btn_nuevaCita {
-    -fx-background-color: linear-gradient(to bottom, #0000ff, #0033cc); /* Fondo degradado azul */
-    -fx-text-fill: white;
-    -fx-border-color: #ffffff; /* Borde blanco */
-    -fx-border-width: 2px;
-}
-
-#btn_nuevaCita:hover {
-    -fx-background-color: linear-gradient(to bottom, #0033cc, #001a66); /* Hover azul más oscuro */
-    -fx-effect: dropshadow(gaussian, rgba(0, 51, 204, 0.7), 20, 0.7, 0, 5); /* Sombra azul llamativa */
-    -fx-scale-x: 1.2; /* Más grande al hover */
-    -fx-scale-y: 1.2;
-}
-
-/* Botón: "Generar PDF" */
-#btn_generarPDF {
-    -fx-background-color: linear-gradient(to bottom, #ff9800, #ff5722); /* Fondo degradado naranja */
-    -fx-text-fill: white;
-    -fx-border-color: #ffcc80; /* Borde naranja claro */
-    -fx-border-width: 2px;
-}
-
-#btn_generarPDF:hover {
-    -fx-background-color: linear-gradient(to bottom, #ff5722, #e64a19); /* Hover naranja más oscuro */
-    -fx-effect: dropshadow(gaussian, rgba(255, 87, 34, 0.7), 20, 0.7, 0, 5); /* Sombra naranja llamativa */
-    -fx-scale-x: 1.2; /* Más grande al hover */
-    -fx-scale-y: 1.2;
-}
-
-/* Botón: "Generar Excel" */
-#btn_generarExcel {
-    -fx-background-color: linear-gradient(to bottom, #4caf50, #388e3c); /* Fondo degradado verde */
+/* Botón específico: Guardar */
+#btn_aceptar {
+    -fx-background-color: linear-gradient(to bottom, #43a047, #388e3c); /* Fondo degradado verde */
     -fx-text-fill: white;
     -fx-border-color: #a5d6a7; /* Borde verde claro */
     -fx-border-width: 2px;
 }
 
-#btn_generarExcel:hover {
+#btn_aceptar:hover {
     -fx-background-color: linear-gradient(to bottom, #388e3c, #2e7d32); /* Hover verde más oscuro */
     -fx-effect: dropshadow(gaussian, rgba(56, 142, 60, 0.7), 20, 0.7, 0, 5); /* Sombra verde llamativa */
     -fx-scale-x: 1.2; /* Más grande al hover */
     -fx-scale-y: 1.2;
 }
 
-/* Botón: "Recargar Tabla" */
-#btnReload {
-    -fx-background-color: linear-gradient(to bottom, #7b1fa2, #4a148c); /* Fondo degradado morado oscuro */
-    -fx-text-fill: white;
-    -fx-border-color: #ce93d8; /* Borde morado claro */
-    -fx-border-width: 2px;
-}
-
-#btnReload:hover {
-    -fx-background-color: linear-gradient(to bottom, #4a148c, #2e0c66); /* Hover morado más intenso */
-    -fx-effect: dropshadow(gaussian, rgba(122, 18, 162, 0.7), 20, 0.7, 0, 5); /* Sombra morada llamativa */
-    -fx-scale-x: 1.2; /* Más grande al hover */
-    -fx-scale-y: 1.2;
-}
-
-/* Botón: "Regresar" */
+/* Botón específico: Cancelar */
 #btn_close {
     -fx-background-color: linear-gradient(to bottom, #d32f2f, #b71c1c); /* Fondo degradado rojo */
     -fx-text-fill: white;

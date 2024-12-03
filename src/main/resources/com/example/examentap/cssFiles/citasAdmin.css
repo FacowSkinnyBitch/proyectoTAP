@@ -18,97 +18,102 @@
 /* Botones generales */
 .button {
     -fx-background-color: linear-gradient(to bottom, #3f51b5, #283593); /* Fondo azul degradado */
-    -fx-text-fill: white;
-    -fx-font-weight: bold;
-    -fx-font-size: 14px;
-    -fx-border-radius: 10px;
-    -fx-padding: 10px 15px;
+    -fx-text-fill: white; /* Texto blanco */
+    -fx-font-weight: bold; /* Negrita */
+    -fx-font-size: 14px; /* Tamaño del texto */
+    -fx-border-radius: 10px; /* Bordes redondeados */
+    -fx-padding: 10px 15px; /* Relleno interno */
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 8, 0.5, 0, 2); /* Sombra */
+    -fx-transition: all 0.3s ease-in-out; /* Transiciones suaves */
+    -fx-cursor: hand; /* Cambia el cursor al pasar */
 }
 
 .button:hover {
     -fx-background-color: linear-gradient(to bottom, #283593, #1a237e); /* Hover degradado azul oscuro */
     -fx-text-fill: #e0e0e0; /* Texto más claro */
+    -fx-scale-x: 1.1; /* Aumenta el tamaño en ancho */
+    -fx-scale-y: 1.1; /* Aumenta el tamaño en alto */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 255, 0.6), 12, 0.5, 0, 5); /* Sombra más pronunciada */
 }
 
 .button:pressed {
     -fx-background-color: #1a237e; /* Fondo más oscuro al presionar */
-    -fx-effect: none; /* Sin sombra al presionar */
+    -fx-effect: none; /* Sin sombra */
 }
 
 /* Botones específicos */
+
+/* Botón: Generar PDF */
 #btn_generarPDF {
     -fx-background-color: linear-gradient(to bottom, #ff6f00, #ffa000); /* Degradado naranja */
+    -fx-text-fill: white;
+    -fx-border-color: #ffcc80; /* Borde naranja claro */
+    -fx-border-width: 2px;
 }
 
+#btn_generarPDF:hover {
+    -fx-background-color: linear-gradient(to bottom, #ffa000, #ff6f00); /* Hover degradado */
+    -fx-scale-x: 1.15; /* Crece más al pasar el ratón */
+    -fx-scale-y: 1.15;
+    -fx-effect: dropshadow(gaussian, rgba(255, 87, 34, 0.7), 15, 0.5, 0, 5); /* Sombra naranja */
+}
+
+/* Botón: Generar Excel */
 #btn_generarExcel {
     -fx-background-color: linear-gradient(to bottom, #43a047, #388e3c); /* Degradado verde */
+    -fx-text-fill: white;
+    -fx-border-color: #a5d6a7; /* Borde verde claro */
+    -fx-border-width: 2px;
 }
 
+#btn_generarExcel:hover {
+    -fx-background-color: linear-gradient(to bottom, #388e3c, #43a047); /* Hover degradado */
+    -fx-scale-x: 1.15; /* Crece más al pasar el ratón */
+    -fx-scale-y: 1.15;
+    -fx-effect: dropshadow(gaussian, rgba(56, 142, 60, 0.7), 15, 0.5, 0, 5); /* Sombra verde */
+}
+
+/* Botón: Nueva Cita */
 #btn_nuevaCita {
     -fx-background-color: linear-gradient(to bottom, #3949ab, #1e88e5); /* Degradado azul */
+    -fx-text-fill: white;
+    -fx-border-color: #90caf9; /* Borde azul claro */
+    -fx-border-width: 2px;
 }
 
+#btn_nuevaCita:hover {
+    -fx-background-color: linear-gradient(to bottom, #1e88e5, #3949ab); /* Hover degradado */
+    -fx-scale-x: 1.15; /* Crece más al pasar el ratón */
+    -fx-scale-y: 1.15;
+    -fx-effect: dropshadow(gaussian, rgba(30, 136, 229, 0.7), 15, 0.5, 0, 5); /* Sombra azul */
+}
+
+/* Botón: Recargar Tabla */
 #btnReload {
     -fx-background-color: linear-gradient(to bottom, #6a1b9a, #8e24aa); /* Degradado morado */
+    -fx-text-fill: white;
+    -fx-border-color: #ce93d8; /* Borde morado claro */
+    -fx-border-width: 2px;
 }
 
-/* Combobox */
-.combo-box {
-    -fx-background-color: #ffffff; /* Fondo gris oscuro */
-    -fx-border-color: linear-gradient(to bottom, #4a90e2, #2b65d9); /* Borde azul brillante */
-    -fx-text-fill: #ffffff; /* Texto blanco */
-    -fx-border-radius: 5px;
-    -fx-padding: 5px;
+#btnReload:hover {
+    -fx-background-color: linear-gradient(to bottom, #8e24aa, #6a1b9a); /* Hover degradado */
+    -fx-scale-x: 1.15; /* Crece más al pasar el ratón */
+    -fx-scale-y: 1.15;
+    -fx-effect: dropshadow(gaussian, rgba(106, 27, 154, 0.7), 15, 0.5, 0, 5); /* Sombra morada */
 }
 
-.combo-box:focused {
-    -fx-border-color: linear-gradient(to bottom, #4a90e2, #2b65d9); /* Borde degradado más intenso */
+/* Botón: Regresar */
+#btn_close {
+    -fx-background-color: linear-gradient(to bottom, #d32f2f, #b71c1c); /* Degradado rojo */
+    -fx-text-fill: white;
+    -fx-border-color: #ef9a9a; /* Borde rojo claro */
+    -fx-border-width: 2px;
 }
 
-.combo-box:hover {
-    -fx-background-color: #96f6c7; /* Fondo más claro al pasar el mouse */
-    -fx-text-fill: #e0e0e0;
-}
-
-/* Tabla de citas */
-.table-view {
-    -fx-background-color: rgba(188, 234, 248, 0.85); /* Fondo gris oscuro translúcido */
-    -fx-border-color: linear-gradient(to bottom, #4a90e2, #2b65d9); /* Borde azul brillante */
-    -fx-border-width: 2px; /* Contorno más grueso */
-    -fx-border-radius: 10px;
-    -fx-padding: 5px;
-    -fx-background-radius: 10px;
-    -fx-font-size: 14px;
-}
-
-.table-column-header {
-    -fx-background-color: linear-gradient(to bottom, #4a90e2, #2b65d9); /* Fondo azul degradado para encabezados */
-    -fx-text-fill: #ffffff; /* Texto blanco */
-    -fx-font-weight: bold;
-    -fx-font-size: 14px;
-    -fx-border-color: transparent;
-    -fx-border-width: 0 0 2px 0;
-}
-
-/* Celdas de la tabla */
-.table-row-cell {
-    -fx-text-fill: #f5f5f5; /* Texto blanco */
-    -fx-background-color: transparent;
-}
-
-.table-row-cell:filled:selected {
-    -fx-background-color: #3f51b5; /* Azul oscuro al seleccionar */
-    -fx-text-fill: #ffffff;
-}
-
-.table-row-cell:filled:hover {
-    -fx-background-color: #4254f1; /* Azul oscuro al pasar el mouse */
-    -fx-text-fill: #ffffff;
-}
-
-/* Margen del contenedor principal */
-.vbox {
-    -fx-spacing: 20px;
-    -fx-padding: 20px;
+#btn_close:hover {
+    -fx-background-color: linear-gradient(to bottom, #b71c1c, #d32f2f); /* Hover degradado */
+    -fx-scale-x: 1.15; /* Crece más al pasar el ratón */
+    -fx-scale-y: 1.15;
+    -fx-effect: dropshadow(gaussian, rgba(183, 28, 28, 0.7), 15, 0.5, 0, 5); /* Sombra roja */
 }
