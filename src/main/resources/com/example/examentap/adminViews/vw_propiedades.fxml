@@ -83,7 +83,7 @@
         </VBox>
     </center>
     <right>
-        <VBox fx:id="vbForm">
+        <VBox fx:id="vbForm" spacing="20" alignment="CENTER">
             <padding>
                 <Insets top="20" right="50" bottom="20"/>
             </padding>
@@ -133,6 +133,20 @@
                 <Label text="Ciudad:" GridPane.rowIndex="10" GridPane.columnIndex="0" />
                 <ComboBox fx:id="cbCiudad" GridPane.rowIndex="10" GridPane.columnIndex="1"/>
             </GridPane>
+            <HBox alignment="CENTER" spacing="30">
+                <Button fx:id="btn_Aceptar" text="Aceptar" onAction="#onAceptar"
+                        style="-fx-background-color: #349f0f">
+                    <graphic>
+                        <FontIcon iconLiteral="antf-eye" iconSize="20" iconColor="#000000"/>
+                    </graphic>
+                </Button>
+                <Button fx:id="btn_Cancelar" text="Cancelar" onAction="#onCancelar"
+                        style="-fx-background-color: #349f0f">
+                    <graphic>
+                        <FontIcon iconLiteral="antf-eye" iconSize="20" iconColor="#000000"/>
+                    </graphic>
+                </Button>
+            </HBox>
         </VBox>
     </right>
 </BorderPane>
