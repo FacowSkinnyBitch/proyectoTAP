@@ -10,6 +10,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -22,7 +23,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -46,8 +49,6 @@ public class UserMenu_Controller implements Initializable {
     private Button btn_Ingresar, btn_Cancelar, btn_Cita, btn_MostrarCitas;
 
     @FXML private GridPane gpFromCita, gpPropiedades;
-
-    @FXML private ComboBox cb_filtro,cb_filtroProp, cb_filtroCiudad;
     //    tabla
     @FXML
     private TableView tv_Propiedades = new TableView();
@@ -62,6 +63,12 @@ public class UserMenu_Controller implements Initializable {
     @FXML
     private TableColumn<Propiedades, String> col_Ciudad;
 
+    @FXML
+    private ComboBox<String> cb_filtro, cb_filtroProp, cb_filtroCiudad;
+
+    @FXML
+    private VBox vboxPropiedades;
+
     private Usuario usuarioIniciado;
 
     private PropiedadesDao propDao = new PropiedadesDao();
@@ -70,100 +77,65 @@ public class UserMenu_Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        col_idPropiedad.setCellValueFactory(new PropertyValueFactory<>("id_propiedad"));
-        col_descripcion.setCellValueFactory(new PropertyValueFactory<>("descripcion"));
-        col_tipoPropiedad.setCellValueFactory(new PropertyValueFactory<>("tipo_propiedad"));
-        col_status.setCellValueFactory(new PropertyValueFactory<>("status"));
-        col_Ciudad.setCellValueFactory(new PropertyValueFactory<>("ciudad"));
 
-        iniciarTabla();
-        desactivarForm(true);
-        String[] status = {"Renta","Venta","Todo"};
-        String[] tipo_prop = {"Casa","Negocio","Condominio","Todo"};
+        // Inicializar los filtros con opciones
+        String[] status = {"Renta", "Venta", "Todo"};
+        String[] tipoProp = {"Casa", "Negocio", "Condominio", "Todo"};
         String[] ciudadUbicada = {"León", "Guadalajara", "Querétaro", "Morelia", "Todo"};
+
         cb_filtro.setItems(FXCollections.observableArrayList(status));
-        cb_filtroProp.setItems(FXCollections.observableArrayList(tipo_prop));
+        cb_filtroProp.setItems(FXCollections.observableArrayList(tipoProp));
         cb_filtroCiudad.setItems(FXCollections.observableArrayList(ciudadUbicada));
 
-        cb_filtro.valueProperty().addListener(event -> {
-            if(cb_filtro.getSelectionModel().getSelectedItem().equals("Renta")){
-                propiedadesList = propDao.filterPropByStatus("renta");
-                tv_Propiedades.setItems(FXCollections.observableList(propiedadesList));
+        // Cargar todas las propiedades al inicio
+        propiedadesList = propDao.findAll();
+        cargarPropiedades(propiedadesList);
 
-            }else if(cb_filtro.getSelectionModel().getSelectedItem().equals("Venta")){
-                propiedadesList = propDao.filterPropByStatus("venta");
-                tv_Propiedades.setItems(FXCollections.observableList(propiedadesList));
-            }else{
-                propiedadesList = propDao.findAll();
-                tv_Propiedades.setItems(FXCollections.observableList(propiedadesList));
-            }
-        });
-        cb_filtroProp.valueProperty().addListener(event -> {
-            if(cb_filtroProp.getSelectionModel().getSelectedItem().toString().equals("Casa")){
-                propiedadesList = propDao.filterPropByTipoProp(1);
-                tv_Propiedades.setItems(FXCollections.observableList(propiedadesList));
-            }else if(cb_filtroProp.getSelectionModel().getSelectedItem().equals("Negocio")){
-                propiedadesList = propDao.filterPropByTipoProp(2);
-                tv_Propiedades.setItems(FXCollections.observableList(propiedadesList));
-            }else if(cb_filtroProp.getSelectionModel().getSelectedItem().equals("Condominio")){
-                propiedadesList = propDao.filterPropByTipoProp(3);
-                tv_Propiedades.setItems(FXCollections.observableList(propiedadesList));
-            }else{
-                propiedadesList = propDao.findAll();
-                tv_Propiedades.setItems(FXCollections.observableList(propiedadesList));
-            }
-        });
-        cb_filtroCiudad.valueProperty().addListener(event -> {
-            if(cb_filtroCiudad.getSelectionModel().getSelectedItem().toString().equals("León")){
-                propiedadesList = propDao.filterPropByCiudad(1);
-                tv_Propiedades.setItems(FXCollections.observableList(propiedadesList));
-            }else if(cb_filtroCiudad.getSelectionModel().getSelectedItem().equals("Guadalajara")){
-                propiedadesList = propDao.filterPropByCiudad(2);
-                tv_Propiedades.setItems(FXCollections.observableList(propiedadesList));
-            }else if (cb_filtroCiudad.getSelectionModel().getSelectedItem().equals("Querétaro")) {
-                propiedadesList = propDao.filterPropByCiudad(3);
-                tv_Propiedades.setItems(FXCollections.observableList(propiedadesList));
-            } else if (cb_filtroCiudad.getSelectionModel().getSelectedItem().equals("Morelia")) {
-                propiedadesList = propDao.filterPropByCiudad(4);
-                tv_Propiedades.setItems(FXCollections.observableList(propiedadesList));
-            }else{
-                propiedadesList = propDao.findAll();
-                tv_Propiedades.setItems(FXCollections.observableList(propiedadesList));
-            }
-        });
+        // Desactivar el formulario hasta que se presione el botón "Generar Cita"
+        desactivarForm(true);
+        limpiarCampos();
 
-    }
-    public void registeredUser(Usuario u) {
-        this.usuarioIniciado = u;
+        // Configurar listeners para los filtros
+        cb_filtro.valueProperty().addListener((obs, oldVal, newVal) -> aplicarFiltros());
+        cb_filtroProp.valueProperty().addListener((obs, oldVal, newVal) -> aplicarFiltros());
+        cb_filtroCiudad.valueProperty().addListener((obs, oldVal, newVal) -> aplicarFiltros());
+
+        // Configuración para usuarios invitados o registrados
         if (usuarioIniciado == null) { // Modo invitado
-            gpFromCita.setVisible(false);
-            btn_Cita.setVisible(false);
-            btn_MostrarCitas.setVisible(false);
+            gpFromCita.setVisible(false); // Ocultar formulario de citas
+            btn_Cita.setVisible(false);   // Ocultar botón de generar cita
+            btn_MostrarCitas.setVisible(false); // Ocultar botón de mostrar citas
             System.out.println("Bienvenido al modo invitado...");
-        } else { // Usuario normal
+        } else {
+            gpFromCita.setVisible(true);
+            btn_Cita.setVisible(true);
+            btn_MostrarCitas.setVisible(true);// Usuario registrado
             System.out.println("Bienvenido: " + usuarioIniciado.getNombre());
-
         }
     }
-    public void iniciarTabla(){
-        propiedadesList = propDao.findAll();
-        tv_Propiedades.setItems(FXCollections.observableList(propiedadesList));
 
-        tv_Propiedades.setOnMouseClicked(mouseEvent ->{
-            Propiedades p = (Propiedades) tv_Propiedades.getSelectionModel().getSelectedItem();
-            switch(mouseEvent.getClickCount()) {
-                case 1:
-                    break;
-                case 2:
-                    if(tv_Propiedades.getSelectionModel().getSelectedItem() == null) {
-                        System.out.println("Nada seleccionado");
-                    }else{
-                        onMostrarPropiedad(p);
-                    }
-            }
-        });
+    public void registeredUser(Usuario u) {
+        this.usuarioIniciado = u;
 
+        if (usuarioIniciado == null) { // Modo invitado
+            gpFromCita.setVisible(false);         // Oculta formulario de citas
+            btn_Cita.setVisible(false);           // Oculta botón de generar cita
+            btn_MostrarCitas.setVisible(false);   // Oculta botón de mostrar citas
+            System.out.println("Bienvenido al modo invitado...");
+        } else { // Usuario registrado
+            gpFromCita.setVisible(true);          // Muestra formulario de citas
+            btn_Cita.setVisible(true);            // Muestra botón de generar cita
+            btn_MostrarCitas.setVisible(true);    // Muestra botón de mostrar citas
+            System.out.println("Bienvenido: " + usuarioIniciado.getNombre());
+        }
+
+        // Asegúrate de limpiar los campos al inicio
+        limpiarCampos();
+        desactivarForm(true); // Desactiva el formulario de citas por defecto
     }
+
+
+
 
     private void desactivarForm(boolean activar) {
         tf_nombre.setDisable(activar);
@@ -173,16 +145,31 @@ public class UserMenu_Controller implements Initializable {
         tf_hora_cita.setDisable(activar);
         btn_Ingresar.setDisable(activar);
         btn_Cancelar.setDisable(activar);
+
+        if (activar) {
+            limpiarCampos(); // Limpia los campos si el formulario está desactivado
+        }
     }
 
     @FXML
     private void onGenerarCita() {
+        // Habilitar formulario
         desactivarForm(false);
-        tf_nombre.setText(usuarioIniciado.getNombre());
-        tf_correo.setText(usuarioIniciado.getEmail());
-        tf_telefono.setText(usuarioIniciado.getTelefono());
 
+        // Rellenar automáticamente los campos con los datos del usuario (si está registrado)
+        if (usuarioIniciado != null) {
+            tf_nombre.setText(usuarioIniciado.getNombre());
+            tf_correo.setText(usuarioIniciado.getEmail());
+            tf_telefono.setText(usuarioIniciado.getTelefono());
+        }
+
+        // Cambiar el estilo de las tarjetas para que se activen visualmente
+        for (Node tarjeta : vboxPropiedades.getChildren()) {
+            tarjeta.getStyleClass().remove("inactive-card");
+            tarjeta.getStyleClass().add("active-card");
+        }
     }
+
     @FXML
     private void onCancelarCita(ActionEvent event) {
         desactivarForm(false);
@@ -321,4 +308,78 @@ public class UserMenu_Controller implements Initializable {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.close();
     }
+
+    private void aplicarFiltros() {
+        String filtroStatus = cb_filtro.getValue();
+        String filtroTipo = cb_filtroProp.getValue();
+        String filtroCiudad = cb_filtroCiudad.getValue();
+
+        propiedadesList = propDao.findAll(); // Obtener todas las propiedades como base inicial
+
+        // Aplicar filtro por estado (Renta/Venta)
+        if (filtroStatus != null && !filtroStatus.equals("Todo")) {
+            propiedadesList = propDao.filterPropByStatus(filtroStatus.toLowerCase());
+        }
+
+        // Aplicar filtro por tipo de propiedad
+        if (filtroTipo != null && !filtroTipo.equals("Todo")) {
+            int tipoPropiedad = filtroTipo.equals("Casa") ? 1 : filtroTipo.equals("Negocio") ? 2 : 3;
+            propiedadesList = propDao.filterPropByTipoProp(tipoPropiedad);
+        }
+
+        // Aplicar filtro por ciudad
+        if (filtroCiudad != null && !filtroCiudad.equals("Todo")) {
+            int ciudad = filtroCiudad.equals("León") ? 1 : filtroCiudad.equals("Guadalajara") ? 2 : filtroCiudad.equals("Querétaro") ? 3 : 4;
+            propiedadesList = propDao.filterPropByCiudad(ciudad);
+        }
+
+        // Cargar las propiedades filtradas
+        cargarPropiedades(propiedadesList);
+    }
+
+    public void cargarPropiedades(List<Propiedades> propiedades) {
+        vboxPropiedades.getChildren().clear(); // Limpia las tarjetas existentes
+
+        for (Propiedades propiedad : propiedades) {
+            VBox tarjeta = new VBox();
+            tarjeta.setSpacing(10);
+            tarjeta.setPadding(new Insets(10));
+            tarjeta.setStyle("-fx-background-color: #2c2c2c; -fx-border-radius: 10px;"); // Estilo base
+            tarjeta.getStyleClass().add("inactive-card"); // Agrega clase inactiva por defecto
+
+            Label lblIdTitulo = new Label("ID: " + propiedad.getId_propiedad());
+            lblIdTitulo.setStyle("-fx-font-weight: bold; -fx-text-fill: white;");
+
+            Label lblDescripcion = new Label("Descripción: " + propiedad.getDescripcion());
+            lblDescripcion.setStyle("-fx-text-fill: #cccccc;");
+
+            Label lblCiudad = new Label("Ciudad: " + propiedad.getCiudad());
+            lblCiudad.setStyle("-fx-text-fill: #cccccc;");
+
+            Label lblTipo = new Label("Tipo: " + propiedad.getTipo_propiedad());
+            lblTipo.setStyle("-fx-text-fill: #cccccc;");
+
+            Label lblStatus = new Label("Estatus: " + propiedad.getStatus());
+            lblStatus.setStyle("-fx-text-fill: #cccccc;");
+
+            // Imagen de la propiedad
+            ImageView ivImagen = new ImageView(new Image(getClass().getResource("/com/example/examentap/images/" + propiedad.getImagen()).toExternalForm()));
+            ivImagen.setFitHeight(200);
+            ivImagen.setFitWidth(300);
+            ivImagen.setPreserveRatio(true);
+
+            // Agregar los elementos a la tarjeta
+            tarjeta.getChildren().addAll(ivImagen, lblIdTitulo, lblDescripcion, lblCiudad, lblTipo, lblStatus);
+
+            // Agregar acción al hacer clic en la tarjeta (si es necesario)
+            tarjeta.setOnMouseClicked(event -> onMostrarPropiedad(propiedad));
+
+            // Agregar la tarjeta al contenedor
+            vboxPropiedades.getChildren().add(tarjeta);
+        }
+    }
+
+
+
+
 }

@@ -7,13 +7,14 @@
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.example.examentap.controllers.CitasController_admin"
-      prefHeight="400.0" prefWidth="600.0">
+      prefHeight="400.0" prefWidth="600.0"
+        alignment="CENTER" spacing="30">
+    <padding>
+        <Insets left="20" right="20" top="30"/>
+    </padding>
 
     <Label text="Datos de Citas" style="-fx-font-size: 20px" />
-    <HBox alignment="CENTER_LEFT" spacing="5">
-        <padding>
-            <Insets top="20" left="50" right="50" bottom="20"/>
-        </padding>
+    <HBox alignment="CENTER" spacing="10">
 
         <Button fx:id="btn_generarPDF" text="Generar PDF" onAction="#generarPDF"
                 style="-fx-background-color: #d78634">
@@ -35,6 +36,10 @@
             </graphic>
         </Button>
 
+    </HBox>
+    <HBox alignment="CENTER" spacing="20">
+        <ComboBox fx:id="cbFiltroStatus" promptText="Status"/>
+        <ComboBox fx:id="cbFiltroProp" promptText="Propiedades"/>
     </HBox>
     <TableView fx:id="citasTable" layoutX="10.0" layoutY="10.0" prefHeight="300.0" prefWidth="480.0">
         <columns>
@@ -85,4 +90,10 @@
             </TableColumn>
         </columns>
     </TableView>
+    <Button fx:id="btnReload" text="Recargar Tabla" onAction="#onRefresh"
+            style="-fx-background-color: PURPLE">
+        <graphic>
+            <FontIcon iconLiteral="anto-retweet" iconSize="20" iconColor="#000000"/>
+        </graphic>
+    </Button>
 </VBox>

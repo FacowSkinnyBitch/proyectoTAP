@@ -5,6 +5,7 @@ import com.example.examentap.models.Datos_Cita;
 import javafx.collections.FXCollections;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -106,6 +107,51 @@ public class CitasDao extends MySQLConnection implements Dao<Datos_Cita> {
         return total;
     }
 
+    public List<Datos_Cita> findByStatus(String status) {
+        List<Datos_Cita> citas = new ArrayList<>();
+        String query = "SELECT * FROM datos_cita WHERE status = ?";
+        try (PreparedStatement statement = conn.prepareStatement(query)) {
+            statement.setString(1, status);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Datos_Cita cita = mapResultSetToCita(resultSet);
+                citas.add(cita);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return citas;
+    }
+
+    public List<Datos_Cita> findByIdPropiedad(int idPropiedad) {
+        List<Datos_Cita> citas = new ArrayList<>();
+        String query = "SELECT * FROM datos_cita WHERE id_propiedad = ?";
+        try (PreparedStatement statement = conn.prepareStatement(query)) {
+            statement.setInt(1, idPropiedad);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Datos_Cita cita = mapResultSetToCita(resultSet);
+                citas.add(cita);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return citas;
+    }
+    private Datos_Cita mapResultSetToCita(ResultSet resultSet) throws Exception {
+        return new Datos_Cita(
+                resultSet.getInt("id_cita"),
+                resultSet.getString("nombre_completo"),
+                resultSet.getString("correo"),
+                resultSet.getInt("telefono"),
+                resultSet.getDate("fecha_cita"),
+                resultSet.getTime("hora_cita"),
+                resultSet.getInt("id_propiedad"),
+                resultSet.getInt("id_usuario"),
+                resultSet.getString("status")
+        );
+    }
+
     @Override
     public boolean save(Datos_Cita c) {
         String query = "INSERT INTO datos_cita (nombre_completo, correo, telefono, fecha_cita, hora_cita, id_propiedad, id_usuario, status) " +
@@ -132,7 +178,7 @@ public class CitasDao extends MySQLConnection implements Dao<Datos_Cita> {
 
     @Override
     public boolean update(Datos_Cita c) {
-        String query = "UPDATE datos_cita SET nombre_completo = ?, correo = ?, telefono = ?, fecha_cita = ?, hora_cita = ?, id_propiedad=?, id_usuario, status=?" +
+        String query = "UPDATE datos_cita SET nombre_completo = ?, correo = ?, telefono = ?, fecha_cita = ?, hora_cita = ?, id_propiedad=?, id_usuario=?, status=?" +
                 " WHERE id_cita = ?";
         try {
             PreparedStatement ps = conn.prepareStatement(query);

@@ -1,12 +1,15 @@
 package com.example.examentap.controllers;
 
 import com.example.examentap.databases.dao.CitasDao;
+import com.example.examentap.databases.dao.PropiedadesDao;
 import com.example.examentap.models.Datos_Cita;
+import com.example.examentap.models.Propiedades;
 import com.example.examentap.reports.CitasExcelReport;
 import com.example.examentap.reports.CitasPDFReport;
 import com.example.examentap.reports.UsersExcelReports;
 import com.example.examentap.reports.UsersPDFReport;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -54,23 +57,30 @@ public class CitasController_admin implements Initializable {
     @FXML
     private TableColumn<Datos_Cita, String> col_status;
     private final CitasDao citasDao = new CitasDao();
+    private final PropiedadesDao propiedadDao = new PropiedadesDao();
     private List<Datos_Cita> datosCitaList = new ArrayList<Datos_Cita>();
-
+    private List<Propiedades> propiedadesList = new ArrayList<>();
+    @FXML ComboBox cbFiltroStatus,cbFiltroProp;
 
     public static final String DEST1 = "results/pdf/Citas.pdf";
     public static final String DEST2 = "results/excel/Citas.xlsx";
 
     ContextMenu contextMenu = new ContextMenu();
-    javafx.scene.control.MenuItem menuItemDeleteCita = new javafx.scene.control.MenuItem("Delete");
-    javafx.scene.control.MenuItem menuItemUpdateCita = new javafx.scene.control.MenuItem("Update");
-    javafx.scene.control.MenuItem menuItemStatus = new MenuItem("Status");
-
+    MenuItem menuItemDeleteCita = new MenuItem("Delete");
+    MenuItem menuItemUpdateCita = new MenuItem("Update");
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         iniciarTabla();
         initContextMenu();
         metodosCRUD();
+        cargarComboBox();
+        cbFiltroStatus.setOnAction(actionEvent -> {
+            filtrarCitasPorStatus();
+        });
+        cbFiltroProp.setOnAction(actionEvent -> {
+            filtrarCitasPorPropiedad();
+        });
 
         citasTable.setOnMouseClicked(mouseEvent ->{
             if (mouseEvent.getClickCount() == 2) {
@@ -113,15 +123,48 @@ public class CitasController_admin implements Initializable {
         menuItemUpdateCita.setGraphic(iconUpdate);
 
 
-        FontIcon iconStatus = new FontIcon();
-        iconStatus.setIconLiteral("anto-info-circle");
-        iconStatus.setIconSize(20);
-        iconStatus.setIconColor(Color.BLUE);
-        menuItemStatus.setGraphic(iconStatus);
-
-        contextMenu.getItems().addAll(menuItemUpdateCita,menuItemDeleteCita,menuItemStatus);
+        contextMenu.getItems().addAll(menuItemUpdateCita,menuItemDeleteCita);
 
     }
+
+    private void cargarComboBox(){
+        List <String> cita= new ArrayList<>();
+        cita.add("confirmada");
+        cita.add("programada");
+        cbFiltroStatus.setItems(FXCollections.observableArrayList(cita));
+
+        propiedadesList = propiedadDao.findAll();
+        List <String> prop= new ArrayList<>();
+        for(Propiedades p: propiedadesList){
+            prop.add(String.valueOf(p.getId_propiedad()));
+        }
+        cbFiltroProp.setItems(FXCollections.observableArrayList(prop));
+    }
+
+    private void filtrarCitasPorStatus() {
+        String selectedStatus = (String) cbFiltroStatus.getSelectionModel().getSelectedItem();
+        if (selectedStatus != null) {
+            List<Datos_Cita> filteredList = citasDao.findByStatus(selectedStatus);
+            citasTable.setItems(FXCollections.observableArrayList(filteredList));
+        } else {
+            citasTable.setItems(FXCollections.observableArrayList(citasDao.findAll()));
+        }
+    }
+
+    private void filtrarCitasPorPropiedad() {
+        for (Propiedades p : propiedadDao.findAll()) {
+            //System.out.println(cb_categorias.getSelectionModel().getSelectedIndex());
+            if ((cbFiltroProp.getSelectionModel().getSelectedIndex()) == (p.getId_propiedad())) {
+                //System.out.println("categoria: "+cb_categorias.getSelectionModel().getSelectedIndex());
+                citasTable.getItems().clear();
+                datosCitaList = citasDao.findByIdPropiedad(p.getId_propiedad());
+                citasTable.setItems(FXCollections.observableArrayList(datosCitaList));
+            }
+        }
+    }
+
+
+
     @FXML
     public void onMostrarCita(ActionEvent actionEvent) {
         onMostrarCita(null,3);
@@ -139,11 +182,6 @@ public class CitasController_admin implements Initializable {
                 citasDao.deleteCita(dCita.getId_cita(),dCita.getId_propiedad(),dCita.getId_usuario());
                 iniciarTabla();
             }
-        });
-        menuItemStatus.setOnAction(event -> {
-            Datos_Cita dCita = (Datos_Cita) citasTable.getSelectionModel().getSelectedItem();
-
-            //changeStatus(dCita);
         });
     }
 
@@ -178,8 +216,8 @@ public class CitasController_admin implements Initializable {
             Stage stage = new Stage();
             stage.setTitle(title);
             Scene scene = new Scene(root);
-            stage.setWidth(720);
-            stage.setHeight(510);
+            //stage.setWidth(720);
+            //stage.setHeight(510);
             scene.getStylesheets().add(getClass().getResource("/com/example/examentap/cssFiles/citasUser.css").toExternalForm());
             stage.setScene(scene);
             stage.initModality(Modality.APPLICATION_MODAL); // Para bloquear la ventana principal mientras esta está abierta
@@ -219,6 +257,14 @@ public class CitasController_admin implements Initializable {
         }
     }
 
+    @FXML
+    private void onRefresh(ActionEvent e) {
+        // Recargar los elementos de la tabla
+        citasTable.setItems(FXCollections.observableArrayList(citasDao.findAll()));
+    }
+
+
+
     //metodo para abrir reportes pdf o excel
     private void openFile(String filename) {
         if (Desktop.isDesktopSupported()) {
@@ -230,12 +276,5 @@ public class CitasController_admin implements Initializable {
             }
         }
     }
-
-    @FXML
-    public void onCloseForm(ActionEvent event) {
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.close();
-    }
-
 
 }
