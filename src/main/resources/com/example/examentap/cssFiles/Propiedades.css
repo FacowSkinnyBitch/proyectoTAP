@@ -1,0 +1,188 @@
+/* Fondo general con degradado */
+.root {
+    -fx-background-color: linear-gradient(to bottom, #1e1e1e, #111111); /* Fondo oscuro con degradado */
+    -fx-padding: 20px;
+    -fx-border-radius: 15px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.7), 15, 0.5, 0, 5); /* Sombra */
+}
+
+/* Títulos principales */
+.label-title, .header-panel, #lblTitleForm {
+    -fx-font-size: 16px; /* Tamaño reducido */
+    -fx-font-weight: bold;
+    -fx-text-fill: linear-gradient(to right, #ff9500, #ffa726); /* Texto degradado naranja */
+    -fx-padding: 10px;
+    -fx-alignment: center;
+}
+
+/* Botones generales */
+.button {
+    -fx-background-color: linear-gradient(to bottom, #3f51b5, #283593); /* Fondo azul degradado */
+    -fx-text-fill: white; /* Texto blanco */
+    -fx-font-weight: bold;
+    -fx-font-size: 12px; /* Tamaño reducido */
+    -fx-border-radius: 8px;
+    -fx-padding: 8px 10px; /* Tamaño más compacto */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 8, 0.5, 0, 2);
+    -fx-transition: all 0.3s ease-in-out;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: linear-gradient(to bottom, #283593, #1a237e);
+    -fx-text-fill: #e0e0e0;
+    -fx-scale-x: 1.1;
+    -fx-scale-y: 1.1;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 255, 0.6), 12, 0.5, 0, 5);
+}
+
+.button:pressed {
+    -fx-background-color: #1a237e;
+    -fx-effect: none;
+}
+
+/* Botones específicos */
+
+/* Botón: Generar PDF */
+#btn_generarPDF {
+    -fx-background-color: linear-gradient(to bottom, #ff6f00, #ffa000);
+    -fx-border-color: #ffcc80;
+    -fx-border-width: 2px;
+}
+
+#btn_generarPDF:hover {
+    -fx-background-color: linear-gradient(to bottom, #ffa000, #ff6f00);
+    -fx-effect: dropshadow(gaussian, rgba(255, 87, 34, 0.7), 15, 0.5, 0, 5);
+}
+
+/* Botón: Generar Excel */
+#btn_generarExcel {
+    -fx-background-color: linear-gradient(to bottom, #43a047, #388e3c);
+    -fx-border-color: #a5d6a7;
+    -fx-border-width: 2px;
+}
+
+#btn_generarExcel:hover {
+    -fx-background-color: linear-gradient(to bottom, #388e3c, #43a047);
+    -fx-effect: dropshadow(gaussian, rgba(56, 142, 60, 0.7), 15, 0.5, 0, 5);
+}
+
+/* Botón: Aceptar */
+#btn_Aceptar {
+    -fx-background-color: linear-gradient(to bottom, #1976d2, #42a5f5);
+    -fx-border-color: #90caf9;
+    -fx-border-width: 2px;
+}
+
+#btn_Aceptar:hover {
+    -fx-background-color: linear-gradient(to bottom, #42a5f5, #1976d2);
+    -fx-effect: dropshadow(gaussian, rgba(66, 165, 245, 0.7), 15, 0.5, 0, 5);
+}
+
+/* Botón: Cancelar */
+#btn_Cancelar {
+    -fx-background-color: linear-gradient(to bottom, #d32f2f, #b71c1c);
+    -fx-border-color: #ef9a9a;
+    -fx-border-width: 2px;
+}
+
+#btn_Cancelar:hover {
+    -fx-background-color: linear-gradient(to bottom, #b71c1c, #d32f2f);
+    -fx-effect: dropshadow(gaussian, rgba(183, 28, 28, 0.7), 15, 0.5, 0, 5);
+}
+
+/* Tabla de propiedades */
+.table-view {
+    -fx-background-color: rgba(188, 234, 248, 0.85); /* Fondo translúcido */
+    -fx-border-color: linear-gradient(to bottom, #4a90e2, #2b65d9);
+    -fx-border-width: 2px;
+    -fx-border-radius: 10px;
+    -fx-font-size: 12px; /* Tamaño reducido */
+}
+
+.table-column-header {
+    -fx-background-color: linear-gradient(to bottom, #4a90e2, #2b65d9);
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 12px; /* Tamaño reducido */
+    -fx-border-width: 0 0 2px 0;
+}
+
+.table-row-cell:filled:hover {
+    -fx-background-color: #4254f1;
+    -fx-text-fill: white;
+}
+
+/* ComboBox */
+.combo-box {
+    -fx-background-color: #ffffff; /* Fondo blanco */
+    -fx-border-color: #6c63ff; /* Borde morado visible */
+    -fx-border-radius: 8px; /* Bordes redondeados */
+    -fx-background-radius: 8px;
+    -fx-text-fill: #000000; /* Texto negro */
+    -fx-font-size: 12px; /* Tamaño reducido pero legible */
+    -fx-padding: 6px; /* Espaciado interno */
+}
+
+.combo-box:focused {
+    -fx-border-color: #64b5f6; /* Borde azul claro al enfocarse */
+    -fx-border-width: 2px; /* Contorno más grueso */
+    -fx-effect: dropshadow(gaussian, rgba(100, 181, 246, 0.6), 8, 0.5, 0, 0); /* Sombra azul */
+}
+
+.combo-box:hover {
+    -fx-background-color: #f0f0f0; /* Fondo gris claro al pasar el ratón */
+    -fx-text-fill: #000000; /* Texto negro */
+}
+
+/* Opciones del ComboBox */
+.combo-box .list-cell {
+    -fx-background-color: #ffffff; /* Fondo blanco para las opciones */
+    -fx-text-fill: #000000; /* Texto negro */
+    -fx-font-size: 12px; /* Tamaño de texto */
+    -fx-padding: 5px; /* Espaciado interno */
+}
+
+.combo-box .list-cell:hover {
+    -fx-background-color: #d1c4e9; /* Fondo morado claro al pasar el ratón */
+    -fx-text-fill: #000000; /* Texto negro */
+}
+
+/* Opción seleccionada */
+.combo-box .list-cell:selected {
+    -fx-background-color: #6c63ff; /* Fondo morado al seleccionar */
+    -fx-text-fill: #ffffff; /* Texto blanco */
+}
+
+/* Botón desplegable del ComboBox */
+.combo-box .arrow {
+    -fx-background-color: #6c63ff; /* Fondo del botón desplegable */
+    -fx-border-radius: 5px;
+}
+
+.combo-box .arrow:hover {
+    -fx-background-color: #4a47ff; /* Fondo más oscuro al pasar el ratón */
+}
+
+/* Placeholder (texto inicial cuando no hay selección) */
+.combo-box .text:empty {
+    -fx-fill: #bbbbbb; /* Texto gris claro */
+    -fx-font-style: italic;
+}
+
+
+/* TextField y DatePicker */
+.text-field, .date-picker {
+    -fx-background-color: #3a3a3a;
+    -fx-text-fill: white;
+    -fx-prompt-text-fill: #a8a8a8;
+    -fx-border-color: #42a5f5;
+    -fx-border-radius: 5px;
+    -fx-font-size: 10px; /* Tamaño reducido */
+    -fx-padding: 5px; /* Compacto */
+}
+
+.text-field:focused, .date-picker:focused {
+    -fx-border-color: #64b5f6;
+    -fx-effect: dropshadow(gaussian, rgba(100, 181, 246, 0.6), 8, 0.5, 0, 0);
+}

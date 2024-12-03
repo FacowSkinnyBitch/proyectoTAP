@@ -8,7 +8,7 @@
 
 /* Estilo del encabezado */
 .dialog-pane .header-panel {
-    -fx-background-color: linear-gradient(to right, #ff9500, #ffa726); /* Fondo naranja degradado */
+    -fx-background-color: linear-gradient(to right, #faf9f8, #b6b2b2); /* Fondo naranja degradado */
     -fx-text-fill: white; /* Texto blanco */
     -fx-font-size: 18px; /* Tamaño de fuente */
     -fx-font-weight: bold; /* Negrita */
@@ -26,25 +26,26 @@
 
 /* Etiquetas (Labels) */
 .label {
-    -fx-text-fill: white; /* Texto blanco */
-    -fx-font-size: 14px; /* Tamaño de fuente */
+    -fx-text-fill: linear-gradient(to right, #ec5e0b, #e39a70); /* Texto con degradado azul claro */
+    -fx-font-size: 12px; /* Tamaño del texto reducido */
     -fx-font-weight: bold; /* Negrita */
 }
 
-/* Campos de texto (TextField) */
-.text-field {
-    -fx-background-color: #333333; /* Fondo oscuro */
+/* Campos de texto (TextField y PasswordField) */
+.text-field, .password-field {
+    -fx-background-color: #3a3a3a; /* Fondo oscuro */
     -fx-text-fill: white; /* Texto blanco */
-    -fx-prompt-text-fill: #bbbbbb; /* Texto de placeholder gris claro */
-    -fx-border-color: #6c63ff; /* Contorno morado */
+    -fx-prompt-text-fill: #a8a8a8; /* Placeholder gris claro */
+    -fx-border-color: #42a5f5; /* Contorno azul */
     -fx-border-radius: 5px; /* Bordes redondeados */
     -fx-background-radius: 5px;
-    -fx-padding: 8px;
+    -fx-padding: 6px; /* Espaciado interno reducido */
+    -fx-font-size: 12px; /* Tamaño del texto reducido */
 }
 
-.text-field:focused {
-    -fx-border-color: #ffa726; /* Contorno naranja al enfocarse */
-    -fx-effect: dropshadow(gaussian, rgba(255, 165, 38, 0.5), 8, 0.5, 0, 0); /* Sombra naranja */
+.text-field:focused, .password-field:focused {
+    -fx-border-color: #e1832f; /* Contorno azul claro al enfocarse */
+    -fx-effect: dropshadow(gaussian, rgba(100, 181, 246, 0.6), 8, 0.5, 0, 0); /* Sombra azul */
 }
 
 /* DatePicker */
