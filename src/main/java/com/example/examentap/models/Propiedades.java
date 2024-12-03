@@ -145,6 +145,9 @@ public class Propiedades {
                 "\nCiudad: " + ciudad;
 
     }
+    public String showID() {
+        return "ID: " + id_propiedad; // Cambia según tus necesidades
+    }
 
 
 

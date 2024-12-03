@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.control.DatePicker?>
+
+<?import java.lang.String?>
+<DialogPane xmlns:fx="http://javafx.com/fxml/1" fx:id="dialogPane2">
+    <headerText>
+        <String fx:value="Actualiza los datos del usuario" />
+    </headerText>
+    <content>
+        <GridPane hgap="10" vgap="10">
+            <Label text="Usuario:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+            <TextField fx:id="txtUser" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+
+            <Label text="Nombre:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+            <TextField fx:id="txtNombre" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+            <Label text="Primer Apellido:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+            <TextField fx:id="txtPrimerApellido" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+            <Label text="Segundo Apellido:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+            <TextField fx:id="txtSegundoApellido" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+
+            <Label text="Email:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+            <TextField fx:id="txtEmail" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+
+            <Label text="Contraseña:" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+            <TextField fx:id="txtContraseya" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+
+            <Label text="Teléfono:" GridPane.columnIndex="0" GridPane.rowIndex="6" />
+            <TextField fx:id="txtTelefono" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+
+            <Label text="Dirección:" GridPane.columnIndex="0" GridPane.rowIndex="7" />
+            <TextField fx:id="txtDireccion" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+
+            <Label text="Género:" GridPane.columnIndex="0" GridPane.rowIndex="8" />
+            <TextField fx:id="txtGenero" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+
+            <Label text="Nacimiento:" GridPane.columnIndex="0" GridPane.rowIndex="9" />
+            <DatePicker fx:id="dpNacimiento" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+
+            <Label text="Role:" GridPane.columnIndex="0" GridPane.rowIndex="10" />
+            <TextField fx:id="txtRole" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+        </GridPane>
+    </content>
+    <buttonTypes>
+        <ButtonType fx:id="guardarButtonType" text="Guardar" buttonData="OK_DONE" />
+        <ButtonType fx:id="cancelarButtonType" text="Cancelar" buttonData="CANCEL_CLOSE" />
+    </buttonTypes>
+</DialogPane>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.control.DatePicker?>
+
+<DialogPane xmlns:fx="http://javafx.com/fxml/1" fx:id="dialogPane2" fx:controller="com.example.examentap.controllers.PropiedadesController">
+    <headerText>
+        Actualiza los datos de la propiedad
+    </headerText>
+    <content>
+        <GridPane hgap="10" vgap="10">
+            <!-- Dirección -->
+            <Label text="Dirección:" GridPane.rowIndex="0" GridPane.columnIndex="0" />
+            <TextField fx:id="txtDireccion" GridPane.rowIndex="0" GridPane.columnIndex="1" promptText="Ingrese la dirección" />
+
+            <!-- Precio -->
+            <Label text="Precio:" GridPane.rowIndex="1" GridPane.columnIndex="0" />
+            <TextField fx:id="txtPrecio" GridPane.rowIndex="1" GridPane.columnIndex="1" promptText="Ingrese el precio" />
+
+            <!-- Descripción -->
+            <Label text="Descripción:" GridPane.rowIndex="2" GridPane.columnIndex="0" />
+            <TextField fx:id="txtDescripcion" GridPane.rowIndex="2" GridPane.columnIndex="1" promptText="Ingrese una descripción" />
+
+            <!-- Número de Cuartos -->
+            <Label text="Número de Cuartos:" GridPane.rowIndex="3" GridPane.columnIndex="0" />
+            <TextField fx:id="txtNumCuartos" GridPane.rowIndex="3" GridPane.columnIndex="1" promptText="Ingrese el número de cuartos" />
+
+            <!-- Número de Baños -->
+            <Label text="Número de Baños:" GridPane.rowIndex="4" GridPane.columnIndex="0" />
+            <TextField fx:id="txtNumBanos" GridPane.rowIndex="4" GridPane.columnIndex="1" promptText="Ingrese el número de baños" />
+
+            <!-- Metros Cuadrados -->
+            <Label text="Metros Cuadrados:" GridPane.rowIndex="5" GridPane.columnIndex="0" />
+            <TextField fx:id="txtMetrosCuadrados" GridPane.rowIndex="5" GridPane.columnIndex="1" promptText="Ingrese los metros cuadrados" />
+
+            <!-- Tipo de Propiedad -->
+            <Label text="Tipo de Propiedad:" GridPane.rowIndex="6" GridPane.columnIndex="0" />
+            <ComboBox fx:id="cbTipoPropiedad" GridPane.rowIndex="6" GridPane.columnIndex="1" />
+
+            <!-- Estado -->
+            <Label text="Estado (Renta/Venta):" GridPane.rowIndex="7" GridPane.columnIndex="0" />
+            <ComboBox fx:id="cbEstado" GridPane.rowIndex="7" GridPane.columnIndex="1" />
+
+            <!-- Año de Construcción -->
+            <Label text="Año de Construcción:" GridPane.rowIndex="8" GridPane.columnIndex="0" />
+            <DatePicker fx:id="dpAnyoConstruccion" GridPane.rowIndex="8" GridPane.columnIndex="1" />
+
+            <!-- Imagen -->
+            <Label text="Imagen (URL):" GridPane.rowIndex="9" GridPane.columnIndex="0" />
+            <TextField fx:id="txtImagen" GridPane.rowIndex="9" GridPane.columnIndex="1" promptText="Ingrese la URL de la imagen" />
+
+            <!-- Ciudad -->
+            <Label text="Ciudad:" GridPane.rowIndex="10" GridPane.columnIndex="0" />
+            <ComboBox fx:id="cbCiudad" GridPane.rowIndex="10" GridPane.columnIndex="1"/>
+        </GridPane>
+    </content>
+    <buttonTypes>
+        <ButtonType fx:id="guardarButtonType" text="Guardar" buttonData="OK_DONE" />
+        <ButtonType fx:id="cancelarButtonType" text="Cancelar" buttonData="CANCEL_CLOSE" />
+    </buttonTypes>
+</DialogPane>

@@ -15,9 +15,12 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import org.kordamp.ikonli.javafx.FontIcon;
 
 import java.awt.*;
 import java.io.File;
@@ -38,9 +41,6 @@ public class PropiedadesController implements Initializable {
     @FXML private TableColumn<Propiedades, String> tv_Ciudad;
 
     @FXML private ComboBox cb_filtroStatusProp,cb_filtroTipoProp, cb_filtroCiudad;
-    //    tabla
-
-
 
     private PropiedadesDao propDao = new PropiedadesDao();
     private List<Propiedades> propiedadesList = new ArrayList<Propiedades>();
@@ -48,6 +48,11 @@ public class PropiedadesController implements Initializable {
     public static final String DEST1 = "results/pdf/Propiedades.pdf";
     public static final String DEST2 = "results/pdf/TipoPropiedades.pdf";
     PropiedadesDao dao = new PropiedadesDao();
+
+    ContextMenu contextMenu = new ContextMenu();
+    MenuItem menuItemSelectUser = new MenuItem("Info User");
+    MenuItem menuItemDeleteUser = new MenuItem("Delete");
+    MenuItem menuItemUpdate = new MenuItem("Update");
 
 
     @Override
@@ -60,6 +65,8 @@ public class PropiedadesController implements Initializable {
         tv_Ciudad.setCellValueFactory(new PropertyValueFactory<>("ciudad"));
 
         initTable();
+        initContextMenu();
+
         String[] status = {"Renta","Venta","Todo"};
         String[] tipo_prop = {"Casa","Negocio","Condominio","Todo"};
         String[] ciudadUbicada = {"León", "Guadalajara", "Querétaro", "Morelia", "Todo"};
@@ -68,7 +75,7 @@ public class PropiedadesController implements Initializable {
         cb_filtroCiudad.setItems(FXCollections.observableArrayList(ciudadUbicada));
 
 
-
+        //filtros de la tabla
         cb_filtroStatusProp.valueProperty().addListener(event -> {
             if(cb_filtroStatusProp.getSelectionModel().getSelectedItem().equals("Renta")){
                 propiedadesList = propDao.filterPropByStatus("renta");
@@ -119,10 +126,8 @@ public class PropiedadesController implements Initializable {
 
     }
     private void initTable() {
-
         propiedadesList = propDao.findAll();
         propiedadesTable.setItems(FXCollections.observableList(propiedadesList));
-
 
         propiedadesTable.setOnMouseClicked(mouseEvent ->{
             Propiedades p = (Propiedades) propiedadesTable.getSelectionModel().getSelectedItem();
@@ -138,6 +143,27 @@ public class PropiedadesController implements Initializable {
             }
         });
 
+    }
+    private void initContextMenu(){
+        FontIcon iconDelete = new FontIcon();
+        iconDelete.setIconLiteral("antf-info-circle");
+        iconDelete.setIconSize(20);
+        iconDelete.setIconColor(Color.BLUE);
+        menuItemSelectUser.setGraphic(iconDelete);
+
+
+        FontIcon iconComplete = new FontIcon();
+        iconComplete.setIconLiteral("antf-read");
+        iconComplete.setIconSize(20);
+        iconComplete.setIconColor(Color.GREEN);
+        menuItemUpdate.setGraphic(iconComplete);
+
+        FontIcon iconIncomplete = new FontIcon();
+        iconIncomplete.setIconLiteral("antf-delete");
+        iconIncomplete.setIconSize(20);
+        iconIncomplete.setIconColor(Color.RED);
+        contextMenu.getItems().addAll(menuItemSelectUser,menuItemUpdate,menuItemDeleteUser);
+        menuItemDeleteUser.setGraphic(iconIncomplete);
     }
 
     @FXML
