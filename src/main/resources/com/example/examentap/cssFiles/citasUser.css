@@ -140,7 +140,7 @@
     -fx-text-fill: white; /* Texto blanco dentro de las celdas */
 }
 
-/* Botón general */
+/* Estilo base para todos los botones */
 .button {
     -fx-background-color: linear-gradient(to bottom, #6c63ff, #4a47ff); /* Fondo degradado morado */
     -fx-text-fill: white; /* Texto blanco */
@@ -153,90 +153,97 @@
     -fx-transition: all 0.3s ease-in-out; /* Transición suave para los cambios */
 }
 
-/* Efecto hover (al pasar el mouse) */
+/* Efecto hover (al pasar el mouse): llamativo */
 .button:hover {
-    -fx-background-color: linear-gradient(to bottom, #4a47ff, #2c2aff); /* Fondo más brillante */
-    -fx-text-fill: #eaeaea; /* Texto ligeramente más claro */
-    -fx-effect: dropshadow(gaussian, rgba(74, 71, 255, 0.5), 10, 0.5, 0, 3); /* Sombra más pronunciada */
+    -fx-background-color: linear-gradient(to bottom, #4a47ff, #2c2aff); /* Hover degradado */
+    -fx-text-fill: #f0f0f0; /* Texto ligeramente más claro */
+    -fx-effect: dropshadow(gaussian, rgba(74, 71, 255, 0.7), 15, 0.5, 0, 5); /* Sombra más pronunciada */
+    -fx-scale-x: 1.1; /* Aumenta el ancho del botón */
+    -fx-scale-y: 1.1; /* Aumenta la altura del botón */
 }
 
 /* Efecto al presionar (click) */
 .button:pressed {
     -fx-background-color: #3a37ff; /* Fondo más oscuro */
     -fx-text-fill: white; /* Texto blanco */
-    -fx-effect: none; /* Elimina la sombra al presionar */
+    -fx-effect: none; /* Sin sombra al presionar */
 }
 
-/* Botón con colores secundarios (e.g., "Regresar") */
-.button-secondary {
-    -fx-background-color: linear-gradient(to bottom, #d32f2f, #b71c1c); /* Fondo degradado rojo */
-    -fx-text-fill: white; /* Texto blanco */
-    -fx-border-radius: 10px; /* Bordes redondeados */
-    -fx-padding: 10px 15px; /* Espaciado interno */
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 8, 0.5, 0, 2); /* Sombra */
-    -fx-transition: all 0.3s ease-in-out; /* Transición suave */
+/* Botón: "Nueva Cita" */
+#btn_nuevaCita {
+    -fx-background-color: linear-gradient(to bottom, #0000ff, #0033cc); /* Fondo degradado azul */
+    -fx-text-fill: white;
+    -fx-border-color: #ffffff; /* Borde blanco */
+    -fx-border-width: 2px;
 }
 
-.button-secondary:hover {
-    -fx-background-color: linear-gradient(to bottom, #b71c1c, #8c0000); /* Fondo más brillante */
-    -fx-effect: dropshadow(gaussian, rgba(183, 28, 28, 0.5), 10, 0.5, 0, 3); /* Sombra más pronunciada */
+#btn_nuevaCita:hover {
+    -fx-background-color: linear-gradient(to bottom, #0033cc, #001a66); /* Hover azul más oscuro */
+    -fx-effect: dropshadow(gaussian, rgba(0, 51, 204, 0.7), 20, 0.7, 0, 5); /* Sombra azul llamativa */
+    -fx-scale-x: 1.2; /* Más grande al hover */
+    -fx-scale-y: 1.2;
 }
 
-.button-secondary:pressed {
-    -fx-background-color: #8c0000; /* Fondo más oscuro */
-    -fx-effect: none; /* Elimina la sombra al presionar */
+/* Botón: "Generar PDF" */
+#btn_generarPDF {
+    -fx-background-color: linear-gradient(to bottom, #ff9800, #ff5722); /* Fondo degradado naranja */
+    -fx-text-fill: white;
+    -fx-border-color: #ffcc80; /* Borde naranja claro */
+    -fx-border-width: 2px;
 }
 
-/* Botón con colores de éxito (e.g., "Guardar") */
-.button-success {
+#btn_generarPDF:hover {
+    -fx-background-color: linear-gradient(to bottom, #ff5722, #e64a19); /* Hover naranja más oscuro */
+    -fx-effect: dropshadow(gaussian, rgba(255, 87, 34, 0.7), 20, 0.7, 0, 5); /* Sombra naranja llamativa */
+    -fx-scale-x: 1.2; /* Más grande al hover */
+    -fx-scale-y: 1.2;
+}
+
+/* Botón: "Generar Excel" */
+#btn_generarExcel {
     -fx-background-color: linear-gradient(to bottom, #4caf50, #388e3c); /* Fondo degradado verde */
-    -fx-text-fill: white; /* Texto blanco */
-    -fx-border-radius: 10px;
-    -fx-padding: 10px 15px;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 8, 0.5, 0, 2);
-}
-
-.button-success:hover {
-    -fx-background-color: linear-gradient(to bottom, #388e3c, #2e7d32); /* Fondo más brillante */
-    -fx-effect: dropshadow(gaussian, rgba(56, 142, 60, 0.5), 10, 0.5, 0, 3); /* Sombra más pronunciada */
-}
-
-.button-success:pressed {
-    -fx-background-color: #2e7d32; /* Fondo más oscuro */
-    -fx-effect: none; /* Sin sombra al presionar */
-}
-
-/* Botón de advertencia (e.g., "Eliminar") */
-.button-warning {
-    -fx-background-color: linear-gradient(to bottom, #f57c00, #ef6c00); /* Fondo degradado naranja */
-    -fx-text-fill: white; /* Texto blanco */
-    -fx-border-radius: 10px;
-    -fx-padding: 10px 15px;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 8, 0.5, 0, 2);
-}
-
-.button-warning:hover {
-    -fx-background-color: linear-gradient(to bottom, #ef6c00, #e65100); /* Fondo más brillante */
-    -fx-effect: dropshadow(gaussian, rgba(239, 108, 0, 0.5), 10, 0.5, 0, 3); /* Sombra más pronunciada */
-}
-
-.button-warning:pressed {
-    -fx-background-color: #e65100; /* Fondo más oscuro */
-    -fx-effect: none; /* Sin sombra al presionar */
-}
-
-/* Botones específicos */
-#btn_generarPDF, #btn_generarExcel, #btn_nuevaCita, #btnReload {
-    -fx-background-color: linear-gradient(to bottom, #ff8000, #ff5500); /* Naranja degradado */
-    -fx-border-radius: 10px;
     -fx-text-fill: white;
-    -fx-font-weight: bold;
+    -fx-border-color: #a5d6a7; /* Borde verde claro */
+    -fx-border-width: 2px;
 }
 
-#btn_generarPDF:hover, #btn_generarExcel:hover, #btn_nuevaCita:hover, #btnReload:hover {
-    -fx-background-color: linear-gradient(to bottom, #ff5500, #e63e00); /* Hover degradado más oscuro */
-    -fx-text-fill: white;
+#btn_generarExcel:hover {
+    -fx-background-color: linear-gradient(to bottom, #388e3c, #2e7d32); /* Hover verde más oscuro */
+    -fx-effect: dropshadow(gaussian, rgba(56, 142, 60, 0.7), 20, 0.7, 0, 5); /* Sombra verde llamativa */
+    -fx-scale-x: 1.2; /* Más grande al hover */
+    -fx-scale-y: 1.2;
 }
+
+/* Botón: "Recargar Tabla" */
+#btnReload {
+    -fx-background-color: linear-gradient(to bottom, #7b1fa2, #4a148c); /* Fondo degradado morado oscuro */
+    -fx-text-fill: white;
+    -fx-border-color: #ce93d8; /* Borde morado claro */
+    -fx-border-width: 2px;
+}
+
+#btnReload:hover {
+    -fx-background-color: linear-gradient(to bottom, #4a148c, #2e0c66); /* Hover morado más intenso */
+    -fx-effect: dropshadow(gaussian, rgba(122, 18, 162, 0.7), 20, 0.7, 0, 5); /* Sombra morada llamativa */
+    -fx-scale-x: 1.2; /* Más grande al hover */
+    -fx-scale-y: 1.2;
+}
+
+/* Botón: "Regresar" */
+#btn_close {
+    -fx-background-color: linear-gradient(to bottom, #d32f2f, #b71c1c); /* Fondo degradado rojo */
+    -fx-text-fill: white;
+    -fx-border-color: #ef9a9a; /* Borde rojo claro */
+    -fx-border-width: 2px;
+}
+
+#btn_close:hover {
+    -fx-background-color: linear-gradient(to bottom, #b71c1c, #8c0000); /* Hover rojo más intenso */
+    -fx-effect: dropshadow(gaussian, rgba(183, 28, 28, 0.7), 20, 0.7, 0, 5); /* Sombra roja llamativa */
+    -fx-scale-x: 1.2; /* Más grande al hover */
+    -fx-scale-y: 1.2;
+}
+
 
 /* RadioButton (opciones de status) */
 .radio-button {
