@@ -1,6 +1,7 @@
 package com.example.examentap.controllers;
 
 import com.example.examentap.databases.dao.PropiedadesDao;
+import com.example.examentap.models.Ciudad;
 import com.example.examentap.models.Propiedades;
 import com.example.examentap.models.Tipo_Propiedad;
 import com.example.examentap.reports.PDFEspecificReport;
@@ -308,23 +309,65 @@ public class PropiedadesController implements Initializable {
 
 
     private void onCrearProp() {
-        Propiedades newProp = new Propiedades();
+        try {
+            // Crear instancia de la propiedad
+            Propiedades newProp = new Propiedades();
 
+            // Mapear `tipo_propiedad` (String) al id correspondiente
+            int idPropiedad = obtenerIdPropiedad(cbTipoPropiedad.getSelectionModel().getSelectedItem());
 
-        newProp.setDireccion(txtDireccion.getText());
-        newProp.setPrecio(Double.parseDouble(txtPrecio.getText()));
-        newProp.setDescripcion(txtDescripcion.getText());
-        newProp.setNum_bayos(Integer.parseInt(txtNumBanos.getText()));
-        newProp.setNum_cuartos(Integer.parseInt(txtNumCuartos.getText()));
-        newProp.setMetros_cuadrados(Double.parseDouble(txtMetrosCuadrados.getText()));
-        newProp.setTipo_propiedad(String.valueOf(cbTipoPropiedad.getValue()));
-        newProp.setStatus(cbEstado.getSelectionModel().getSelectedItem());
-        newProp.setAyo_construccion(Date.valueOf(dpAnyoConstruccion.getValue()));
-        newProp.setImagen(txtImagen.getText());
-        newProp.setCiudad(cbCiudad.getSelectionModel().getSelectedItem());
-        if (propDao.save(newProp)) {
-            mostrarAlerta(Alert.AlertType.CONFIRMATION, "Éxito", "Propiedad Agregada con exito", "Ya puedes ver la propiedad nueva!");
+            // Mapear `ciudad` (String) al id correspondiente
+            int idCiudad = obtenerIdCiudad(cbCiudad.getSelectionModel().getSelectedItem());
+
+            // Validar y asignar los campos
+            newProp.setDireccion(txtDireccion.getText());
+            newProp.setPrecio(Double.parseDouble(txtPrecio.getText()));
+            newProp.setDescripcion(txtDescripcion.getText());
+            newProp.setNum_bayos(Integer.parseInt(txtNumBanos.getText()));
+            newProp.setNum_cuartos(Integer.parseInt(txtNumCuartos.getText()));
+            newProp.setMetros_cuadrados(Double.parseDouble(txtMetrosCuadrados.getText()));
+            newProp.setTipo_propiedad(String.valueOf(idPropiedad));
+            newProp.setStatus(cbEstado.getSelectionModel().getSelectedItem());
+            newProp.setAyo_construccion(Date.valueOf(dpAnyoConstruccion.getValue()));
+            newProp.setImagen(txtImagen.getText());
+            newProp.setCiudad(String.valueOf(idCiudad));
+
+            // Intentar guardar en la base de datos
+            if (propDao.save(newProp)) {
+                mostrarAlerta(Alert.AlertType.CONFIRMATION, "Éxito", "Propiedad agregada", "La nueva propiedad ha sido guardada exitosamente.");
+                limpiarForm(); // Limpiar el formulario después de guardar
+            } else {
+                mostrarAlerta(Alert.AlertType.ERROR, "Error", "No se pudo guardar la propiedad", "Ocurrió un error al guardar la propiedad.");
+            }
+        } catch (NumberFormatException ex) {
+            mostrarAlerta(Alert.AlertType.ERROR, "Error", "Formato inválido", "Por favor, asegúrate de que los valores numéricos sean correctos.");
+            ex.printStackTrace();
+        } catch (Exception ex) {
+            mostrarAlerta(Alert.AlertType.ERROR, "Error", "Ocurrió un error", "No se pudo guardar la propiedad.");
+            ex.printStackTrace();
         }
+    }
+
+    // Método para obtener el id de la propiedad a partir del String seleccionado en el ComboBox
+    private int obtenerIdPropiedad(String tipoPropiedad) {
+        // Este método debería realizar una consulta o buscar en una lista precargada
+        for (Propiedades propiedad : propDao.findAll()) {
+            if (propiedad.getTipo_propiedad().equals(tipoPropiedad)) {
+                return propiedad.getId_propiedad();
+            }
+        }
+        throw new IllegalArgumentException("No se encontró el ID para el tipo de propiedad: " + tipoPropiedad);
+    }
+
+    // Método para obtener el id de la ciudad a partir del String seleccionado en el ComboBox
+    private int obtenerIdCiudad(String ciudad) {
+        // Este método debería realizar una consulta o buscar en una lista precargada
+        for (Ciudad c : propDao.findCiudad()) {
+            if (c.getCiudad().equals(ciudad)) {
+                return c.getId_Ciudad();
+            }
+        }
+        throw new IllegalArgumentException("No se encontró el ID para la ciudad: " + ciudad);
     }
 
     private void onActualizar() {

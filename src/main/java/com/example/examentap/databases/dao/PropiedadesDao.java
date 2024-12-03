@@ -1,6 +1,7 @@
 
 package com.example.examentap.databases.dao;
 import com.example.examentap.databases.MySQLConnection;
+import com.example.examentap.models.Ciudad;
 import com.example.examentap.models.Propiedades;
 import javafx.collections.FXCollections;
 
@@ -108,6 +109,25 @@ public class PropiedadesDao extends MySQLConnection implements Dao<Propiedades> 
         }
         return propiedadesList;
     }
+    public List<Ciudad> findCiudad() {
+        List<Ciudad> propiedadesList = FXCollections.observableArrayList();
+        String query = "SELECT * FROM ciudad c ";
+        try {
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery(query);
+            while (rs.next()) {
+                Ciudad c = new Ciudad();
+                c.setId_Ciudad(rs.getInt("id_ciudad"));
+                c.setCiudad(rs.getString("ciudad"));
+                c.setEstado(rs.getString("id_estado"));
+                propiedadesList.add(c);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return propiedadesList;
+    }
 
     public List<Propiedades> filterPropByStatus(String status) {
         List<Propiedades> propiedadesList = FXCollections.observableArrayList();
@@ -165,9 +185,9 @@ public class PropiedadesDao extends MySQLConnection implements Dao<Propiedades> 
     public List<Propiedades> filterPropByTipoProp(int id) {
         List<Propiedades> propiedadesList = FXCollections.observableArrayList();
         String query = "select * from propiedad p " +
-                        "join tipo_propiedad tp on p.tipo_propiedad = tp.id_tipo_propiedad " +
-                        "JOIN ciudad c ON p.id_ciudad = c.id_ciudad " +
-                        "where tp.id_tipo_propiedad = '"+ id+"' ";
+                "join tipo_propiedad tp on p.tipo_propiedad = tp.id_tipo_propiedad " +
+                "JOIN ciudad c ON p.id_ciudad = c.id_ciudad " +
+                "where tp.id_tipo_propiedad = '"+ id+"' ";
         try {
             Statement statement = conn.createStatement();
             ResultSet rs = statement.executeQuery(query);
@@ -257,8 +277,8 @@ public class PropiedadesDao extends MySQLConnection implements Dao<Propiedades> 
     @Override
     public boolean save(Propiedades p) {
         String query = "insert into propiedad " +
-                        " (direccion, precio, descripcion,num_cuartos,num_bayos,metros_cuadrados,tipo_propiedad,status,ayo_construccion,id_ciudad,imagen)" +
-                        " values (?, ?, ?, ?, ?, ?,?,?,?,?, ?)";
+                " (direccion, precio, descripcion,num_cuartos,num_bayos,metros_cuadrados,tipo_propiedad,status,ayo_construccion,id_ciudad,imagen)" +
+                " values (?, ?, ?, ?, ?, ?,?,?,?,?, ?)";
         try {
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setString(1, p.getDireccion());
@@ -306,7 +326,7 @@ public class PropiedadesDao extends MySQLConnection implements Dao<Propiedades> 
         }
         return false;
     }
-@Override
+    @Override
     public boolean delete(int p) {
         String query = "delete from propiedad where id_propiedad = ?";
         try {
