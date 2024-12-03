@@ -8,9 +8,9 @@
 
 /* Estilo del encabezado */
 .dialog-pane .header-panel {
-    -fx-background-color: linear-gradient(to right, #42a5f5, #1976d2); /* Fondo azul degradado */
-    -fx-text-fill: white; /* Texto blanco */
-    -fx-font-size: 16px; /* Tamaño de fuente */
+    -fx-background-color: linear-gradient(to right, #ffffff, #858585); /* Fondo azul degradado */
+    -fx-text-fill: linear-gradient(to right, #fce043, #fb7ba2); /* Texto con degradado dorado a rosado */
+    -fx-font-size: 16px; /* Tamaño de fuente ajustado */
     -fx-font-weight: bold; /* Negrita */
     -fx-padding: 10px; /* Espaciado interno */
     -fx-alignment: center;
@@ -20,14 +20,14 @@
 /* Estilo para el contenido del GridPane */
 .grid-pane {
     -fx-hgap: 10px; /* Espaciado horizontal */
-    -fx-vgap: 15px; /* Espaciado vertical */
+    -fx-vgap: 10px; /* Espaciado vertical reducido */
     -fx-padding: 20px;
 }
 
 /* Etiquetas de texto (Labels) */
 .label {
-    -fx-text-fill: white; /* Texto blanco */
-    -fx-font-size: 14px; /* Tamaño del texto */
+    -fx-text-fill: linear-gradient(to right, #2c2ce5, #6c5088); /* Texto con degradado azul claro */
+    -fx-font-size: 12px; /* Tamaño del texto reducido */
     -fx-font-weight: bold; /* Negrita */
 }
 
@@ -39,8 +39,8 @@
     -fx-border-color: #42a5f5; /* Contorno azul */
     -fx-border-radius: 5px; /* Bordes redondeados */
     -fx-background-radius: 5px;
-    -fx-padding: 8px;
-    -fx-font-size: 14px;
+    -fx-padding: 6px; /* Espaciado interno reducido */
+    -fx-font-size: 12px; /* Tamaño del texto reducido */
 }
 
 .text-field:focused, .password-field:focused {
@@ -50,12 +50,13 @@
 
 /* Calendario - Fondo del DatePicker */
 .date-picker {
-    -fx-background-color: #f6f6f6; /* Fondo oscuro */
-    -fx-text-fill: #101010; /* Texto blanco */
+    -fx-background-color: #f6f6f6; /* Fondo claro */
+    -fx-text-fill: #101010; /* Texto oscuro */
     -fx-border-color: #42a5f5; /* Contorno azul */
     -fx-border-radius: 5px; /* Bordes redondeados */
     -fx-background-radius: 5px;
-    -fx-padding: 8px;
+    -fx-padding: 6px; /* Espaciado reducido */
+    -fx-font-size: 12px; /* Tamaño del texto reducido */
 }
 
 .date-picker:focused {
@@ -63,15 +64,14 @@
     -fx-effect: dropshadow(gaussian, rgba(100, 181, 246, 0.6), 8, 0.5, 0, 0); /* Sombra azul */
 }
 
-
 /* Botones del DialogPane */
 .button {
     -fx-background-color: linear-gradient(to bottom, #43a047, #2e7d32); /* Fondo verde degradado */
     -fx-text-fill: #eae8e8; /* Texto blanco */
     -fx-font-weight: bold; /* Negrita */
-    -fx-font-size: 14px; /* Tamaño del texto */
+    -fx-font-size: 12px; /* Tamaño reducido */
     -fx-border-radius: 8px; /* Bordes redondeados */
-    -fx-padding: 10px 15px; /* Espaciado interno */
+    -fx-padding: 8px 12px; /* Espaciado reducido */
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 8, 0.5, 0, 2); /* Sombra */
     -fx-cursor: hand; /* Cambia el cursor al pasar el ratón */
     -fx-transition: all 0.3s ease-in-out; /* Transiciones suaves */

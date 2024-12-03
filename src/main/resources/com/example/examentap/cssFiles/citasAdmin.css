@@ -179,7 +179,7 @@
 .combo-box .list-cell {
     -fx-background-color: #2a2a2a; /* Fondo oscuro para las opciones */
     -fx-text-fill: white; /* Texto blanco para las opciones */
-    -fx-font-size: 14px; /* Tamaño de texto */
+    -fx-font-size: 10px; /* Tamaño de texto */
     -fx-padding: 5px; /* Espaciado interno */
 }
 

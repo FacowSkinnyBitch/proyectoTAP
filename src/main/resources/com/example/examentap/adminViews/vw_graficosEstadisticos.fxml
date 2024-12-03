@@ -8,6 +8,7 @@
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.example.examentap.controllers.ChartsController"
+      stylesheets="@../cssFiles/ModoAdmin.css"
       prefHeight="400.0" prefWidth="600.0" alignment="CENTER">
     <padding>
         <Insets top="20" bottom="20" left="40" right="40"/>

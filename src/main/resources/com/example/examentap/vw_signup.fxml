@@ -33,12 +33,12 @@
     <HBox spacing="20" alignment="CENTER">
         <Button text="Registrarse" onAction="#onRegistrarse">
         <graphic>
-            <FontIcon iconLiteral="antf-edit" iconSize="16" iconColor="#282bbc"/>
+            <FontIcon iconLiteral="antf-edit" iconSize="16" iconColor="#000000"/>
         </graphic>
         </Button>
         <Button fx:id="btn_close" text="Cancelar" onAction="#returnLogin">
             <graphic>
-                <FontIcon iconLiteral="antf-close-circle" iconSize="16" iconColor="red"/>
+                <FontIcon iconLiteral="antf-close-circle" iconSize="16" iconColor="#000000"/>
             </graphic>
         </Button>
     </HBox>

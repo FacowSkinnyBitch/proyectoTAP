@@ -38,7 +38,7 @@
 
         <Button fx:id="btn_close" text="Salir" onAction="#terminarApp">
             <graphic>
-                <FontIcon iconLiteral="antf-close-circle" iconSize="20" iconColor="red"/>
+                <FontIcon iconLiteral="antf-close-circle" iconSize="20" iconColor="black"/>
             </graphic>
         </Button>
     </HBox>
