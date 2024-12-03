@@ -1,5 +1,6 @@
 package com.example.examentap.models;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Propiedades {

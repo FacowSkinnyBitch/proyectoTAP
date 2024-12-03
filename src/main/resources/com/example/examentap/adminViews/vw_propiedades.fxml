@@ -82,12 +82,4 @@
             </TableView>
         </VBox>
     </center>
-    <right>
-        <VBox>
-            <padding>
-                <Insets top="20" right="50" bottom="20"/>
-            </padding>
-            <Label text="Form for edit propieties" style="-fx-font-size: 20px"/>
-        </VBox>
-    </right>
 </BorderPane>
