@@ -41,20 +41,64 @@ TextField:focused, PasswordField:focused {
 }
 
 .combo-box {
-    -fx-background-color: #b4f6fc; /* Fondo gris oscuro */
-    -fx-border-color: linear-gradient(to bottom, #5576ea, #0637dc); /* Borde degradado brillante */
-    -fx-text-fill: #000000; /* Texto blanco */
-    -fx-border-radius: 5px;
-    -fx-padding: 5px;
+    -fx-background-color: #333333; /* Fondo oscuro */
+    -fx-border-color: #6c63ff; /* Borde morado */
+    -fx-border-radius: 5px; /* Bordes redondeados */
+    -fx-background-radius: 5px;
+    -fx-text-fill: white; /* Texto blanco */
+    -fx-font-size: 14px; /* Tamaño de texto */
+    -fx-padding: 8px; /* Espaciado interno */
 }
 
 .combo-box:focused {
-    -fx-border-color: linear-gradient(to bottom, #4a90e2, #2b65d9); /* Borde degradado más intenso al enfocarse */
+    -fx-border-color: #ffffff; /* Contorno blanco al enfocarse */
+    -fx-border-width: 2px; /* Contorno más grueso */
+    -fx-effect: dropshadow(gaussian, rgba(255, 255, 255, 0.4), 5, 0.5, 0, 0); /* Sombra blanca */
 }
 
 .combo-box:hover {
-    -fx-background-color: #ffffff; /* Fondo más claro al pasar el mouse */
-    -fx-text-fill: #29292a;
+    -fx-background-color: #444444; /* Fondo más claro al pasar el mouse */
+    -fx-text-fill: white;
+}
+
+/* Opciones del ComboBox */
+.combo-box .list-cell {
+    -fx-background-color: #2a2a2a; /* Fondo oscuro para las opciones */
+    -fx-text-fill: white; /* Texto blanco para las opciones */
+    -fx-font-size: 10px; /* Tamaño de texto */
+    -fx-padding: 5px; /* Espaciado interno */
+}
+
+.combo-box .list-cell:hover {
+    -fx-background-color: #4a47ff; /* Fondo morado brillante al pasar el mouse */
+    -fx-text-fill: white; /* Texto blanco */
+}
+
+/* Opciones seleccionadas */
+.combo-box .list-cell:selected {
+    -fx-background-color: #6c63ff; /* Fondo morado al seleccionar */
+    -fx-text-fill: white; /* Texto blanco */
+}
+
+/* Botón desplegable */
+.combo-box .arrow {
+    -fx-background-color: #6c63ff; /* Fondo del botón desplegable */
+    -fx-border-radius: 5px;
+}
+
+.combo-box .arrow:hover {
+    -fx-background-color: #4a47ff; /* Fondo más oscuro al pasar el mouse */
+}
+
+/* Etiqueta interna del ComboBox */
+.combo-box .text {
+    -fx-fill: white; /* Texto blanco */
+}
+
+/* Placeholder (texto inicial cuando no hay selección) */
+.combo-box .text:empty {
+    -fx-fill: #bbbbbb; /* Texto gris claro */
+    -fx-font-style: italic;
 }
 
 /* Tabla general */
